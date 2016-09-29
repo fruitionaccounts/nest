@@ -1,0 +1,4 @@
+Country,Region/State,City,Zip From,Zip To,Package Id,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+GBR,*,*,*,*,FREE,*,*,*,*,*,*,*,0,,Free Delivery,*
+GBR,*,*,*,*,PAYABLE,*,*,*,*,*,*,*,2.99,P=1,Standard,*
+GBR,*,*,*,*,PAYABLE,*,*,*,*,*,*,*,2.99,P=2,Free Delivery,*

@@ -1,0 +1,294 @@
+<div class="content-buttons form-buttons" >
+	<div class="content-header-dealers" style="float:right">
+		<table cellspacing="0">
+			<tbody>
+				<tr>
+					<td style="width:50%;">
+						
+					</td>
+					<td class="a-right">
+						<button id="log_out" style="height:40px;width:160px;font-size:25px;line-height:30px;padding:4px;" onClick="setLocation(' <?php echo Mage::getBaseUrl(); ?>customer/account/logout/')" type="button" title="Log Out" class="scalable blue-xl-button ">
+							<span>
+								Log Out
+								
+							</span>
+						</button>
+					</td>
+					<td class="a-right">
+						<button id="add_to" style="height:40px;width:160px;font-size:25px;line-height:30px;padding:4px;" onClick="mypostfunction();" type="button" title="Add to Cart" class="scalable blue-xl-button ">
+							<span>
+								Add to Cart
+								
+							</span>
+						</button>
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
+		function mypostfunction()
+		{
+			/* myArray= new Array();
+			qtyArray= new Array();
+			jQuery('input:checkbox:checked').each(function(){ myArray.push(jQuery(this).val()); });
+			var check=jQuery('[name=check]').val();
+			jQuery("[name^=qty]").each(function(){ 
+			if(jQuery(this).val())
+			{
+				qtyArray.push(jQuery(this).val());
+			}
+			});
+			var url= '<?php echo Mage::getBaseUrl(); ?>dealers/add/index';
+			jQuery.post(url,{'check[]':myArray, 'qty[]':qtyArray},function(data,status){
+			
+		  }); */
+		  jQuery('#dealer-checkout').submit();
+
+			
+		}
+		jQuery(document).ready(function(){
+			jQuery('.checkbox').click(function(){
+				id=jQuery(this).val();
+				
+				if(jQuery(this).prop('checked') == true){
+					jQuery("#"+id).removeAttr("disabled");
+					if(jQuery("#"+id).val()=='')
+					{
+						jQuery("#"+id).val('1');
+					}
+				}
+				else
+				{
+					jQuery("#"+id).attr("disabled","disabled");jQuery("#"+id).val('');
+				}
+			});
+		});
+		function configure(url,id,inputid)
+		{
+			jQuery('#loading-mask').css('display','');
+			jQuery.post(url,{id:id,inputid:inputid},function(data){
+			jQuery('.main').append('<div id="dialog-message">'+data+'</div>');
+			jQuery("#dialog-message").dialog({
+						 height: 280,
+						 width: 350,
+						 modal: true,
+						 buttons: {
+							Ok: function() {
+								jQuery( this ).dialog( "close" );
+								//deleteFiles(url);
+							}
+						},
+						close:function() { 
+										element=document.getElementsByClassName('ui-dialog')[0];
+										element.parentNode.removeChild(element);
+							},
+				    });
+					jQuery('#loading-mask').css('display','none');
+			//jquery('#id_'+inputid).attr('name','qty['+inputid+']['++']');
+			});
+		}
+		function bundle_fun(url,id,inputid)
+		{
+			var ur='<?php echo Mage::getUrl('catalog/product/view');?>';
+			jQuery('#loading-mask').css('display','');
+			jQuery.post(ur,{id:id},function(data){
+				var data1=data;
+				var data2='';
+				
+				jQuery('.main').append('<div id="dialog-message"><form id="bundle-form">'+jQuery(data1).find('.product-shop').html()+'</form></div>');
+				jQuery('#bundle-form').append('<input type="hidden" name="currenti" value="'+inputid+'"/> ');
+				jQuery('.add-to-cart').html('<a style="cursor:pointer;background: none repeat scroll 0 0 #E6E6E6;border: 1px solid #CCCCCC;border-radius: 5px;display: block;height: 26px;line-height: 27px;text-align: center;text-decoration: none;width: 50px;" onclick="bundleform(\'<?php echo Mage::getUrl('dealers/add/bundleform'); ?>\','+inputid+')">Add</a>');
+				jQuery('.add-to-links').remove();
+				jQuery('.no-rating').remove();
+				jQuery.post('<?php echo Mage::getUrl('dealers/add/bundlegetjs'); ?>',{id:id},function(data){jQuery('#bundle-form').append(data);
+					jQuery('#loading-mask').css('display','none');
+				});
+				jQuery("#dialog-message").dialog({
+						 height: 550,
+						 width: 550,
+						 modal: true,
+						 buttons: {
+							Ok: function() {
+								jQuery( this ).dialog( "close" );
+								//deleteFiles(url);
+							}
+						},
+						close:function() { 
+										element=document.getElementsByClassName('ui-dialog')[0];
+										element.parentNode.removeChild(element);
+							},
+				    });
+					
+			});
+			/* jQuery.post(url,{id:id,inputid:inputid},function(data){
+			jQuery('.main').append('<div id="dialog-message">'+data+'</div>');
+			jQuery("#dialog-message").dialog({
+						 height: 280,
+						 width: 350,
+						 modal: true,
+						 buttons: {
+							Ok: function() {
+								jQuery( this ).dialog( "close" );
+								//deleteFiles(url);
+							}
+						},
+						close:function() { 
+										element=document.getElementsByClassName('ui-dialog')[0];
+										element.parentNode.removeChild(element);
+							},
+				    });
+			//jquery('#id_'+inputid).attr('name','qty['+inputid+']['++']');
+			}); */
+		}
+		function grouped_fun(url,id,inputid)
+		{
+			var ur='<?php echo Mage::getUrl('catalog/product/view',array('_secure'=>Mage::app()->getStore()->isCurrentlySecure()));?>';
+			jQuery('#loading-mask').css('display','');
+			jQuery.post(ur,{id:id},function(data){
+				var data1=data;
+				var data2='';
+				
+				jQuery('.main').append('<div id="dialog-message"><form id="grouped-form">'+jQuery(data).find('.grouped-items-table-wrapper').html()+'</form></div>');
+				jQuery('#grouped-form').append('<input type="hidden" name="currenti" value="'+inputid+'"/> ');
+				jQuery('#grouped-form').append('<a style="float:right;margin-top:5px;cursor:pointer;background: none repeat scroll 0 0 #E6E6E6;border: 1px solid #CCCCCC;border-radius: 5px;display: block;height: 26px;line-height: 27px;text-align: center;text-decoration: none;width: 50px;" onclick="groupedform(\'<?php echo Mage::getUrl('dealers/add/groupedform',array('_secure'=>Mage::app()->getStore()->isCurrentlySecure())); ?>\','+inputid+')">Add</a>');
+				jQuery("#dialog-message").dialog({
+						 height: 400,
+						 width: 500,
+						 modal: true,
+						 buttons: {
+							Ok: function() {
+								jQuery( this ).dialog( "close" );
+								//deleteFiles(url);
+							}
+						},
+						close:function() { 
+										element=document.getElementsByClassName('ui-dialog')[0];
+										element.parentNode.removeChild(element);
+							},
+				    });
+					jQuery('#loading-mask').css('display','none');
+			});
+			
+			
+		}
+		function groupedform(url,currenti)
+		{
+			jQuery('#loading-mask').css('display','');
+			var request = new Ajax.Request(
+										url,
+									{
+										method: 'post',
+										onSuccess: function onSuccess(transport)
+										{ 
+											jQuery('#grouped_form_detail_'+currenti).remove();
+											var txt=transport.responseText;
+											if(txt!='')
+											{
+												jQuery("#dealer-checkout").append(txt);
+												jQuery("#id_"+currenti).val('1');
+												jQuery("#id_"+currenti).removeAttr('disabled');
+												var price=jQuery('#grouped_form_detail_'+currenti+' .price').html();
+												jQuery('#price_'+currenti).html('<div class="price-box"><span><span class="price">'+price+'</span></span></div>');
+												jQuery("#check_"+currenti).attr('checked','true');
+												alert('Products Are Added To The List..');
+											}
+											jQuery('#loading-mask').css('display','none');
+										
+										},
+										onFailure: function onFailure(transport)
+										{
+											alert('An error occured !');
+										},
+										parameters: Form.serialize(document.getElementById('grouped-form')),
+									}
+									);
+							
+		}
+		function bundleform(url,currenti)
+		{
+			var flag=1;
+			elements=jQuery('#dialog-message .validate-one-required-by-name');
+			var old='';
+			if(elements.length>0)
+			{
+				
+				elements.each(function() { name=jQuery(this).attr('name');
+						if(name!=old)
+						{
+							if(jQuery("input[name='"+name+"']:checked").length==0)
+							{
+								flag=0;
+								return false;
+							}
+							
+						}
+						old=name;
+
+				});
+				
+			}
+			elements=jQuery('#dialog-message .required-entry');
+			old='';
+			if(elements.length>0)
+			{
+				
+				elements.each(function() { 
+					if(jQuery(this).val()=='')
+					{
+						flag=0;
+						return false;
+					}
+				});
+				
+			}
+			if(flag==0)
+			{
+				alert('Please fill all required fields...');
+			}
+			if(flag==1)
+			{
+			jQuery('#loading-mask').css('display','');
+			var request = new Ajax.Request(
+										url,
+									{
+										method: 'post',
+										onSuccess: function onSuccess(transport)
+										{ 
+											jQuery('#bundle_form_detail_'+currenti).remove();
+											var txt=transport.responseText;
+											if(txt!='')
+											{
+												jQuery("#dealer-checkout").append(txt);
+												jQuery("#id_"+currenti).val('1');
+												jQuery("#id_"+currenti).removeAttr('disabled');
+												var price=jQuery('.price-as-configured .price').html();
+												jQuery('#price_'+currenti+' .price').html(price);
+												jQuery("#check_"+currenti).attr('checked','true');
+												alert('Products Are Added To The List..');
+											}
+											jQuery('#loading-mask').css('display','none');
+										
+										},
+										onFailure: function onFailure(transport)
+										{
+											alert('An error occured !');
+										},
+										parameters: Form.serialize(document.getElementById('bundle-form')),
+									}
+									);
+							}
+		}
+		
+	</script>
+</div>
+<br>
+<div id="order-errors"></div>
+<br/>
+<div id="order-search" class="order-search-items" style="display:block">
+	
+	<?php
+		echo $this->getLayout()->createBlock('dealers/addproducts_search')->setTemplate('dealers/addproducts/abstract.phtml')->toHtml();
+	?>
+</div>

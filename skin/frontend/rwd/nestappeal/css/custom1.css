@@ -1,0 +1,83 @@
+.custom-cms .section-1 h1 {
+color: #178791;
+	font-weight:bold;
+	padding: 0 0 10px;
+	border-bottom: 1px solid hsl(0, 0%, 93%);
+}
+.section-2 {
+	clear: both;
+	display: table;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid hsl(0, 0%, 93%);
+}
+.section-2 .custom-left {
+	float: left;
+	margin: 0 25px 0 0;
+	width: 250px;
+}
+.section-2 .custom-right {
+	float: left;
+	width: 900px;
+}
+.section-2 .custom-right p {
+	font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 25px;
+	color:#000;
+}
+.section-3 {
+	clear:both;
+	display:table;
+	margin:20px 0 20px 0;
+}
+.section-3 .custom-left {
+	float: left;
+	margin: 0 30px 0 0;
+	width: 560px;
+}
+.section-3 .custom-right {
+	float:right;
+	width:560px;
+}
+.section-3 .custom-right .button-shower {
+	margin:20px 0;
+	clear: both;
+	display: table;
+}
+.section-3 .custom-right h2 {
+color: #178791;
+	font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+	font-size: 28px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 25px;
+	margin:20px 0 0 0;
+}
+.section-3 .custom-right ul {
+	margin:30px 0 0 0px;
+}
+.section-3 .custom-right ul li {
+color: #178791;
+	font-size: 26px;
+	font-style: normal;
+	line-height: 35px;
+	list-style: inside none disc;
+	margin: 5px 0 0;
+}
+.section-4 h2 {
+custom-cms
+	font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+	font-size: 22px;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 25px;
+	margin: 10px 0;
+}
+.section-4 p {
+	font-size:15px !important;
+	font-style:normal !important;
+	color:#000 !important;
+}

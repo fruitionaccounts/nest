@@ -1,0 +1,17 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+GBR,*,*,*,*,SMALL,*,*,*,*,*,*,*,10,,48 hours,*
+GBR,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,15,,48 hours,*
+GBR,*,*,*,*,LARGE,*,*,*,*,*,*,*,25,,24 hours,*
+GBR,*,*,*,*,SMALL,*,*,*,*,*,*,*,16,,24 hours,*
+GBR,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,19,,24 hours,*
+GBR,*,*,GY%,*,SMALL,*,*,*,*,*,*,*,11,,48 hours,*
+GBR,*,*,GY%,*,MEDIUM,*,*,*,*,*,*,*,16,,48 hours,*
+GBR,*,*,GY%,*,LARGE,*,*,*,*,*,*,*,26,,24 hours,*
+GBR,*,*,GY%,*,SMALL,*,*,*,*,*,*,*,17,,24 hours,*
+GBR,*,*,GY%,*,MEDIUM,*,*,*,*,*,*,*,20,,24 hours,*
+"FRA, ITA, DEU, BEL, IRL",*,*,*,*,SMALL,*,*,*,*,*,*,*,20,,48 hours,*
+"FRA, ITA, DEU, BEL, IRL",*,*,*,*,MEDIUM,*,*,*,*,*,*,*,25,,48 hours,*
+"FRA, ITA, DEU, BEL, IRL",*,*,*,*,LARGE,*,*,*,*,*,*,*,35,,48 hours,*
+*,*,*,*,*,SMALL,*,*,*,*,*,*,*,50,,7 days,*
+*,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,60,,7 days,*
+*,*,*,*,*,LARGE,*,*,*,*,*,*,*,80,,7 days,*

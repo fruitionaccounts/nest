@@ -1,0 +1,109 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+
+
+$staticBlock10 = Mage::getModel('cms/block')->load('counter_faucets_vessel_info')->getContent();
+$staticBlock11 = Mage::getModel('cms/block')->load('counter_faucets_help_info')->getContent();
+
+//<div class="cp-info info-polish" onmouseover="infoOver('holes',106,'faucet')" onmouseout="infoOut('holes')">i</div>
+?>
+
+	<div class="cp-message"><?php echo $staticBlock10; ?></div>
+	<br clear="left"/>
+	<div class="faucet-holes" ng-show="showHoles">
+		<div class="help">
+			<div class="bubble help-holes" >
+				<?php echo $staticBlock11; ?>
+			</div>
+		</div>
+		<div class="faucet-title"><b>Hole Placement</b> </div>
+		<div class="holes-none holy selected" onclick="holeClick('holes-none')" onmouseover="holeHover('holes-none')" onmouseout="holeOut('holes-none')" style="background-color:#199CA3">
+		<image src="<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/countertops/fac1over.png" width="75"></div>
+		
+		<div class="holes-one holy cp-onehole" onclick="holeClick('holes-one')" onmouseover="holeHover('holes-one')" onmouseout="holeOut('holes-one')">
+			<div class="help">
+				<div class="smallbubble help-onehole" >
+					1 hole<?php //echo $staticBlock3; ?>
+				</div>
+			</div>
+			<image src="<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/countertops/fac2.png" width="75" onmouseover="infoOver('onehole', -22, 'cp')" onmouseout="infoOut('onehole')">
+		</div>
+		<div class="holes-two holy cp-twohole" onclick="holeClick('holes-two')" onmouseover="holeHover('holes-two')" onmouseout="holeOut('holes-two')">
+		<div class="help">
+			<div class="smallbubble help-twohole" >
+				3 holes 4" spread<?php //echo $staticBlock3; ?>
+			</div>
+		</div>
+		<image src="<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/countertops/fac3.png" width="75" onmouseover="infoOver('twohole', -22, 'cp')" onmouseout="infoOut('twohole')"></div>
+		<div class="holes-three holy cp-threehole" onclick="holeClick('holes-three')" onmouseover="holeHover('holes-three')" onmouseout="holeOut('holes-three')">
+		<div class="help">
+			<div class="smallbubble help-threehole" >
+				3 holes 8" spread<?php //echo $staticBlock3; ?>
+			</div>
+		</div>
+		<image src="<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/countertops/fac4.png" width="75" onmouseover="infoOver('threehole', -22, 'cp')" onmouseout="infoOut('threehole')"></div>
+		<br clear="left">
+	</div>
+
+	<div class="faucet-vessels" ng-show="showVessels">
+		<div class="faucet-vessel1">
+			<div class="faucet-title"><b>Vessel Sink #1</b> <div class="cp-info info-polish" onmouseover="infoOver('polish')" onmouseout="infoOut('polish')">i</div></div>
+
+			<div class="degree1-left degreehover" onclick="faucetClick('degree1-left')">45&#176 left</div>
+			<div class="degree1-center degreehover" onclick="faucetClick('degree1-center')">center</div>
+			<div class="degree1-right degreehover" onclick="faucetClick('degree1-right')">45&#176 right</div>
+			<div class="degree1-none degreehover" onclick="faucetClick('degree1-none')">none</div><br clear="left">
+
+			<div class="distance">Distance</div>
+			<div class="triangle-left2" onclick="moveFaucet('minus','',1)"></div> <div class="bowl1-div"><input disabled="disabled" type="text"  class="faucet1-distance" name="faucet1edge" ng-model="faucet1" ng-blur="doneFaucet('1')" ng-Change="faucetChanged('2')" value="50"></div> <div class="triangle-right2" onclick="moveFaucet('add','',1)"></div>
+			<div class="bottom-text">from center of sink hole to center of faucet hole</div>
+		</div>
+		<div class="faucet-vessel2" ng-show="showVessels2">
+			<div class="faucet-title"><b>Vessel Sink #2</b> <div class="cp-info info-polish" onmouseover="infoOver('polish')" onmouseout="infoOut('polish')">i</div></div>
+
+			<div class="degree2-left degreehover" onclick="faucetClick2('degree2-left')">45&#176 left</div>
+			<div class="degree2-center degreehover" onclick="faucetClick2('degree2-center')">center</div>
+			<div class="degree2-right degreehover" onclick="faucetClick2('degree2-right')">45&#176 right</div>
+			<div class="degree2-none degreehover" onclick="faucetClick2('degree2-none')">none</div><br clear="left">
+
+			<div class="distance">Distance</div>
+			<div class="triangle-left2" onclick="moveFaucet2('minus','',2)"></div> <div class="bowl1-div"><input disabled="disabled" type="text"  class="faucet2-distance" name="faucet2edge" ng-model="faucet2" ng-blur="doneFaucet('2')" ng-Change="faucetChanged('2')" value="50"></div> <div class="triangle-right2" onclick="moveFaucet2('add','',2)"></div>
+			<div class="bottom-text">from center of sink hole to center of faucet hole</div>			
+		</div>
+		<br clear="left">
+	</div>
+	<br>
+
+
+

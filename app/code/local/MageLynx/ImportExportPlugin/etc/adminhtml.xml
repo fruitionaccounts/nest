@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <magelynx_importexport translate="title" module="importexportplugin">
+                    <title>Import/Export Plugin</title>
+                    <action>importexportplugin/adminhtml_index</action>
+                    <sort_order>-1</sort_order>
+                </magelynx_importexport>
+            </children>
+        </catalog>
+    </menu>    
+
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <importexportplugin translate="title" module="importexportplugin">
+                                        <title>ImportExportPlugin Section</title>
+                                    </importexportplugin>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+			<admin>
+                <children>
+                    <catalog>
+                        <children>
+							<magelynx_importexport translate="title" module="importexportplugin">
+								<title>Import/Export Plugin</title>
+								
+							</magelynx_importexport>
+						</children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+
+

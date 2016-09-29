@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <digitaledge_order>
+            <version>0.1.0</version>
+        </digitaledge_order>
+    </modules>
+	 <global>
+         <models>
+             <order>
+                 <class>DigitalEdge_Order_Model</class>
+			 </order>
+         </models>
+	 	<events>            	
+	 		<sales_convert_quote_to_order>
+	 			<observers>
+	 				<order>
+	 					<type>singleton</type>
+	 					<class>order/observer</class>
+	 					<method>sales_convert_quote_to_order</method>
+	 				</order>
+	 			</observers>
+	 		</sales_convert_quote_to_order>
+		</events>
+	 </global>
+	<frontend>
+		<routers>
+			<order>
+                <use>standard</use>
+                <args>
+                    <module>DigitalEdge_Order</module>
+                    <frontName>order</frontName>
+                </args>
+			</order>
+		</routers>
+	</frontend>
+	
+    <adminhtml>
+         <layout>
+             <updates>
+                 <order>
+                     <file>dealerdiagrams.xml</file>
+                 </order>
+             </updates>
+         </layout>
+     </adminhtml>
+</config>

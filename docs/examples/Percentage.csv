@@ -1,0 +1,15 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+GBR,*,*,*,*,SOCKS,*,*,*,*,*,*,*,3,,Standard,*
+GBR,*,*,*,*,SOCKS,*,*,*,*,0,*,*,3,I=0.4,First Class,*
+GBR,*,*,*,*,SOCKS,*,*,*,*,*,*,*,5,,Standard Recorded,*
+GBR,*,*,*,*,SOCKS,*,*,*,*,0,*,*,5,I=0.4,First Class Recorded,*
+GBR,*,*,*,*,SOCKS,*,*,*,*,0,*,*,0,,"Special Delivery, we will call you",*
+"FRA,ITA",*,*,*,*,SOCKS,0,2,*,*,*,*,*,0,%=10,Airmail,*
+"FRA,ITA",*,*,*,*,SOCKS,2,*,*,*,*,*,*,0,,Larger Parcels We will call you,*
+*,*,*,*,*,SOCKS,0,2,*,*,*,*,*,0,%=15,Airmail,*
+*,*,*,*,*,SOCKS,0,2,*,*,*,*,*,0,,Surface Mail  We will call you,*
+*,*,*,*,*,SOCKS,2,*,*,*,*,*,*,0,,Larger Parcels  We will call you,*
+GBR,*,*,*,*,THROWS,*,*,*,*,0,*,*,0,I=6.5,Standard,*
+"FRA,ITA",*,*,*,*,THROWS,*,*,*,*,0,*,*,0,I=7,Airmail,*
+*,*,*,*,*,THROWS,*,*,*,*,0,*,*,0,I=14.70,Airmail,*
+*,*,*,*,*,THROWS,*,*,*,*,0,*,*,0,I=7.05,Surface,*

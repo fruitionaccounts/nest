@@ -1,0 +1,2158 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('script/jquery-1.8.2.js') ?>"></script>
+<script type="text/javascript">jQuery.noConflict();	</script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('script/jquery-ui-1.9.1.custom.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('script/jquery.tools.min.js') ?>"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('script/style.css') ?>" />
+<script type="text/javascript" src="<? echo $this->getSkinUrl('js/ajax.js') ?>"></script>
+
+
+<script type="text/javascript"><!--
+
+function changeWidth(){
+
+	val = parseFloat(jQuery('#width').val()) + parseFloat(jQuery('#width-precision').val());
+	
+	
+	if(val<15){
+		jQuery('.error_message_box').html('Min Width should be 15');
+		jQuery('input#width').css('border','1px solid #ff0000');
+		//jQuery('.width_max_error').hide();
+		//jQuery('.width_min_error').show();
+	}
+	else if(val>98){
+		jQuery('.error_message_box').html('Max Width should be 98 ');
+		jQuery('input#width').css('border','1px solid #ff0000');
+		//jQuery('.width_min_error').hide();
+		//jQuery('.width_max_error').show();
+	}
+	else{
+		jQuery('.error_message_box').html('');
+		jQuery('input#width').css('border','');
+		//jQuery('.width_error').hide();
+	}
+	
+	if(val<21){
+		jQuery('.sink-container .box').hide();
+		jQuery('.sink-container .vassle').show();
+		jQuery('#sink_1').click();
+		jQuery('#sink_2').attr('disabled','disabled');
+	}else if(val<28){
+		jQuery('.sink-container .box').hide();
+		jQuery('.sink-container .oval').show();
+		jQuery('.sink-container .ract').show();
+		jQuery('.sink-container .vassle').show();
+		jQuery('#sink_1').click();
+		jQuery('#sink_2').attr('disabled','disabled');
+	}else if(val>=28 && val<42){
+		jQuery('.sink-container .box').hide();
+		jQuery('.sink-container .oval-big').show();
+		jQuery('.sink-container .ract-big').show();
+		jQuery('.sink-container .oval').show();
+		jQuery('.sink-container .ract').show();
+		jQuery('.sink-container .vassle').show();
+		jQuery('#sink_1').click();
+		jQuery('#sink_2').attr('disabled','disabled');
+	}
+	else if(val>=42 && val<56){
+		jQuery('.sink-container .box').hide();
+		jQuery('.sink-container .oval').show();
+		jQuery('.sink-container .ract').show();
+		jQuery('.sink-container .vassle').show();
+		jQuery('#sink_2').removeAttr('disabled','disabled');
+	}
+	else if(val>=56){
+		jQuery('.sink-container .box').hide();
+		jQuery('.sink-container .oval-big').show();
+		jQuery('.sink-container .ract-big').show();
+		jQuery('.sink-container .oval').show();
+		jQuery('.sink-container .ract').show();
+		jQuery('.sink-container .vassle').show();
+		jQuery('#sink_2').removeAttr('disabled','disabled');
+	}
+	
+	else{
+		jQuery('#sink_2').removeAttr('disabled','disabled');
+		jQuery('.sink-container .box').show();	
+	}
+	
+	if(val<=98 && val>=15){
+	val=val*8;
+	
+	jQuery('.shink-main-width').css('width',val+'px');
+	jQuery('.shink-main-width span').html(roundVal((val/8))+'"');
+	
+	jQuery('div#selected-width').html('Width: '+roundVal((val/8))+'"');
+	jQuery('input#selected-width').val(val/8);
+
+	val=val+1;
+	jQuery('#shink-main-container').css('width',val+'px');
+	//jQuery('.shink-content-container').css('width',val+'px');
+
+	}
+	jQuery('#vessle-faucet-position-none').click();
+	shinkVertCenter();
+	shinkHorizontalCenter();	
+	
+}
+
+function changeHeight(val){
+
+	val = parseFloat(jQuery('#height').val()) + parseFloat(jQuery('#height-precision').val());
+
+	if(val<15){
+		jQuery('.error_message_box').html('Min Height should be 15');
+		jQuery('input#height').css('border','1px solid #ff0000');
+		//jQuery('.height_max_error').hide();
+		//jQuery('.height_min_error').show();
+	}
+	else if(val>22){
+		jQuery('.error_message_box').html('Max Height should be 22');
+		jQuery('input#height').css('border','1px solid #ff0000');
+		//jQuery('.height_min_error').hide();
+		//jQuery('.height_max_error').show();
+	}
+	else{
+		jQuery('.error_message_box').html('');
+		jQuery('input#height').css('border','');
+		//jQuery('.height_error').hide();
+	}
+	
+
+	if(val<=22 && val>=15 ){
+	val=val*8;
+
+	jQuery('.shink-main-height td').css('height',val+'px');
+	jQuery('.shink-main-height td span').html((roundVal(val/8))+'"');
+
+	jQuery('div#selected-depth').html('Depth: '+(roundVal(val/8))+'"');
+	jQuery('input#selected-depth').val(val/8);
+	
+	
+	val=val+1;
+	jQuery('#shink-main-container').css('height',val+'px');	
+
+	jQuery('.polished-left-egde').css('height',val+'px');	
+	jQuery('.backsplash-left-egde').css('height',val+'px');	
+	jQuery('.backsplash-right-egde').css('height',val+'px');	
+	jQuery('.polished-right-egde').css('height',val+'px');	
+	}
+	
+	jQuery('#vessle-faucet-position-none').click();
+	shinkVertCenter();
+	shinkHorizontalCenter();
+
+}
+
+// sets two variables to store the X and Y position
+var xpos; var ypos;
+
+jQuery(document).ready(function() {
+	
+	
+jQuery("img.tooltip-img[title]").tooltip();
+jQuery(".sink-type-sub-container img[title]").tooltip();
+	
+	changeWidth();
+	changeHeight();
+		
+	shinkVertCenter();
+	shinkHorizontalCenter();
+
+	jQuery('.sink-1-img a').click();	
+	jQuery('.polished-front').click();
+	
+	jQuery('.products-grid li img').click(function(){
+	
+		jQuery('.products-grid li img').removeClass('active-color');
+		jQuery(this).addClass('active-color');
+		
+		var selectedName = jQuery(this).prev('h2').html(); 
+		var selectedImg = jQuery(this).attr('src');
+		jQuery('#selected-color-image img').attr('src',selectedImg);
+		jQuery('div#selected-color-title').html(selectedName);
+		jQuery('input#selected-color-title').val(selectedName);
+		jQuery('#selected_color').val(selectedName);
+		
+		
+	});	
+	
+	
+	jQuery('.vessle-faucet-container .faucet-type table td img').click(function(){
+		
+		var id = jQuery(this).attr('id');
+		var imgSrc = jQuery(this).attr('src');
+		var imgClass = jQuery(this).attr('class');
+		var parentClass = jQuery(this).parent().parent().parent().parent().attr('class');
+
+		if(parentClass == 'vessle-1'){
+			jQuery('img#vessle-faucet-position-none-1').attr('src','<?php echo $this->getSkinUrl('')?>images/no-faucet.png');
+			jQuery('img#degree-left-1').attr('src','<?php echo $this->getSkinUrl('')?>images/45-degree-left.png');
+			jQuery('img#center-1').attr('src','<?php echo $this->getSkinUrl('')?>images/center.png');
+			jQuery('img#degree-right-1').attr('src','<?php echo $this->getSkinUrl('')?>images/45-degree-right.png');
+			jQuery(this).attr('src','<?php echo $this->getSkinUrl('')?>images/'+imgClass+'-active.png');
+			jQuery('input#'+id).click();
+		
+			for(var i=0;i<20;i++){
+				vessleFaucetMoveIncrease(1);
+			}
+		}
+		if(parentClass == 'vessle-2'){
+			jQuery('img#vessle-faucet-position-none-2').attr('src','<?php echo $this->getSkinUrl('')?>images/no-faucet.png');
+			jQuery('img#degree-left-2').attr('src','<?php echo $this->getSkinUrl('')?>images/45-degree-left.png');
+			jQuery('img#center-2').attr('src','<?php echo $this->getSkinUrl('')?>images/center.png');
+			jQuery('img#degree-right-2').attr('src','<?php echo $this->getSkinUrl('')?>images/45-degree-right.png');
+			jQuery(this).attr('src','<?php echo $this->getSkinUrl('')?>images/'+imgClass+'-active.png');
+			jQuery('input#'+id).click();
+		
+			for(var i=0;i<20;i++){
+				vessleFaucetMoveIncrease(2);
+			}
+		}
+				
+		
+		
+	});
+	
+  // sets draggable the element with id="dg"
+  jQuery('#dg-1').draggable({
+	  containment:'#shink-1-container',
+	  axis:'x',
+    // get the initial X and Y position when dragging starts
+    start: function(event, ui) {
+      xpos = this.style.top;
+      ypos = this.style.left;
+    },
+    // when dragging stops
+    stop: function(event, ui) {
+      // calculate the dragged distance, with the current X and Y position and the "xpos" and "ypos"
+      var xmove = this.style.top;
+      var ymove = this.style.left;
+
+      // define the moved direction: right, bottom (when positive), left, up (when negative)
+      var xd = xmove >= 0 ? ' To right: ' : ' To left: ';
+      var yd = ymove >= 0 ? ' Bottom: ' : ' Up: ';
+
+      //alert('The DIV was moved,\n\n'+ xd+ xmove+ ' pixels \n'+ yd+ ymove+ ' pixels');
+    }
+  });
+  jQuery('#dg-2').draggable({
+	  containment:'#shink-2-container',
+	  axis:'x',
+    // get the initial X and Y position when dragging starts
+    start: function(event, ui) {
+      xpos = this.style.top;
+      ypos = this.style.left;
+    },
+    // when dragging stops
+    stop: function(event, ui) {
+      // calculate the dragged distance, with the current X and Y position and the "xpos" and "ypos"
+      var xmove = this.style.top;
+      var ymove = this.style.left;
+
+      // define the moved direction: right, bottom (when positive), left, up (when negative)
+      var xd = xmove >= 0 ? ' To right: ' : ' To left: ';
+      var yd = ymove >= 0 ? ' Bottom: ' : ' Up: ';
+
+      //alert('The DIV was moved,\n\n'+ xd+ xmove+ ' pixels \n'+ yd+ ymove+ ' pixels');
+    }
+  });
+});
+
+function selectShink(shape,flag,type){
+	if(flag==0){
+	jQuery('.box').css('background-color','none');
+	jQuery('#dg-1').html('<img src="<?php echo $this->getSkinUrl('')?>images/'+shape+'.jpg">');
+	jQuery('#dg-2').html('<img src="<?php echo $this->getSkinUrl('')?>images/'+shape+'.jpg">');
+	jQuery('.right-panel-box-4 td#'+shape).css('opacity','1');
+		shinkVertCenter();
+		shinkHorizontalCenter();
+	
+	} else {
+	
+	if(shape == 'vessle-1'){
+		centerVessleFaucetPostion(flag);
+		jQuery('#shink-'+flag+'-container .shink-container-vessle-faucet-dot').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('left','4px');	
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('top','26px');	
+	}else if(shape == 'vessle-2'){
+		centerVessleFaucetPostion(flag);		
+		jQuery('#shink-'+flag+'-container .shink-container-vessle-faucet-dot').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('left','65px');	
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('top','18px');	
+	}else if(shape == 'vessle-3'){
+		centerVessleFaucetPostion(flag);		
+		jQuery('#shink-'+flag+'-container .shink-container-vessle-faucet-dot').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').show();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('left','127px');	
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').css('top','26px');	
+	}else{
+		
+		if(jQuery('#current_selected_faucet').val() != ''){
+			var prev_selected_faucet = jQuery('#current_selected_faucet').val();
+			jQuery('#'+prev_selected_faucet+'-faucet img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+prev_selected_faucet+'-faucet.png');
+		}
+		jQuery('#'+shape+'-faucet img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+shape+'-faucet-selected.png');
+		jQuery('#current_selected_faucet').val(shape);
+		
+		jQuery('#shink-'+flag+'-container .shink-container-vessle-faucet-dot').hide();
+		jQuery('.vessle-'+flag+'-faucet-content .vessle-faucet-dot-container').hide();	
+	}
+	
+	jQuery('.sink_'+flag+' div#faucet-hole-type').html('Type : '+type);
+
+	jQuery('input#faucet-hole-'+flag+'-type').val(type);
+	
+	jQuery('.box').css('background-color','none');
+
+	if(shape == 'vessle-0' || shape == 'vessle-1' || shape == 'vessle-2' || shape == 'vessle-3'){
+		jQuery('#dg-'+flag+' img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+shape+'.jpg');
+	}
+	else{
+		jQuery('#dg-1 img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+shape+'.jpg');
+		jQuery('#dg-2 img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+shape+'.jpg');
+		shinkVertCenter();	
+	}
+	//jQuery('.right-panel-box-4 td img').css('border','1px solid #000000');
+	//jQuery('.right-panel-box-4 td#'+shape+' img').css('border','3px solid #f9b13f');
+	jQuery('.right-panel-box-4 .vessle-faucet-container td img').css('border','none');
+	}
+}
+
+
+function centerVessleFaucetPostion(sink){
+	
+	jQuery('#vessle_faucet_position_inch_'+sink).val(0);
+	jQuery('.sink_'+sink+'_faucet_distance').html('Sink '+sink+' : 0"');
+	
+	var remaining_width_1 = '';
+
+	if(sink == 2) {
+		remaining_width_1 = parseFloat(jQuery('#shink-1-container').width()) + parseFloat(jQuery('#shink-2-container #dg-2 img').css('margin-left')) + parseFloat(jQuery('#shink-2-container #dg-2 img').width()/2);
+	}else{
+		remaining_width_1 = parseFloat(jQuery('#shink-1-container #dg-1 img').css('margin-left')) + parseFloat(jQuery('#shink-1-container #dg-1 img').width()/2);
+	}
+	
+
+		remaining_width_1 = remaining_width_1 - 5;
+
+	var margin_top = parseFloat(jQuery('#shink-'+sink+'-container #dg-'+sink+' img').css('margin-top')) + parseFloat(jQuery('#shink-'+sink+'-container #dg-'+sink+' img').height()/2);
+	
+	margin_top = margin_top - 4;
+
+		
+	jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left',remaining_width_1);
+	jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',margin_top);
+	
+	jQuery('input#vessle_sink_'+sink+'_faucet_position_center').val(remaining_width_1);
+	
+	jQuery('#vessle_faucet_position_inch_'+sink).val('0"');
+	jQuery('.sink_'+sink+'_faucet_distance').html('Sink '+sink+' : 0"');
+	
+
+	
+	/*var shink_2_distance_inch = parseFloat(shink_2_distance/8);
+	shink_2_distance_inch = round_up(shink_2_distance_inch,1);
+	
+	jQuery('.shink-2-distance span').html(shink_2_distance_inch+'"');
+	
+	
+	
+	var inch = parseFloat(remaining_width)/8;
+	inch = round_up(inch,2);
+	
+	
+	jQuery('.shink-1-left-space span').html(inch+'"');
+	jQuery('.shink-2-left-space span').html(inch+'"');*/
+	
+	// insert values in hidden fields for Margin left of sink1 and sink2
+	
+	/*jQuery('#sink_1_position_left').val(inch);
+	
+	if(jQuery("#sink_2").is(':checked')) {
+		jQuery('#sink_2_position_left').val(shink_2_distance_inch);
+	}else{
+		jQuery('#sink_2_position_left').val(0);
+	}
+	
+	jQuery('#sink_one_margin_left').val(inch+'"');
+	jQuery('#sink_two_margin_left').val(shink_2_distance_inch+'"');*/
+	
+}
+
+
+
+function noOfSink(number){
+	if(number == 1){
+		
+		jQuery('.position_of_sink .sink_one_container').css('width','135px');
+		jQuery('.position_of_sink .sink_one_container').css('float','none');
+		jQuery('.position_of_sink .sink_one_container').css('margin','auto');
+		
+		jQuery('.vessle-1-faucet-content').css('width','100%');
+		jQuery('.vessle-2-faucet-content').hide();
+		
+		jQuery('#shink-2-container').hide();
+		jQuery('#shink-1-container').css('width','100%');
+		jQuery('#shink-1-container #dg-1').css('float','none');
+		jQuery('#shink-1-container #dg-1').css('text-align','center');
+		jQuery('.position_of_sink .sink_two_container').hide();
+		jQuery('.sink-1-img img').attr('src','<?php echo $this->getSkinUrl('')?>images/no-sink-1-active.png');
+		jQuery('.sink-2-img img').attr('src','<?php echo $this->getSkinUrl('')?>images/no-sink-2.png');
+		jQuery('#selected_no_of_sink #number').html('1 Sink');	
+		jQuery('#faucet-hole-details #number').html('1 Sink');	
+		
+		
+
+		jQuery('#selected_no_of_sink #sink_2_distance').hide();		
+		jQuery('#selected_no_of_sink_vessle #sink_2_distance').hide();		
+
+		jQuery('#faucet-hole-details .sink_2').hide();
+		
+		jQuery('#sink-2-left-distance').val(0);
+		
+		
+			
+	}
+	else{
+
+		jQuery('.vessle-1-faucet-content').css('width','50%');
+		jQuery('.vessle-2-faucet-content').show();
+
+		jQuery('.position_of_sink .sink_one_container').css('width','auto');
+		jQuery('.position_of_sink .sink_one_container').css('float','left');
+		jQuery('.position_of_sink .sink_one_container').css('margin','0 5px 0 28px');
+
+		jQuery('#shink-2-container').show();
+		jQuery('#shink-1-container').css('width','50%');
+		jQuery('#shink-1-container #dg-1').css('float','none');
+		jQuery('#shink-1-container #dg-1').css('text-align','center');
+		jQuery('.position_of_sink .sink_two_container').show();
+		jQuery('.sink-1-img img').attr('src','<?php echo $this->getSkinUrl('')?>images/no-sink-1.png');
+		jQuery('.sink-2-img img').attr('src','<?php echo $this->getSkinUrl('')?>images/no-sink-2-active.png');
+		jQuery('#selected_no_of_sink #number').html('2 Sinks');
+		jQuery('#faucet-hole-details #number').html('2 Sink');	
+		
+		jQuery('#selected_no_of_sink #sink_2_distance').show();	
+		jQuery('#selected_no_of_sink_vessle #sink_2_distance').show();	
+		
+		jQuery('#faucet-hole-details .sink_2').show();
+			
+	}
+	shinkVertCenter();
+	shinkHorizontalCenter();
+	centerVessleFaucetPostion(1);
+	centerVessleFaucetPostion(2);
+	//selectedSinkNumberDist();
+
+}
+
+
+function showTooltip(id){
+	if(id == 'sink_2'){
+		if(jQuery("#"+id).is(':disabled')) {
+			jQuery("#"+id).prev('.tooltip').show();
+		}
+	}
+}
+
+function hideTooltip(id){
+	if(id == 'sink_2'){
+		if(jQuery("#"+id).is(':disabled')) {
+			jQuery("#"+id).prev('.tooltip').hide();
+		}
+	}
+}
+
+function shinkVertCenter(){
+
+	var shrink_main_height = jQuery('#shink-main-container').height();
+	var sink_img_height = jQuery('#shink-main-container #dg-1 img').height();
+	var remaining_height = shrink_main_height - sink_img_height;
+	remaining_height = remaining_height/2;
+	jQuery('#shink-main-container #dg-1 img').css('margin-top',remaining_height);
+	jQuery('#shink-main-container #dg-2 img').css('margin-top',remaining_height);
+		
+	var sink_one_margin_top = parseFloat(remaining_height) + parseFloat(jQuery('#shink-main-container #dg-1 img').height()/2)
+	sink_one_margin_top = sink_one_margin_top/8;
+	sink_one_margin_top = round_up(sink_one_margin_top,2);
+	
+	jQuery('#sink_one_margin_top').val(roundVal(sink_one_margin_top));
+	jQuery('#sink_two_margin_top').val(roundVal(sink_one_margin_top));
+	
+
+	jQuery('.shink-1-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+	jQuery('.shink-2-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+	
+	jQuery('#selected_no_of_sink_vessle #sink_1_distance').html('Drain 1: '+roundVal(sink_one_margin_top)+'"');		
+	jQuery('#selected_no_of_sink_vessle #sink_2_distance').html('Drain 2: '+roundVal(sink_one_margin_top)+'"');		
+	
+	jQuery('#vessle-sink-1-top-distance').val(sink_one_margin_top);
+	jQuery('#vessle-sink-2-top-distance').val(sink_one_margin_top);
+	
+	jQuery('#sink_1_position_top').val(sink_one_margin_top);
+	jQuery('#sink_2_position_top').val(sink_one_margin_top);
+	
+	
+	
+	
+	if(jQuery('#shink-main-container #dg-1 img').height() > 0){
+	jQuery('.shink-top-space').show();
+	}
+	
+	jQuery('.shink-1-top-space').height(remaining_height);
+	jQuery('.shink-2-top-space').height(remaining_height);
+	
+	var inch = parseFloat(remaining_height)/8;
+	inch = round_up(inch,1);
+	
+	
+	jQuery('.shink-1-top-space span').html(roundVal(inch)+'"');
+	jQuery('.shink-2-top-space span').html(roundVal(inch)+'"');
+	
+	
+	
+}
+
+function shinkHorizontalCenter(){
+
+	var shrink_main_width = jQuery('#shink-main-container').width();
+
+	var sink_img_width = jQuery('#shink-main-container #dg-1 img').width();
+
+	var margin_left = '';
+
+	if(jQuery("#sink_2").is(':checked')) {
+		var remaining_width = shrink_main_width - (sink_img_width*2);
+		remaining_width = remaining_width/4;
+		margin_left = remaining_width;
+		remaining_width = remaining_width + (sink_img_width/2);
+		if(jQuery('#shink-main-container img').height() > 0){
+			jQuery('.shink-2-distance').show();
+		}
+	}else{
+		var remaining_width = shrink_main_width - (sink_img_width);	
+		remaining_width = remaining_width/2;
+		margin_left = remaining_width;
+		remaining_width = remaining_width + (sink_img_width/2);
+		if(jQuery('#shink-main-container img').height() > 0){
+			jQuery('.shink-2-distance').hide();
+		}
+	}
+	jQuery('#shink-main-container img').css('margin-left',margin_left);
+	
+	if(jQuery('#shink-main-container #dg-1 img').height() > 0){
+		jQuery('.shink-left-space').show();
+	}
+	
+	jQuery('.shink-1-left-space').width(remaining_width);
+	jQuery('.shink-2-left-space').width(remaining_width);
+
+	jQuery('.shink-1-top-space').css('left',remaining_width);
+	jQuery('.shink-2-top-space').css('left',remaining_width);
+	
+	var shink_1_container_width = jQuery('#shink-1-container').width();
+	shink_1_container_width = shink_1_container_width + remaining_width-1;
+
+	jQuery('#shink-2-container .shink-2-top-space').css('left',shink_1_container_width);
+
+	
+	var shink_2_distance = parseFloat(jQuery('#shink-main-container').width()/2) + parseFloat(jQuery('#shink-2-container .shink-2-left-space').width());
+	jQuery('.shink-2-distance').width(shink_2_distance);
+	
+	var shink_2_distance_inch = parseFloat(shink_2_distance/8);
+	shink_2_distance_inch = round_up(shink_2_distance_inch,1);
+	
+	jQuery('.shink-2-distance span').html(roundVal(shink_2_distance_inch)+'"');
+	
+	
+	
+	var inch = parseFloat(remaining_width)/8;
+	inch = round_up(inch,2);
+	
+	
+	
+	jQuery('.shink-1-left-space span').html(roundVal(inch)+'"');
+	jQuery('.shink-2-left-space span').html(roundVal(inch)+'"');
+	
+	jQuery('#selected_no_of_sink #sink_1_distance').html('Drain 1: '+roundVal(inch)+'"');
+
+
+	jQuery('#sink-1-left-distance').val(inch);
+	
+	
+	// insert values in hidden fields for Margin left of sink1 and sink2
+	
+	jQuery('#sink_1_position_left').val(inch);
+	
+	if(jQuery("#sink_2").is(':checked')) {
+		jQuery('#sink_2_position_left').val(shink_2_distance_inch);
+	}else{
+		jQuery('#sink_2_position_left').val(0);
+	}
+	
+	jQuery('#sink_one_margin_left').val(roundVal(inch)+'"');
+	jQuery('#sink_two_margin_left').val(roundVal(shink_2_distance_inch)+'"');
+
+	if(jQuery("#sink_2").is(':checked')) {
+		jQuery('#selected_no_of_sink #sink_2_distance').show();
+		jQuery('#selected_no_of_sink #sink_2_distance').html('Drain 2: '+roundVal(shink_2_distance_inch)+'"');
+		jQuery('#sink-2-left-distance').val(shink_2_distance_inch);
+	}else{
+		jQuery('#selected_no_of_sink #sink_2_distance').hide();
+		jQuery('#sink-2-left-distance').val(0);
+	}
+}
+
+function round_up(val, precision) {
+			power = Math.pow (10, precision);
+			poweredVal = Math.ceil (val * power);
+			result = poweredVal / power;
+		
+			return result;
+		}
+
+function step(no){
+	jQuery('.left-panel-box').removeClass('active');	
+	jQuery('.left-panel-box-'+no).addClass('active');	
+	jQuery('.right-panel-box').removeClass('active');	
+	jQuery('.right-panel-box-'+no).addClass('active');	
+}		
+
+function selectSinkType(shape,defaultShape,type){
+	selectShink(defaultShape,0);
+	
+	
+	if(shape == 'vassle'){
+		jQuery('.other-sink-faucet').removeClass('right-panel-box-4');	
+		jQuery('.vessle-sink-faucet').addClass('right-panel-box-4');	
+		jQuery('input#vessle-faucet-position-none-1').click();
+		jQuery('input#vessle-faucet-position-none-2').click();
+		
+		jQuery('.shink-1-top-distance').show();
+		jQuery('.shink-2-top-distance').show();
+		jQuery('.position_of_sink_vessle').show();
+		jQuery('#selected_no_of_sink_vessle').show();
+		
+		jQuery('#faucet-hole-details .sink_1 .content').show();
+		if(jQuery("#sink_2").is(':checked')) {
+			jQuery('#faucet-hole-details .sink_2').show();
+		}
+	}else{
+		jQuery('.shink-container-vessle-faucet-dot').hide();
+		jQuery('.other-sink-faucet').addClass('right-panel-box-4');	
+		jQuery('.vessle-sink-faucet').removeClass('right-panel-box-4');	
+		jQuery('#selected_no_of_sink_vessle').hide();
+
+		jQuery('.shink-1-top-distance').hide();
+		jQuery('.shink-2-top-distance').hide();
+		jQuery('.position_of_sink_vessle').hide();
+		
+		jQuery('#vessle-sink-1-top-distance').val(0);		
+		jQuery('#vessle-sink-2-top-distance').val(0);		
+
+		jQuery('#faucet-hole-details .sink_1 .content').hide();
+		jQuery('#faucet-hole-details .sink_2').hide();
+	}
+	
+	jQuery('.sink-type-oval-big img').attr('src','<?php echo $this->getSkinUrl('')?>images/large-oval-thumb.png');
+	jQuery('.sink-type-ract-big img').attr('src','<?php echo $this->getSkinUrl('')?>images/large-ractangle-thumb.png');
+	jQuery('.sink-type-oval img').attr('src','<?php echo $this->getSkinUrl('')?>images/small-oval-thumb.png');
+	jQuery('.sink-type-ract img').attr('src','<?php echo $this->getSkinUrl('')?>images/small-ract-thumb.png');
+	jQuery('.sink-type-vassle img').attr('src','<?php echo $this->getSkinUrl('')?>images/vessle-thumb.png');
+	jQuery('.sink-type-no-sink img').attr('src','<?php echo $this->getSkinUrl('')?>images/no-sink-thumb.png');
+
+	jQuery('.sink-type-'+shape+' img').attr('src','<?php echo $this->getSkinUrl('')?>images/'+shape+'-thumb-active.png');
+	
+	jQuery('.right-panel-box-4 .box').hide();
+	jQuery('.right-panel-box-4 .'+shape).show();
+	jQuery('.right-panel-box-3 .sink-container td').css('opacity','0.5');
+	jQuery('.right-panel-box-3 .sink-container td.'+shape).css('opacity','1');
+	
+	if(shape != 'no-sink'){
+		jQuery('.left-panel-box-3').css('border-bottom','none');
+		jQuery('.left-panel-box-4').show();
+		selectedSinkSummary(shape,defaultShape,type);
+	}else{
+		jQuery('.left-panel-box-3').css('border-bottom','2px solid #3D4E63');
+		jQuery('.left-panel-box-4').hide();
+		noSinkSelected();	
+	}
+}		
+
+function noSinkSelected(){
+	jQuery('.shink-1-left-space').hide();
+	jQuery('.shink-2-top-space').hide();
+	jQuery('.shink-2-distance').hide();
+	jQuery('#selected-depth').val(0);
+	jQuery('#selected-width').val(0);
+	jQuery('#selected-splash').val('');
+	jQuery('#selected-polish').val('');
+	jQuery('#selected-sink-type').val('');
+	jQuery('#sink-1-left-distance').val(0);
+	jQuery('#sink-2-left-distance').val(0);
+	jQuery('#faucet-hole-1-type').val('');
+	jQuery('#faucet-hole-2-type').val('');
+	
+}
+
+function selectedSinkSummary(shape,defaultShape,type){
+	
+	jQuery('#selected_sink_container #name').html(type);
+	jQuery('#selected-sink-type').val(type);
+	
+	selectedSinkNumberDist();
+}
+
+
+
+function moveSinkLeft(id){
+	if(id==1){
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_left').val();
+
+		var currentMarginFromCenterSinkTwo = jQuery('#sink_2_position_left').val();
+
+		currentMarginFromLeftEdge = parseFloat(currentMarginFromCenter*8) - parseFloat(jQuery('#dg-'+id+' img').width()/2);
+		var moveLeftMargin = parseFloat(currentMarginFromLeftEdge) - parseFloat(2);
+		if(moveLeftMargin<=0){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+		}
+		
+		jQuery('#dg-'+id+' img').css('margin-left',moveLeftMargin);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter*8) - parseFloat(2);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter/8);
+		currentMarginFromCenter = currentMarginFromCenter.toFixed(2);
+		jQuery('#sink_'+id+'_position_left').val(currentMarginFromCenter);
+		jQuery('.shink-'+id+'-left-space span').html(roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink_one_margin_left').val(roundVal(currentMarginFromCenter)+'"');
+		jQuery('.shink-'+id+'-left-space').css('width',currentMarginFromCenter*8+'px');
+		jQuery('#shink-1-container .shink-2-top-space').css('left',currentMarginFromCenter*8+'px');
+		var vessleFirstFaucet = jQuery('#shink-1-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		vessleFirstFaucet = parseFloat(vessleFirstFaucet) - 2;
+		jQuery('#shink-1-container .shink-container-vessle-faucet-dot img').css('margin-left',vessleFirstFaucet);
+		
+		jQuery('#selected_no_of_sink #sink_1_distance').html('Drain 1: '+roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink-1-left-distance').val(currentMarginFromCenter);
+	}else{
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_left').val();
+		
+	var sink_two_distance_from_left_edge = parseFloat(currentMarginFromCenter*8) - parseFloat(jQuery('#dg-1 img').width()/2);
+	var sink_one_distance_from_left_edge = parseFloat(jQuery('#dg-1 img').width()) + parseFloat(jQuery('#dg-1 img').css('margin-left'));
+	if(sink_two_distance_from_left_edge <= sink_one_distance_from_left_edge){
+		jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+		return false;	
+	}else{
+		jQuery('.error_message_box').html('');
+	}
+		
+		currentMarginFromLeftEdge = parseFloat(currentMarginFromCenter*8) - parseFloat(jQuery('#dg-'+id+' img').width()/2);
+		var mainContainerWidth = jQuery('#shink-main-container').width();
+		var moveLeftMargin = parseFloat(currentMarginFromLeftEdge) - (mainContainerWidth/2) - parseFloat(2);
+		jQuery('#dg-'+id+' img').css('margin-left',moveLeftMargin);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter*8) - parseFloat(2);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter/8);
+		currentMarginFromCenter = currentMarginFromCenter.toFixed(2);
+		jQuery('#sink_'+id+'_position_left').val(currentMarginFromCenter);
+		jQuery('.shink-2-distance span').html(roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink_two_margin_left').val(roundVal(currentMarginFromCenter)+'"');
+		jQuery('.shink-2-distance').css('width',currentMarginFromCenter*8+'px');
+		jQuery('#shink-2-container .shink-2-top-space').css('left',currentMarginFromCenter*8+'px');
+
+		var vessleFirstFaucet = jQuery('#shink-2-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		vessleFirstFaucet = parseFloat(vessleFirstFaucet) - 2;
+		jQuery('#shink-2-container .shink-container-vessle-faucet-dot img').css('margin-left',vessleFirstFaucet);
+
+		jQuery('#selected_no_of_sink #sink_2_distance').html('Drain 2: '+roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink-2-left-distance').val(currentMarginFromCenter);
+	}
+	
+}
+
+function moveSinkRight(id){
+	if(id==1){
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_left').val();
+
+		var currentMarginFromCenterSinkTwo = jQuery('#sink_2_position_left').val();
+		if(jQuery("#sink_2").is(':checked')) {
+			var sink_two_distance_from_left_edge = parseFloat(currentMarginFromCenterSinkTwo*8) - parseFloat(jQuery('#dg-1 img').width()/2);
+			var sink_one_distance_from_left_edge = parseFloat(jQuery('#dg-1 img').width()) + parseFloat(jQuery('#dg-1 img').css('margin-left'));
+			if(sink_two_distance_from_left_edge <= sink_one_distance_from_left_edge){
+				jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+				return false;	
+			}else{
+				jQuery('.error_message_box').html('');
+			}
+		}
+
+		currentMarginFromLeftEdge = parseFloat(currentMarginFromCenter*8) - parseFloat(jQuery('#dg-'+id+' img').width()/2);
+		var moveLeftMargin = parseFloat(currentMarginFromLeftEdge) + parseFloat(2);
+		jQuery('#dg-'+id+' img').css('margin-left',moveLeftMargin);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter*8) + parseFloat(2);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter/8);
+		currentMarginFromCenter = currentMarginFromCenter.toFixed(2);
+		jQuery('#sink_'+id+'_position_left').val(currentMarginFromCenter);
+		jQuery('.shink-'+id+'-left-space span').html(roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink_one_margin_left').val(roundVal(currentMarginFromCenter)+'"');
+		jQuery('.shink-'+id+'-left-space').css('width',currentMarginFromCenter*8+'px');
+		jQuery('#shink-1-container .shink-2-top-space').css('left',currentMarginFromCenter*8+'px');
+
+		var vessleFirstFaucet = jQuery('#shink-1-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		vessleFirstFaucet = parseFloat(vessleFirstFaucet) + 2;
+		jQuery('#shink-1-container .shink-container-vessle-faucet-dot img').css('margin-left',vessleFirstFaucet);
+
+		jQuery('#selected_no_of_sink #sink_1_distance').html('Drain 1: '+roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink-1-left-distance').val(currentMarginFromCenter);
+	}else{
+		var mainContainerWidth = parseFloat(jQuery('#shink-main-container').width());
+		var firstSinkContainerWidth = jQuery('#shink-1-container').width();
+		var secondSinkImageWidth = jQuery('#shink-2-container img').width();
+		var secondSinkMarginLeft = jQuery('#shink-2-container img').css('margin-left');
+		var totalSinkTwoPosition = parseFloat(firstSinkContainerWidth) + parseFloat(secondSinkImageWidth) + parseFloat(secondSinkMarginLeft);
+
+		if(totalSinkTwoPosition >= mainContainerWidth){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}
+		else{
+			jQuery('.error_message_box').html('');	
+		}
+		
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_left').val();
+
+		currentMarginFromLeftEdge = parseFloat(currentMarginFromCenter*8) - parseFloat(jQuery('#dg-'+id+' img').width()/2);
+		var mainContainerWidth = jQuery('#shink-main-container').width();
+		var moveLeftMargin = parseFloat(currentMarginFromLeftEdge) - (mainContainerWidth/2) + parseFloat(2);
+		jQuery('#dg-'+id+' img').css('margin-left',moveLeftMargin);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter*8) + parseFloat(2);
+		currentMarginFromCenter = parseFloat(currentMarginFromCenter/8);
+		currentMarginFromCenter = currentMarginFromCenter.toFixed(2);
+		jQuery('#sink_'+id+'_position_left').val(currentMarginFromCenter);
+		jQuery('.shink-2-distance span').html(roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink_two_margin_left').val(roundVal(currentMarginFromCenter)+'"');
+		jQuery('.shink-2-distance').css('width',currentMarginFromCenter*8+'px');
+		jQuery('#shink-2-container .shink-2-top-space').css('left',currentMarginFromCenter*8+'px');
+
+		var vessleFirstFaucet = jQuery('#shink-2-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		vessleFirstFaucet = parseFloat(vessleFirstFaucet) + 2;
+		jQuery('#shink-2-container .shink-container-vessle-faucet-dot img').css('margin-left',vessleFirstFaucet);
+		
+		jQuery('#selected_no_of_sink #sink_2_distance').html('Drain 2: '+roundVal(currentMarginFromCenter)+'"');
+		jQuery('#sink-2-left-distance').val(currentMarginFromCenter);
+		
+	}
+}
+
+		
+		
+
+function moveSinkTop(id){
+	if(id==1){
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_top').val();
+
+		var currentMarginTop = parseFloat(jQuery('#dg-'+id+' img').css('margin-top'));
+		var moveTop = currentMarginTop - 2;
+
+		var currentSinkHeight = parseFloat(jQuery('#dg-'+id+' img').height());
+		var totalContainerHeight = parseFloat(jQuery('#shink-main-container').height());
+		if(moveTop < 0){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+		}	
+			
+		jQuery('#dg-'+id+' img').css('margin-top',moveTop);
+		
+		var sink_one_margin_top = parseFloat(currentMarginTop) + parseFloat(jQuery('#shink-main-container #dg-'+id+' img').height()/2);
+		jQuery('.shink-'+id+'-top-distance').height(sink_one_margin_top); 
+		sink_one_margin_top = sink_one_margin_top/8;
+		sink_one_margin_top = round_up(sink_one_margin_top,2);
+		
+		jQuery('#sink_one_margin_top').val(roundVal(sink_one_margin_top));
+		jQuery('.shink-'+id+'-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+		jQuery('#vessle-sink-'+id+'-top-distance').val(sink_one_margin_top);
+
+		jQuery('#selected_no_of_sink_vessle #sink_'+id+'_distance').html('Sink '+id+': '+roundVal(sink_one_margin_top)+'"');		
+		
+		
+		
+		centerVessleFaucetPostion(id);
+		
+	} else {
+		
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_top').val();
+
+		var currentMarginTop = parseFloat(jQuery('#dg-'+id+' img').css('margin-top'));
+		var moveTop = currentMarginTop - 2;
+
+		var currentSinkHeight = parseFloat(jQuery('#dg-'+id+' img').height());
+		var totalContainerHeight = parseFloat(jQuery('#shink-main-container').height());
+		if(moveTop < 0){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+		}	
+
+		jQuery('#dg-'+id+' img').css('margin-top',moveTop);
+		
+		var sink_one_margin_top = parseFloat(currentMarginTop) + parseFloat(jQuery('#shink-main-container #dg-'+id+' img').height()/2);
+		jQuery('.shink-'+id+'-top-distance').height(sink_one_margin_top); 
+		sink_one_margin_top = sink_one_margin_top/8;
+		sink_one_margin_top = round_up(sink_one_margin_top,2);
+		
+		jQuery('#sink_two_margin_top').val(roundVal(sink_one_margin_top));
+		jQuery('.shink-'+id+'-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+		jQuery('#vessle-sink-'+id+'-top-distance').val(sink_one_margin_top);
+
+		jQuery('#selected_no_of_sink_vessle #sink_'+id+'_distance').html('Sink '+id+': '+roundVal(sink_one_margin_top)+'"');		
+
+		centerVessleFaucetPostion(id);
+	}
+}
+
+function moveSinkBottom(id){
+	if(id==1){
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_top').val();
+				
+		var currentMarginTop = parseFloat(jQuery('#dg-'+id+' img').css('margin-top'));
+		var moveTop = currentMarginTop + 2;
+
+		var currentSinkHeight = parseFloat(jQuery('#dg-'+id+' img').height());
+		var totalContainerHeight = parseFloat(jQuery('#shink-main-container').height());
+		if((currentMarginTop+currentSinkHeight) >= totalContainerHeight){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+		}	
+
+		jQuery('#dg-'+id+' img').css('margin-top',moveTop);
+		
+		var sink_one_margin_top = parseFloat(currentMarginTop) + parseFloat(jQuery('#shink-main-container #dg-'+id+' img').height()/2);
+		jQuery('.shink-'+id+'-top-distance').height(sink_one_margin_top); 
+		sink_one_margin_top = sink_one_margin_top/8;
+		sink_one_margin_top = round_up(sink_one_margin_top,2);
+		
+		jQuery('#sink_one_margin_top').val(roundVal(sink_one_margin_top));
+		jQuery('.shink-'+id+'-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+		jQuery('#vessle-sink-'+id+'-top-distance').val(sink_one_margin_top);
+
+		jQuery('#selected_no_of_sink_vessle #sink_'+id+'_distance').html('Sink '+id+': '+roundVal(sink_one_margin_top)+'"');		
+
+		centerVessleFaucetPostion(id);
+
+	} else {
+		var currentMarginFromCenter = jQuery('#sink_'+id+'_position_top').val();
+		
+		var currentMarginTop = parseFloat(jQuery('#dg-'+id+' img').css('margin-top'));
+		var moveTop = currentMarginTop + 2;
+
+		var currentSinkHeight = parseFloat(jQuery('#dg-'+id+' img').height());
+		var totalContainerHeight = parseFloat(jQuery('#shink-main-container').height());
+		if((currentMarginTop+currentSinkHeight) >= totalContainerHeight){
+			jQuery('.error_message_box').html('This is as far left as you can move this sink!');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+		}	
+
+		jQuery('#dg-'+id+' img').css('margin-top',moveTop);
+		
+		var sink_one_margin_top = parseFloat(currentMarginTop) + parseFloat(jQuery('#shink-main-container #dg-'+id+' img').height()/2);
+		jQuery('.shink-'+id+'-top-distance').height(sink_one_margin_top); 
+		sink_one_margin_top = sink_one_margin_top/8;
+		sink_one_margin_top = round_up(sink_one_margin_top,2);
+		
+		jQuery('#sink_two_margin_top').val(roundVal(sink_one_margin_top));
+		jQuery('.shink-'+id+'-top-distance span').html(roundVal(sink_one_margin_top)+'"');
+		jQuery('#vessle-sink-'+id+'-top-distance').val(sink_one_margin_top);
+
+		jQuery('#selected_no_of_sink_vessle #sink_'+id+'_distance').html('Sink '+id+': '+roundVal(sink_one_margin_top)+'"');		
+
+		centerVessleFaucetPostion(id);
+	}
+}
+
+
+function vessleFaucetMoveDecrease(sink){
+
+	if(!jQuery("input#vessle-faucet-position-none-"+sink).is(':checked')) {
+
+		if(sink == 1){
+			
+			if(jQuery("input#degree-left-1").is(':checked')) {
+				degreeLeftMove(1,'decrease');
+			}
+			if(jQuery("input#center-1").is(':checked')) {
+				degreeCenterMove(1,'decrease');
+			}
+			if(jQuery("input#degree-right-1").is(':checked')) {
+				degreeRightMove(1,'decrease');
+			}
+			decreaseVessalePositionInch(sink);
+			
+		}else{
+	
+			if(jQuery("input#degree-left-2").is(':checked')) {
+				degreeLeftMove(2,'decrease');
+			}
+			if(jQuery("input#center-2").is(':checked')) {
+				degreeCenterMove(2,'decrease');
+			}
+			if(jQuery("input#degree-right-2").is(':checked')) {
+				degreeRightMove(2,'decrease');
+			}
+			decreaseVessalePositionInch(sink);
+		
+		}
+	}
+}
+
+
+/*function vessleFaucetMoveDecrease(sink){
+	if(jQuery("#degree-left").is(':checked')) {
+		if(sink == 1){
+			degreeLeftMove(1,'decrease');
+		}else{
+			degreeLeftMove(2,'decrease');
+		}
+		decreaseVessalePositionInch(sink);
+	}
+	if(jQuery("#center-1").is(':checked')) {
+		if(sink == 1){
+			degreeCenterMove(1,'decrease');
+		}else{
+			degreeCenterMove(2,'decrease');
+		}
+		decreaseVessalePositionInch(sink);
+	}
+	if(jQuery("#degree-right").is(':checked')) {
+		if(sink == 1){
+			degreeRightMove(1,'decrease');
+		}else{
+			degreeRightMove(2,'decrease');
+		}
+		decreaseVessalePositionInch(sink);
+	}
+
+}*/
+
+function vessleFaucetMoveIncrease(sink){
+
+	if(!jQuery("input#vessle-faucet-position-none-"+sink).is(':checked')) {
+	
+		if(sink == 1){
+			
+			if(jQuery("input#degree-left-1").is(':checked')) {
+				degreeLeftMove(1,'increase');
+			}
+			if(jQuery("input#center-1").is(':checked')) {
+				degreeCenterMove(1,'increase');
+			}
+			if(jQuery("input#degree-right-1").is(':checked')) {
+				degreeRightMove(1,'increase');
+			}
+			increaseVessalePositionInch(sink);
+			
+		}else{
+	
+			if(jQuery("input#degree-left-2").is(':checked')) {
+				degreeLeftMove(2,'increase');
+			}
+			if(jQuery("input#center-2").is(':checked')) {
+				degreeCenterMove(2,'increase');
+			}
+			if(jQuery("input#degree-right-2").is(':checked')) {
+				degreeRightMove(2,'increase');
+			}
+			increaseVessalePositionInch(sink);
+		
+		}
+	}
+}
+
+
+/*function vessleFaucetMoveIncrease(sink){
+	if(jQuery("#degree-left").is(':checked')) {
+		if(sink == 1){		
+			degreeLeftMove(1,'increase');
+		}else{
+			degreeLeftMove(2,'increase');
+		}
+		increaseVessalePositionInch(sink);
+	}
+	if(jQuery("#center-1").is(':checked')) {
+		if(sink == 1){		
+			degreeCenterMove(1,'increase');
+		}else{
+			degreeCenterMove(2,'increase');
+		}
+		increaseVessalePositionInch(sink);
+	}
+	if(jQuery("#degree-right").is(':checked')) {
+		if(sink == 1){		
+			degreeRightMove(1,'increase');
+		}else{
+			degreeRightMove(2,'increase');
+		}
+		increaseVessalePositionInch(sink);
+	}
+
+}*/
+
+
+
+
+function degreeLeftMove(sink,type){
+
+	if(type == 'decrease'){
+		
+		var vessle_faucet_position_inch = parseFloat(jQuery('#vessle_faucet_position_inch_'+sink).val());
+		
+		if(vessle_faucet_position_inch <= 5){
+			jQuery('.error_message_box').html('Minimum Vessle sink faucet position 5" from center');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+			
+		}
+		
+		
+		var current_left_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		current_left_margin = parseFloat(current_left_margin) + 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left',current_left_margin);
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) + 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+
+
+	}else{
+		var current_left_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		current_left_margin = parseFloat(current_left_margin) - 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left',current_left_margin);
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) - 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+	}
+}
+
+function degreeCenterMove(sink,type){
+
+	if(type == 'decrease'){
+
+		var vessle_faucet_position_inch = parseFloat(jQuery('#vessle_faucet_position_inch_'+sink).val());
+		
+		if(vessle_faucet_position_inch <= 5){
+			jQuery('.error_message_box').html('Minimum Vessle sink faucet position 5" from center');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+			
+		}
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) + 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+
+	}else{
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) - 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+	}
+}
+
+function degreeRightMove(sink,type){
+
+	if(type == 'decrease'){
+		
+		var vessle_faucet_position_inch = parseFloat(jQuery('#vessle_faucet_position_inch_'+sink).val());
+		
+		if(vessle_faucet_position_inch <= 5){
+			jQuery('.error_message_box').html('Minimum Vessle sink faucet position 5" from center');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+			
+		}		
+		
+		var current_left_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		current_left_margin = parseFloat(current_left_margin) - 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left',current_left_margin);
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) + 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+	}else{
+		var current_left_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left');
+		current_left_margin = parseFloat(current_left_margin) + 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-left',current_left_margin);
+
+		var current_top_margin = jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top');
+		current_top_margin = parseFloat(current_top_margin) - 2;
+		jQuery('#shink-'+sink+'-container .shink-container-vessle-faucet-dot img').css('margin-top',current_top_margin);
+	}
+}
+
+function increaseVessalePositionInch(sink){
+	
+		var vessle_faucet_position_inch = parseFloat(jQuery('#vessle_faucet_position_inch_'+sink).val());
+
+		if(vessle_faucet_position_inch >= 5){
+			jQuery('.error_message_box').html('');
+		}
+
+		vessle_faucet_position_inch += 0.25;
+		jQuery('#vessle_faucet_position_inch_'+sink).val(vessle_faucet_position_inch);
+		jQuery('.sink_'+sink+'_faucet_distance').html('Sink '+sink+' : '+roundVal(vessle_faucet_position_inch)+'"');
+
+}
+
+function decreaseVessalePositionInch(sink){
+	
+		var vessle_faucet_position_inch = parseFloat(jQuery('#vessle_faucet_position_inch_'+sink).val());
+		
+		if(vessle_faucet_position_inch <= 5){
+			jQuery('.error_message_box').html('Minimum Vessle sink faucet position 5" from center');
+			return false;	
+		}else{
+			jQuery('.error_message_box').html('');
+			
+		}
+		
+		vessle_faucet_position_inch -= 0.25;
+		jQuery('#vessle_faucet_position_inch_'+sink).val(vessle_faucet_position_inch);
+		jQuery('.sink_'+sink+'_faucet_distance').html('Sink '+sink+' : '+roundVal(vessle_faucet_position_inch)+'"');
+
+}
+
+function backSplash(type,flag){
+	
+		if(!jQuery("#backsplash-"+type+"-input").is(':checked')) {
+			jQuery("#backsplash-"+type+"-input").attr('checked','checked');
+			jQuery(".backsplash-"+type).css('background','#f9b13f');
+			jQuery(".backsplash-"+type+"-egde").show();
+			jQuery('#selected-splash .'+flag).html(type);
+		}else{
+			jQuery("#backsplash-"+type+"-input").removeAttr('checked');
+			jQuery(".backsplash-"+type).css('background','#DCDCDC');			
+			jQuery(".backsplash-"+type+"-egde").hide();
+			jQuery('#selected-splash .'+flag).html('');
+		}
+}
+
+function polished(type,flag){
+	
+		if(!jQuery("#polished-"+type+"-input").is(':checked')) {
+			jQuery("#polished-"+type+"-input").attr('checked','checked');
+			jQuery(".polished-"+type).css('background','#92c3d7');
+			jQuery(".polished-"+type+"-egde").show();
+			jQuery('#selected-polish .'+flag).html(type);
+
+		}else{
+			if(type == 'front'){return false ;}
+			jQuery("#polished-"+type+"-input").removeAttr('checked');
+			jQuery(".polished-"+type).css('background','#DCDCDC');			
+			jQuery(".polished-"+type+"-egde").hide();
+			jQuery('#selected-polish .'+flag).html('');
+		}
+}
+
+function roundVal(val){
+	val = val.toString().split('.');
+	var val_prev = parseFloat(val[0]);
+	var val_precision = parseFloat(val[1]);
+	if(val_precision < '13'){ val = val_prev+'.0'; }
+	if(val_precision >= '13' && val_precision < '38'){ val = val_prev+'.25'; }
+	if(val_precision >= '38' && val_precision < '63'){ val = val_prev+'.50'; }
+	if(val_precision >= '63' && val_precision < '88'){ val = val_prev+'.75'; }
+	if(val_precision >= '88'){ val = (val_prev+1)+'.0'; }
+	return val;
+}
+
+
+var ua = navigator.userAgent.toLowerCase();
+if (ua.indexOf(" chrome/") >= 0 || ua.indexOf(" firefox/") >= 0 || ua.indexOf(' gecko/') >= 0) {
+	var StringMaker = function () {
+		this.str = "";
+		this.length = 0;
+		this.append = function (s) {
+			this.str += s;
+			this.length += s.length;
+		}
+		this.prepend = function (s) {
+			this.str = s + this.str;
+			this.length += s.length;
+		}
+		this.toString = function () {
+			return this.str;
+		}
+	}
+} else {
+	var StringMaker = function () {
+		this.parts = [];
+		this.length = 0;
+		this.append = function (s) {
+			this.parts.push(s);
+			this.length += s.length;
+		}
+		this.prepend = function (s) {
+			this.parts.unshift(s);
+			this.length += s.length;
+		}
+		this.toString = function () {
+			return this.parts.join('');
+		}
+	}
+}
+
+var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+function encode64(input) {
+	var output = new StringMaker();
+	var chr1, chr2, chr3;
+	var enc1, enc2, enc3, enc4;
+	var i = 0;
+
+	while (i < input.length) {
+		chr1 = input.charCodeAt(i++);
+		chr2 = input.charCodeAt(i++);
+		chr3 = input.charCodeAt(i++);
+
+		enc1 = chr1 >> 2;
+		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+		enc4 = chr3 & 63;
+
+		if (isNaN(chr2)) {
+			enc3 = enc4 = 64;
+		} else if (isNaN(chr3)) {
+			enc4 = 64;
+		}
+
+		output.append(keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4));
+   }
+   
+   return output.toString();
+}
+
+function creteHtmlFile(){
+	
+	//var html = '<link rel="stylesheet" href="http://www.bathandgranite4less.com/skin/frontend/default/lazygranite_new/script/style.css" />';
+	
+	var html = '<div class="sink-main-outer">';
+	html += jQuery('.sink-main-outer').html();
+	html += '</div>';
+	html += '<div class="my-sink-specs-container">';
+	html += jQuery('.my-sink-specs-container').html();
+	html += '</div>';
+	
+	html = encode64(html);
+
+	jQuery('textarea#html').html(html);
+	
+	submitForm();
+		
+}
+
+function submitForm() {
+
+		jQuery.ajax({type:'POST', url:'<?php echo $this->getUrl('create-html-file.php') ?>', data:jQuery('#product_add_to_cart').serialize(), success: function(response) {
+
+			alert('Success!');
+			//jQuery('#multifees-form').find('.form_result').html(response);
+
+		}});
+		return false;
+}
+
+--></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('script/jcarousel/js/jquery.jcarousel.min.js') ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('script/jcarousel/skins/tango/skin.css') ?>" />
+<script type="text/javascript">	
+
+
+
+
+	
+
+	function mycarousel_initCallback(carousel)
+
+	{
+
+	// Pause autoscrolling if the user moves with the cursor over the clip.
+
+		carousel.clip.hover(function() {
+
+			carousel.stopAuto();
+
+		}, function() {
+
+			carousel.startAuto();
+
+		});
+
+	};
+
+	jQuery(document).ready(function(){
+
+	   jQuery('#mycarousel').jcarousel({
+
+			visible:5,
+
+			scroll:1,
+
+			/*easing: 'BounceEaseOut',*/
+
+			animation: 600,
+
+			/*auto: 1,*/
+
+			wrap: 'last',  
+
+			initCallback: mycarousel_initCallback
+
+		});
+
+	});
+
+
+</script>
+
+<?php
+$filePath = "/home/ecoflush/bathandgranite4less.com/html/skin/frontend/default/lazygranite_new/images";
+$string=array();
+$fileCount=0;
+ 
+$dir = opendir($filePath);
+while ($file = readdir($dir)) {
+  if (eregi("\.png",$file) || eregi("\.jpg",$file) || eregi("\.gif",$file)) { 
+    $string[] = "'".$this->getSkinUrl('images').'/'.$file."'";
+  }
+}
+
+$string_new = implode(',',$string);
+
+?> 
+
+<?php /*?><script type="text/javascript">
+var images = [
+	<?php echo $string_new ?>
+];
+
+jQuery(document).ready(function() {
+	jQuery(images).each(function() {
+		var image = jQuery('<img />').attr('src', this);
+	});
+});
+</script>
+<?php */?>
+<div class="order-main-container">
+<input type="hidden" id="sink_1_position_left" value="0">
+<input type="hidden" id="sink_2_position_left" value="0">
+<input type="hidden" id="sink_1_position_top" value="0">
+<input type="hidden" id="sink_2_position_top" value="0">
+<input type="hidden" id="vessle_sink_1_faucet_position_center" value="0">
+<input type="hidden" id="vessle_sink_2_faucet_position_center" value="0">
+<input type="hidden" id="selected_color" name="selected_color" value="">
+<input type="hidden" id="current_selected_faucet" value="">
+<div class="vanitycounters-top-main-container">
+  <div class="left-panel">
+    <div class="left-panel-box left-panel-box-1 active" onClick="step(1)"><span>1</span> Color</div>
+    <div class="left-panel-box left-panel-box-2" onClick="step(2)"><span>2</span> Counter</div>
+    <div class="left-panel-box left-panel-box-3" onClick="step(3)"><span>3</span> Sinks</div>
+    <div class="left-panel-box left-panel-box-4" onClick="step(4)"><span>4</span> Faucets</div>
+  </div>
+  <div class="right-panel">
+    <div class="right-panel-box right-panel-box-1 active">
+      <div class="carousel">
+        <div class="middle">
+          <ul id="mycarousel" class="product_list jcarousel-skin-tango" >
+            <li>
+              <ul class="products-grid first odd">
+                <li id="2885" class="item first">
+                  <h2 class="product-name">Imperial White</h2>
+                  <img alt="Imperial White " src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/c/o/copy-of-granite-tile-imperial-white_1.jpg"> </li>
+                <li id="2889" class="item last">
+                  <h2 class="product-name">Red Stream</h2>
+                  <img alt="Red Stream " src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-red-stream.jpg"> </li>
+                <li id="2890" class="item first">
+                  <h2 class="product-name">Deep Blue Pearl</h2>
+                  <img alt="Deep Blue Pearl" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/d/e/deep.jpg"> </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="products-grid even">
+                <li id="2891" class="item last">
+                  <h2 class="product-name">White Tiger</h2>
+                  <img alt="White Tiger " src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-white-tiger_2_1.jpg"> </li>
+                <li id="2892" class="item first">
+                  <h2 class="product-name">Steel Black</h2>
+                  <img alt="Steel Black" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-steel-black.jpg"> </li>
+                <li id="2893" class="item last">
+                  <h2 class="product-name">African Red</h2>
+                  <img alt="African Red" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-african-red.jpg"> </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="products-grid odd">
+                <li id="2894" class="item first">
+                  <h2 class="product-name">Tan Brown</h2>
+                  <img alt="Tan Brown" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/c/o/copy-of-granite-tile-tan-brown.jpg"> </li>
+                <li id="2897" class="item last">
+                  <h2 class="product-name">Baltic Brown</h2>
+                  <img alt="Baltic Brown" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-baltic-brown.jpg"> </li>
+                <li id="2900" class="item first">
+                  <h2 class="product-name">Mint Brown</h2>
+                  <img alt="Mint Brown" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-mint-brown.jpg"> </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="products-grid even">
+                <li id="2883" class="item last">
+                  <h2 class="product-name">Antique Brown</h2>
+                  <img alt="Antique Brown" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-antique-brown.jpg"> </li>
+                <li id="2898" class="item first">
+                  <h2 class="product-name">Blue Pearl</h2>
+                  <img alt="Blue Pearl" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-blue-pearl.jpg"> </li>
+                <li id="2896" class="item last">
+                  <h2 class="product-name">Butterfly Green</h2>
+                  <img alt="Butterfly Green" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-butterfly-green.jpg"> </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="products-grid odd">
+                <li id="2887" class="item first">
+                  <h2 class="product-name">Absolute Black</h2>
+                  <img alt="Absolute Black" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-absolute-black.jpg"> </li>
+                <li id="2884" class="item last">
+                  <h2 class="product-name">Giallo Ornament</h2>
+                  <img alt="Giallo Ornament" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-giallo-ornamental.jpg"> </li>
+                <li id="2888" class="item first">
+                  <h2 class="product-name">Uba Tuba</h2>
+                  <img alt="Uba Tuba" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-uba-tuba.jpg"> </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="products-grid even">
+                <li id="2886" class="item last">
+                  <h2 class="product-name">Peach Blossom</h2>
+                  <img alt="Peach Blossom" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-peach-blossom.jpg"> </li>
+                <li id="2886" class="item last">
+                  <h2 class="product-name">Peach Blossom</h2>
+                  <img alt="Peach Blossom" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-peach-blossom.jpg"> </li>
+                <li id="2886" class="item last">
+                  <h2 class="product-name">Peach Blossom</h2>
+                  <img alt="Peach Blossom" src="http://vanitycounters.fruition.net/media/catalog/product/cache/3/small_image/106x69/9df78eab33525d08d6e5fb8d27136e95/g/r/granite-tile-peach-blossom.jpg"> </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel-box right-panel-box-2">
+      <div class="width-depth-container">
+        <div class="width-depth">
+          <div class="width-text-container">
+            <label>Width : </label>
+            <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('width-tooltip')->toHtml() ?>"> <br>
+            <input class="" type="text" id="width" onBlur="changeWidth()" value="61">
+            &nbsp;
+            <select class="dropdown-options" id="width-precision" onChange="changeWidth()">
+              <option class="option" value="0">0/4"</option>
+              <option class="option" value="0.25">1/4"</option>
+              <option class="option" value="0.50">2/4"</option>
+              <option class="option" value="0.75">3/4"</option>
+            </select>
+            <div class="min-mix-warning">Width can be between 21" - 98"</div>
+          </div>
+          <div class="height-text-container">
+            <label> Depth :</label>
+            <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('depth-tooltip')->toHtml() ?>"><br>
+            <input type="text" id="height" onBlur="changeHeight()" value="22">
+            &nbsp;
+            <select class="dropdown-options" id="height-precision" onChange="changeHeight()">
+              <option class="option" value="0">0/4"</option>
+              <option class="option" value="0.25">1/4"</option>
+              <option class="option" value="0.50">2/4"</option>
+              <option class="option" value="0.75">3/4"</option>
+            </select>
+            <div class="min-mix-warning">Depth can be betwen 15" - 22"</div>
+          </div>
+          <div class="error width_min_error width_error">Min Width should be 15</div>
+          <div class="error width_max_error width_error">Max Width should be 98 </div>
+          <div class="error height_min_error height_error">Min Height should be 15</div>
+          <div class="error height_max_error height_error">Max Height should be 22</div>
+        </div>
+      </div>
+      <div class="backsplash-polished-container">
+        <div class="backsplash">
+          <div class="title">BACK SPLASH <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('backsplash-tooltip')->toHtml() ?>"></div>
+          <div class="content">
+            <table>
+              <tr>
+                <td>&nbsp;</td>
+                <td><input type="checkbox" id="backsplash-back-input" name="backsplash" value="back" >
+                  <div class="backsplash-back" onClick="backSplash('back','T')">Back</div></td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="backsplash" id="backsplash-left-input" value="left" >
+                  <div class="backsplash-left" onClick="backSplash('left','L')"></div></td>
+                <td><img src="<?php echo $this->getSkinUrl('images/backsplash.jpg')?>"></td>
+                <td><input type="checkbox" name="backsplash" id="backsplash-right-input" value="right" >
+                  <div class="backsplash-right" onClick="backSplash('right','R')"></div></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="polished">
+          <div class="title">POLISHED EDGES <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('polished-edges-tooltip')->toHtml() ?>"></div>
+          <div class="content">
+            <table>
+              <tr>
+                <td><input type="checkbox" name="polished_edges" id="polished-left-input" value="left" >
+                  <div class="polished-left" onClick="polished('left','L')"></div></td>
+                <td><img src="<?php echo $this->getSkinUrl('images/polished-edges.jpg')?>"></td>
+                <td><input type="checkbox" id="polished-right-input" name="polished_edges" value="right" >
+                  <div class="polished-right" onClick="polished('right','R')"></div></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><input type="checkbox" id="polished-front-input" name="polished_edges" value="front" >
+                  <div class="polished-front" onClick="polished('front','F')">Front</div></td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel-box right-panel-box-3">
+      <div class="sink-type-container">
+        <div class="sink-type-sub-container">
+          <div class="title">SINK TYPE <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sink-type-tooltip')->toHtml() ?>"> <br></div>
+          <div class="content"> 
+            <!--<table class="sink-container">
+                        <tr class="heading">
+                            <td class="oval-big box">Lg Oval</td>
+                            <td class="ract-big box">Lg Rectangle</td>
+                            <td class="oval box">Sm Oval</td>
+                            <td class="ract box">Sm Rectangle</td>
+                            <td class="vassle box">Vessel</td>
+                        </tr>
+                        <tr>
+                            <td class="oval-big box"><a onClick="selectSinkType('oval-big','large-oval-0')"><img src="<?php echo $this->getSkinUrl('images/large-oval-thumb.jpg')?>"></a></td>
+                            <td class="ract-big box"><a onClick="selectSinkType('ract-big','large-ract-0')"><img src="<?php echo $this->getSkinUrl('images/large-ract-thumb.jpg')?>"></a></td>
+                            <td class="oval box"><a onClick="selectSinkType('oval','small-oval-0')"><img src="<?php echo $this->getSkinUrl('images/small-oval-thumb.jpg')?>"></a></td>
+                            <td class="ract box"><a onClick="selectSinkType('ract','small-ract-0')"><img src="<?php echo $this->getSkinUrl('images/small-ract-thumb.jpg')?>"></a></td>
+                            <td class="vassle box"><a onClick="selectSinkType('vassle','small-ract-0')"><img src="<?php echo $this->getSkinUrl('images/vassel-thumb.jpg')?>"></a></td>
+                        </tr>
+                    </table>-->
+            <div class="sink-type-top-row">
+              <div class="box">Large Oval<br/>
+                <a class="sink-type-oval-big sink-type-img" onClick="selectSinkType('oval-big','large-oval-0','Large Oval')"><img src="<?php echo $this->getSkinUrl('images/large-oval-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('large-oval-tooltip')->toHtml() ?>" /></a></div>
+              <div class="box">Lg Ractangle<br/>
+                <a class="sink-type-ract-big sink-type-img" onClick="selectSinkType('ract-big','large-ract-0','Lg Ractangle')"><img src="<?php echo $this->getSkinUrl('images/large-ractangle-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('large-ractangle-tooltip')->toHtml() ?>"/></a></div>
+            </div>
+            <div class="sink-type-bottom-row">
+              <div class="box">Sm Oval<br/>
+                <a class="sink-type-oval sink-type-img" onClick="selectSinkType('oval','small-oval-0','Sm Oval')"><img src="<?php echo $this->getSkinUrl('images/small-oval-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('small-oval-tooltip')->toHtml() ?>"/></a></div>
+              <div class="box">Sm Ractangle<br/>
+                <a class="sink-type-ract sink-type-img" onClick="selectSinkType('ract','small-ract-0','Sm Ractangle')"><img src="<?php echo $this->getSkinUrl('images/small-ract-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('small-ractangle-tooltip')->toHtml() ?>"/></a></div>
+              <div class="box">Vessle<br/>
+                <a class="sink-type-vassle sink-type-img" onClick="selectSinkType('vassle','vessle-0','Vessle')"><img src="<?php echo $this->getSkinUrl('images/vessle-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('vessle-tooltip')->toHtml() ?>"/></a></div>
+            </div>
+            <div class="sink-type-no-sink">
+              <div class="box"><a class="sink-type-no-sink sink-type-img" onClick="selectSinkType('no-sink','no-sink','no-sink')"><img src="<?php echo $this->getSkinUrl('images/no-sink-thumb.png')?>" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('no-sink-tooltip')->toHtml() ?>"/></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="sink-type-right-container">
+          <div class="no-of-sinks">
+            <div class="title"># of Sinks <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('no-of-sink-tooltip')->toHtml() ?>"> <br></div>
+            <div class="content">
+              <div class="no-of-sink-img-container">
+                <div class="sink-1-img"><a onClick="jQuery('#sink_1').click();"><img src="<?php echo $this->getSkinUrl('images/no-sink-1.png')?>"></a></div>
+                <div class="sink-2-img"><a onClick="jQuery('#sink_2').click();"><img src="<?php echo $this->getSkinUrl('images/no-sink-2.png')?>"></a></div>
+              </div>
+              <div class="no-display">
+                <div class="option">
+                  <input type="radio" name="no_of_sink" onChange="return noOfSink(1)" id="sink_1" value="1">
+                  &nbsp; One Sink</div>
+                <div class="option" onMouseOver="return showTooltip('sink_2')" onMouseOut="return hideTooltip('sink_2')">
+                  <div class="tooltip">This option will only available if Width >= 42</div>
+                  <input type="radio" name="no_of_sink" onChange="return noOfSink(2)" id="sink_2" checked="checked" value="2">
+                  &nbsp; Two Sinks </div>
+              </div>
+            </div>
+          </div>
+          <div class="position_of_sink">
+            <div class="title">sink Position <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sink-position-tooltip')->toHtml() ?>"> <br></div>
+            <div class="sink_one_container">
+              <div class="sub-title">Sink 1</div>
+              <div class="content">
+                <div class="left-arrow"><a onClick="moveSinkLeft(1)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+                <div class="middle">
+                  <input type="text" id="sink_one_margin_left" name="sink_one_margin_left">
+                </div>
+                <div class="right-arrow"><a onClick="moveSinkRight(1)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+              </div>
+            </div>
+            <div class="sink_two_container">
+              <div class="sub-title">Sink 2</div>
+              <div class="content">
+                <div class="left-arrow"><a onClick="moveSinkLeft(2)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+                <div class="middle">
+                  <input type="text" id="sink_two_margin_left" name="sink_one_margin_left">
+                </div>
+                <div class="right-arrow"><a onClick="moveSinkRight(2)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+              </div>
+            </div>
+          </div>
+          <div class="position_of_sink position_of_sink_vessle">
+            <div class="sink_one_container">
+              <div class="content">
+                <div class="left-arrow"><a onClick="moveSinkTop(1)"><img src="<?php echo $this->getSkinUrl('images/move-top.png')?>"></a></div>
+                <div class="middle">
+                  <input type="text" id="sink_one_margin_top" name="sink_one_margin_left">
+                </div>
+                <div class="right-arrow"><a onClick="moveSinkBottom(1)"><img src="<?php echo $this->getSkinUrl('images/move-bottom.png')?>"></a></div>
+              </div>
+            </div>
+            <div class="sink_two_container">
+              <div class="content">
+                <div class="left-arrow"><a onClick="moveSinkTop(2)"><img src="<?php echo $this->getSkinUrl('images/move-top.png')?>"></a></div>
+                <div class="middle">
+                  <input type="text" id="sink_two_margin_top" name="sink_one_margin_left">
+                </div>
+                <div class="right-arrow"><a onClick="moveSinkBottom(2)"><img src="<?php echo $this->getSkinUrl('images/move-bottom.png')?>"></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel-box right-panel-box-4 other-sink-faucet">
+      <div class="faucet-type-container">
+        <div class="title">FAUCET TYPE <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('faucet-type-tooltip')->toHtml() ?>"> <br></div>
+        <table class="sink-table sink-container">
+          <tbody>
+            <tr class="heading">
+              <td class="top-head">No Faucet</td>
+              <td class="top-head">One Hole</td>
+              <td class="top-head">4" Spread</td>
+              <td class="top-head">8" Spread</td>
+            </tr>
+            <tr class="oval-big box no-display">
+              <td id="large-oval-0"><div id="large-oval-0-faucet" onclick="selectShink('large-oval-0',1,'No Faucet')"><img src="<?php echo $this->getSkinUrl('images/large-oval-0-faucet.png')?>"></div></td>
+              <td id="large-oval-1"><div id="large-oval-1-faucet" onclick="selectShink('large-oval-1',1,'One Hole')"><img src="<?php echo $this->getSkinUrl('images/large-oval-1-faucet.png')?>"></div></td>
+              <td id="large-oval-2"><div id="large-oval-2-faucet" onclick='selectShink("large-oval-2",1,"4\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-oval-2-faucet.png')?>"></div></td>
+              <td id="large-oval-3"><div id="large-oval-3-faucet" onclick='selectShink("large-oval-3",1,"8\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-oval-3-faucet.png')?>"></div></td>
+            </tr>
+            <tr class="ract-big box no-display">
+              <td id="large-ract-0"><div id="large-ract-0-faucet" onclick="selectShink('large-ract-0',1,'No Faucet')"><img src="<?php echo $this->getSkinUrl('images/large-ract-0-faucet.png')?>"></div></td>
+              <td id="large-ract-1"><div id="large-ract-1-faucet" onclick="selectShink('large-ract-1',1,'One Hole')"><img src="<?php echo $this->getSkinUrl('images/large-ract-1-faucet.png')?>"></div></td>
+              <td id="large-ract-2"><div id="large-ract-2-faucet" onclick='selectShink("large-ract-2",1,"4\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-ract-2-faucet.png')?>"></div></td>
+              <td id="large-ract-3"><div id="large-ract-3-faucet" onclick='selectShink("large-ract-3",1,"8\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-ract-3-faucet.png')?>"></div></td>
+            </tr>
+            <tr class="oval box no-display">
+              <td id="small-oval-0"><div id="small-oval-0-faucet" onclick="selectShink('small-oval-0',1,'No Faucet')"><img src="<?php echo $this->getSkinUrl('images/large-oval-0-faucet.png')?>"></div></td>
+              <td id="small-oval-1"><div id="small-oval-1-faucet" onclick="selectShink('small-oval-1',1,'One Hole')"><img src="<?php echo $this->getSkinUrl('images/large-oval-1-faucet.png')?>"></div></td>
+              <td id="small-oval-2"><div id="small-oval-2-faucet" onclick='selectShink("small-oval-2",1,"4\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-oval-2-faucet.png')?>"></div></td>
+              <td id="small-oval-3"><div id="small-oval-3-faucet" onclick='selectShink("small-oval-3",1,"8\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-oval-3-faucet.png')?>"></div></td>
+            </tr>
+            <tr class="ract box no-display">
+              <td id="small-ract-0"><div id="small-ract-0-faucet" onclick="selectShink('small-ract-0',1,'No Faucet')"><img src="<?php echo $this->getSkinUrl('images/large-ract-0-faucet.png')?>"></div></td>
+              <td id="small-ract-1"><div id="small-ract-1-faucet" onclick="selectShink('small-ract-1',1,'One Hole')"><img src="<?php echo $this->getSkinUrl('images/large-ract-1-faucet.png')?>"></div></td>
+              <td id="small-ract-2"><div id="small-ract-2-faucet" onclick='selectShink("small-ract-2",1,"4\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-ract-2-faucet.png')?>"></div></td>
+              <td id="small-ract-3"><div id="small-ract-3-faucet" onclick='selectShink("small-ract-3",1,"8\" Spread")'><img src="<?php echo $this->getSkinUrl('images/large-ract-3-faucet.png')?>"></div></td>
+            </tr>
+            <tr class="vassle box no-display">
+              <td><div onclick="selectShink('vessle-0',1,'No Faucet')"><img src="<?php echo $this->getSkinUrl('images/vessle-0.jpg')?>"></div></td>
+              <td><div onclick="selectShink('vessle-1',1,'One Hole')"><img src="<?php echo $this->getSkinUrl('images/vessle-1.jpg')?>"></div></td>
+              <td><div onclick="selectShink('vessle-2',1)"><img src="<?php echo $this->getSkinUrl('images/vessle-2.jpg')?>"></div></td>
+              <td><div onclick="selectShink('vessle-3',1)"><img src="<?php echo $this->getSkinUrl('images/vessle-3.jpg')?>"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="right-panel-box vessle-sink-faucet">
+      <div class="title">Faucet Placement <img src="<?php echo $this->getSkinUrl('images/tooltip-icon.png')?>" class="tooltip-img" title="<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('faucet-placement-tooltip ')->toHtml() ?>"> <br></div>
+      <div class="vessle-faucet-container">
+      
+      	<div class="vessle-faucet-container-left-part vessle-1-faucet-content">
+        	<div class="faucet-type">
+            <table class="vessle-1">
+            	<tr>
+                	<td></td>
+                	<td><img id="vessle-faucet-position-none-1" class="no-faucet" src="<?php echo $this->getSkinUrl('images/no-faucet.png')?>"></td>
+                	<td></td>
+                </tr>
+            	<tr>
+                	<td><img id="degree-left-1" class="45-degree-left" src="<?php echo $this->getSkinUrl('images/45-degree-left.png')?>"></td>
+                	<td><img id="center-1" class="center" src="<?php echo $this->getSkinUrl('images/center.png')?>"></td>
+                	<td><img id="degree-right-1" class="45-degree-right" src="<?php echo $this->getSkinUrl('images/45-degree-right.png')?>"></td>
+                </tr>
+            </table>
+            </div>
+            <div class="faucet-indicator">
+            	<div class="left-part"> <img src="<?php echo $this->getSkinUrl('images/vessle-sink-faucet-img.png')?>" />
+                    <div class="vessle-faucet-dot-container"><img src="<?php echo $this->getSkinUrl('images/vessle-faucet-dot.png')?>" /></div>
+                </div>
+            </div>
+            <div class="right-container">
+          <div class="sink_one_container">
+            <div class="sub-title">Distance from Center</div>
+            <div class="content">
+              <div class="left-arrow"><a onclick="vessleFaucetMoveDecrease(1)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+              <div class="middle">
+                <input type="text" name="vessle_faucet_position_inch_1" id="vessle_faucet_position_inch_1">
+              </div>
+              <div class="right-arrow"><a onclick="vessleFaucetMoveIncrease(1)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+            </div>
+            
+          </div>
+        </div>
+            
+        </div>
+        
+        <div class="vessle-faucet-container-right-part vessle-2-faucet-content">
+        	<div class="faucet-type">
+            <table class="vessle-2">
+            	<tr>
+                	<td></td>
+                	<td><img id="vessle-faucet-position-none-2" class="no-faucet" src="<?php echo $this->getSkinUrl('images/no-faucet.png')?>"></td>
+                	<td></td>
+                </tr>
+            	<tr>
+                	<td><img id="degree-left-2" class="45-degree-left" src="<?php echo $this->getSkinUrl('images/45-degree-left.png')?>"></td>
+                	<td><img id="center-2" class="center" src="<?php echo $this->getSkinUrl('images/center.png')?>"></td>
+                	<td><img id="degree-right-2" class="45-degree-right" src="<?php echo $this->getSkinUrl('images/45-degree-right.png')?>"></td>
+                </tr>
+            </table>
+            </div>
+            <div class="faucet-indicator">
+            	<div class="left-part"> <img src="<?php echo $this->getSkinUrl('images/vessle-sink-faucet-img.png')?>" />
+                    <div class="vessle-faucet-dot-container"><img src="<?php echo $this->getSkinUrl('images/vessle-faucet-dot.png')?>" /></div>
+                </div>
+            </div>
+            <div class="right-container">
+          <div class="sink_one_container">
+            <div class="sub-title">Distance from Center</div>
+            <div class="content">
+              <div class="left-arrow"><a onclick="vessleFaucetMoveDecrease(2)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+              <div class="middle">
+                <input type="text" name="vessle_faucet_position_inch_2" id="vessle_faucet_position_inch_2">
+              </div>
+              <div class="right-arrow"><a onclick="vessleFaucetMoveIncrease(2)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+            </div>
+            
+          </div>
+        </div>
+            
+        </div>
+        
+      	
+		<div class="no-display">      
+        <div class="left-conatiner">
+          <div class="left-part"> <img src="<?php echo $this->getSkinUrl('images/vessle-sink-faucet-img.jpg')?>" />
+            <div class="vessle-faucet-dot-container"><img src="<?php echo $this->getSkinUrl('images/vessle-faucet-dot.png')?>" /></div>
+          </div>
+          <div class="right-part">
+            <ul>
+              <li>
+                <input type="radio" checked="checked" onClick="selectShink('vessle-0',1,'None')" value="none" name="vessle-faucet-position-1" id="vessle-faucet-position-none-1">
+                None </li>
+              <li>
+                <input type="radio" checked="checked" onClick="selectShink('vessle-0',2,'None')" value="none" name="vessle-faucet-position-2" id="vessle-faucet-position-none-2">
+                None </li>
+              <li>
+                <input id="degree-left-1" type="radio" onClick="selectShink('vessle-1',1,'45 Degree Left')" value="degree-left-1" name="vessle-faucet-position-1">
+                45 Degree Left </li>
+              <li>
+                <input id="degree-left-2" type="radio" onClick="selectShink('vessle-1',2,'45 Degree Left')" value="degree-left-2" name="vessle-faucet-position-2">
+                45 Degree Left </li>
+              <li>
+                <input id="center-1" type="radio" onClick="selectShink('vessle-2',1,'Center')" value="center-1" name="vessle-faucet-position-1">
+                Center </li>
+              <li>
+                <input id="center-2" type="radio" onClick="selectShink('vessle-2',2,'Center')" value="center-2" name="vessle-faucet-position-2">
+                Center </li>
+              <li>
+                <input id="degree-right-1" type="radio" onClick="selectShink('vessle-3',1,'45 Degree Right')" value="degree-right-1" name="vessle-faucet-position-1">
+                45 Degree Right </li>
+              <li>
+                <input id="degree-right-2" type="radio" onClick="selectShink('vessle-3',2,'45 Degree Right')" value="degree-right-2" name="vessle-faucet-position-2">
+                45 Degree Right </li>
+            </ul>
+          </div>
+        </div>
+        <div class="right-container">
+          <div class="sink_one_container">
+            <div class="sub-title">Distance from Center</div>
+            <!--<div class="content">
+              <div class="left-arrow"><a onclick="vessleFaucetMoveDecrease(1)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+              <div class="middle">
+                <input type="text" name="vessle_faucet_position_inch_1" id="vessle_faucet_position_inch_1">
+              </div>
+              <div class="right-arrow"><a onclick="vessleFaucetMoveIncrease(1)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+            </div>-->
+            <!--<div class="content">
+              <div class="left-arrow"><a onclick="vessleFaucetMoveDecrease(2)"><img src="<?php echo $this->getSkinUrl('images/prev-horizontal.png')?>"></a></div>
+              <div class="middle">
+                <input type="text" name="vessle_faucet_position_inch_2" id="vessle_faucet_position_inch_2">
+              </div>
+              <div class="right-arrow"><a onclick="vessleFaucetMoveIncrease(2)"><img src="<?php echo $this->getSkinUrl('images/next-horizontal.png')?>"></a></div>
+            </div>-->
+          </div>
+        </div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="error_message_box">
+
+</div>
+
+<div class="clear sink-main-outer" id="thecanvas">
+  <div class="polished-left-egde">
+    <table>
+      <tr>
+        <td><img src="<?php echo $this->getSkinUrl('images/polished-edge-vert-left.png')?>"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="backsplash-left-egde">
+    <table>
+      <tr>
+        <td><img src="<?php echo $this->getSkinUrl('images/back-splash-vert-left.png')?>"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="shink-content-container">
+  <div class="shink-content">
+    <div class="shink-main-width"><span>96"</span></div>
+    <div class="backsplash-back-egde-container">
+      <div class="backsplash-back-egde">Back Splash</div>
+    </div>
+    <div class="shink-conatiner">
+      <div id="shink-main-container">
+        <div id="shink-1-container">
+          <div class="shink-1-left-space shink-left-space"><span>1 Inch</span></div>
+          <div class="shink-2-top-space shink-top-space"><span>1 Inch</span></div>
+          <div class="shink-2-distance"><span>1 inch</span></div>
+          <div class="shink-1-top-distance"><span>1"</span></div>
+          <div id="dg-1"> </div>
+          <div class="shink-container-vessle-faucet-dot"><img src="<?php echo $this->getSkinUrl('images/vessle-faucet-dot.png')?>"></div>
+        </div>
+        <div id="shink-2-container">
+          <div class="shink-2-left-space shink-left-space"><span>1 Inch</span></div>
+          <div class="shink-2-top-space shink-top-space"><span>1 Inch</span></div>
+          <div class="shink-2-top-distance"><span>1"</span></div>
+          <div id="dg-2"> </div>
+          <div class="shink-container-vessle-faucet-dot"><img src="<?php echo $this->getSkinUrl('images/vessle-faucet-dot.png')?>"></div>
+        </div>
+      </div>
+    </div>
+    <div class="polished-front-egde">Front Edge Always Comes Polished</div>
+  </div>
+  </div>
+  <div class="backsplash-right-egde">
+    <table>
+      <tr>
+        <td><img src="<?php echo $this->getSkinUrl('images/back-splash-vert-right.png')?>"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="polished-right-egde">
+    <table>
+      <tr>
+        <td><img src="<?php echo $this->getSkinUrl('images/polished-edge-vert-right.png')?>"></td>
+      </tr>
+    </table>
+  </div>
+  <table class="shink-main-height" cellspacing="0">
+    <tr>
+      <td><span>21"</span></td>
+    </tr>
+  </table>
+</div>
+<div class="clear"></div>
+<div class="sink-container" style="display:none">
+  <table class="large-sink">
+    <tr>
+      <td class="top-head">&nbsp;</td>
+      <td class="top-head">NO FAUCET</td>
+      <td class="top-head">Single Hole</td>
+      <td class="top-head">4 INCH SPREAD</td>
+      <td class="top-head">3 INCH SPREAD</td>
+    </tr>
+    <tr class="oval-big box">
+      <td class="left-head">Large<br/>
+        Oval</td>
+      <td><div onClick="selectShink('large-oval-0',1)"><img src="<?php echo $this->getSkinUrl('images/large-oval-0.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-oval-1',1)"><img src="<?php echo $this->getSkinUrl('images/large-oval-1.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-oval-2',1)"><img src="<?php echo $this->getSkinUrl('images/large-oval-2.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-oval-3',1)"><img src="<?php echo $this->getSkinUrl('images/large-oval-3.jpg')?>"></div></td>
+    </tr>
+    <tr class="ract-big box">
+      <td class="left-head">Large<br/>
+        Rectangle</td>
+      <td><div onClick="selectShink('large-ract-0',1)"><img src="<?php echo $this->getSkinUrl('images/large-ract-0.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-ract-1',1)"><img src="<?php echo $this->getSkinUrl('images/large-ract-1.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-ract-2',1)"><img src="<?php echo $this->getSkinUrl('images/large-ract-2.jpg')?>"></div></td>
+      <td><div onClick="selectShink('large-ract-3',1)"><img src="<?php echo $this->getSkinUrl('images/large-ract-3.jpg')?>"></div></td>
+    </tr>
+  </table>
+  <table class="small-sink">
+    <tr class="oval">
+      <td class="left-head">SMALL<br/>
+        Oval</td>
+      <td><div onClick="selectShink('small-oval-0',1)"><img src="<?php echo $this->getSkinUrl('images/small-oval-0.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-oval-1',1)"><img src="<?php echo $this->getSkinUrl('images/small-oval-1.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-oval-2',1)"><img src="<?php echo $this->getSkinUrl('images/small-oval-2.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-oval-3',1)"><img src="<?php echo $this->getSkinUrl('images/small-oval-3.jpg')?>"></div></td>
+    </tr>
+    <tr class="ract box">
+      <td class="left-head">Small<br/>
+        Rectangle</td>
+      <td><div onClick="selectShink('small-ract-0',1)"><img src="<?php echo $this->getSkinUrl('images/small-ract-0.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-ract-1',1)"><img src="<?php echo $this->getSkinUrl('images/small-ract-1.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-ract-2',1)"><img src="<?php echo $this->getSkinUrl('images/small-ract-2.jpg')?>"></div></td>
+      <td><div onClick="selectShink('small-ract-3',1)"><img src="<?php echo $this->getSkinUrl('images/small-ract-3.jpg')?>"></div></td>
+    </tr>
+  </table>
+</div>
+<div class="my-sink-specs-container">
+  <div class="left-head"><img src="<?php echo $this->getSkinUrl('images/my-sink-specs.png')?>"></div>
+  <div class="right-content">
+    <div class="box box-1">
+      <div class="title">Color</div>
+      <div class="content">
+        <div id="selected-color-title"></div>
+        <div id="selected-color-image"><img src=""></div>
+      </div>
+    </div>
+    <div class="box box-2">
+      <div class="title">Counter</div>
+      <div class="content">
+        <div id="selected-depth">Depth : 22"</div>
+        <div id="selected-width">Width : 96"</div>
+        <div id="selected-splash"><div class="left">Splash : </div><div class="left"><span class="L"></span><span class="T"></span><span class="R"></span></div></div>
+        <div id="selected-polish"><div class="left">Polish : </div><div class="left"><span class="L"></span><span class="F"></span><span class="R"></span></div></div>
+      </div>
+    </div>
+    <div class="box box-3">
+      <div class="title">Sink</div>
+      <div class="content">
+        <div id="selected_sink_container">
+          <div id="name"></div>
+        </div>
+        <div id="selected_no_of_sink">
+          <div id="number"></div>
+          <div class="note">Distance from left<br/>
+            edge to center of sink</div>
+          <div id="sink_1_distance"></div>
+          <div id="sink_2_distance"></div>
+        </div>
+        <div id="selected_no_of_sink_vessle">
+          <div id="number"></div>
+          <div class="note">Distance from Top<br/>
+            edge to center of sink</div>
+          <div id="sink_1_distance"></div>
+          <div id="sink_2_distance"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box box-4">
+      <div class="title">Faucet</div>
+      <div class="content">
+        <div id="faucet-hole-details">
+        	<div id="number"></div>
+        	<div class="sink_1">
+      		    <div id="faucet-hole-type"></div>
+                <div class="content">
+                    <div class="sink_1_faucet_type"></div>
+                    <div class="note">Distance from <br/> center of sink</div>
+                    <div class="sink_1_faucet_distance"></div>
+           		</div>
+            </div>
+            <div class="sink_2">
+      		    <div id="faucet-hole-type"></div>
+                <div class="content">
+                    <div class="sink_2_faucet_type"></div>
+                    <div class="note">Distance from <br/> center of sink</div>
+                    <div class="sink_2_faucet_distance"></div>
+				</div>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="order-bottom-container">
+    <div class="price-shipping-total-container left"><img src="<?php echo $this->getSkinUrl('images/price-shipping-total.gif') ?>" /></div>
+	<div class="add-to-cart  left"><img onclick="creteHtmlFile()" src="<?php echo $this->getSkinUrl('images/add-to-cart.png') ?>" /></div>
+	<div class="price-out-another  left"><img src="<?php echo $this->getSkinUrl('images/add-to-cart-and-print.png') ?>" /></div>
+	<div class="add-to-cart-price-out-another left"><img src="<?php echo $this->getSkinUrl('images/print-out-another.png') ?>" /></div>
+</div>
+
+<form id="product_add_to_cart" name="product_add_to_cart" method="post"  action="<?php echo $this->getUrl('order.html') ?>">
+
+<input type="hidden" id="selected-color-title" name="selected-color-title" value="">
+<input type="hidden" id="selected-depth" name="selected-depth" value="21">
+<input type="hidden" id="selected-width" name="selected-width" value="96">
+<input type="hidden" id="selected-splash" name="selected-splash">
+<input type="hidden" id="selected-polish" name="selected-polish">
+<input type="hidden" id="selected-sink-type" name="selected-sink-type">
+<input type="hidden" id="sink-1-left-distance" name="sink-1-left-distance">
+<input type="hidden" id="sink-2-left-distance" name="sink-2-left-distance">
+<input type="hidden" id="vessle-sink-1-top-distance" name="vessle-sink-1-top-distance">
+<input type="hidden" id="vessle-sink-2-top-distance" name="vessle-sink-2-top-distance">
+<input type="hidden" id="faucet-hole-1-type" name="faucet-hole-1-type">
+<input type="hidden" id="faucet-hole-2-type" name="faucet-hole-2-type">
+
+<textarea class="no-display" id="html" name="html"></textarea>
+</form>
+</div>

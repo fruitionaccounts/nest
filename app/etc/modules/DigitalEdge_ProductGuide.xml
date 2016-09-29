@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <DigitalEdge_ProductGuide>
+      <active>true</active>
+      <codePool>local</codePool>
+    </DigitalEdge_ProductGuide>
+  </modules>
+</config>

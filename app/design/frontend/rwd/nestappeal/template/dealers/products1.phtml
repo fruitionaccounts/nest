@@ -1,0 +1,11 @@
+<?php 
+	$cat_id = 193;
+$_productCollection = Mage::getResourceModel('catalog/product_collection')
+   ->addAttributeToSelect('*')
+   ->addCategoryFilter(Mage::getModel('catalog/category')->load($cat_id));
+   
+   
+foreach($_productCollection as $product)
+{
+	 echo $product->getName().'<br/>';
+}

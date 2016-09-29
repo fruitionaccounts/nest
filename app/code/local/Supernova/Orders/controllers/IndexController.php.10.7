@@ -1,0 +1,353 @@
+<?php
+
+
+
+
+class Supernova_Orders_IndexController extends Mage_Core_Controller_Front_Action
+{
+    public $settings;
+    public $log = array();
+    public $_rates = 0;
+    
+    public function indexAction()
+    {
+            $this->loadLayout();
+            $this->renderLayout();
+    }
+
+     public function getProductsAction()
+    {
+            $body =  $this->getLayout()->createBlock('orders/products')->toHtml();
+    	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($body));
+    }
+    public function getproductAction(){
+           $body =  $this->getLayout()->createBlock('orders/product')->toHtml();
+    	   $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($body));
+    }
+    
+   public function getMethodAvailable(){
+          return   Mage::getBlockSingleton('orders/checkout_shipping_method_available');
+   }
+     public function getInfoCountry(){
+         include($_SERVER['DOCUMENT_ROOT']."/geoipcity.php");
+         include($_SERVER['DOCUMENT_ROOT']."/geoipregionvars.php");
+	if(file_exists("../media/GeoIP/GeoLiteCity.dat"))
+{	
+         $giCity = geoip_open("../media/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
+}
+else { 
+	$giCity = geoip_open("media/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
+ }
+         $ip =$this->getIPaddress();
+         $record = geoip_record_by_addr($giCity, $ip);
+         $infoData = array();
+          $countryIds = array();
+                    foreach ( Mage::getModel('directory/country')->getResourceCollection()->loadByStore() as $country) {
+                        $countryIds[] = $country->getCountryId();
+                    }
+                $collection = Mage::getModel('directory/region')->getResourceCollection()
+                        ->addCountryFilter($countryIds)
+                        ->load();
+                    foreach ($collection as $region) {
+                       
+                       if($region->getCode()==$record->region){
+                            $infoData['region_id']=   $region->getRegionId();
+                  }
+            }
+             $infoData['country_id'] = $record->country_code;
+             return $infoData;
+     }
+   public function caculatorAction(){
+	   	$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];;
+	   
+ 		$store = Mage::app()->getStore()->getCode();		
+
+		$is_vanitycounters=false;
+		$data = $this->getRequest()->getPost();
+		if($data)
+		{
+			if($data['substore']=="vanitycounters")
+			{
+				$is_vanitycounters=true;
+				$store = 'vc_retail';
+			}
+		}
+     	if($store == 'vc_retail' || $store == 'shopshowers'){
+		$pageURL = explode('?',$pageURL);
+		$data = $pageURL[1];
+		}else{
+		$data = $this->getRequest()->getPost();
+		}
+	  if($data){
+            $quote = Mage::getModel('sales/quote');
+            $model = Mage::getModel('catalog/product');
+            $quote = Mage::getModel('sales/quote');
+            $infodata = $this->getInfoCountry();
+              if($this-> CheckLogin()){
+                  $shipping =   $this->getOnepage()->getQuote()->getShippingAddress();
+                  $countryId = $shipping->getCountryId();
+                   $regionId = $shipping->getRegionId();
+                      if(!empty($countryId) && (!empty($regionId))){
+						  	/*if($store == 'vc_retail' || $store == 'shopshowers'){
+							$quote->getShippingAddress()->setCountryId('US')->setRegionId('AK');	
+							}else{*/
+                            $quote->getShippingAddress()->setCountryId($shipping->getCountryId())->setRegionId($shipping->getRegionId());
+							/*}*/
+                      }else{
+						   /*if($store == 'vc_retail' || $store == 'shopshowers'){
+						   $quote->getShippingAddress()->setCountryId('US')->setRegionId('AK');
+						   }else{*/
+                           $quote->getShippingAddress()->setCountryId($infodata['country_id'])->setRegionId($infodata['region_id']);
+						   /*}*/
+                      }
+                 }else{
+						   /*if($store == 'vc_retail' || $store == 'shopshowers'){
+						   
+						   $quote->getShippingAddress()->setCountryId('US')->setRegionId('AK');
+						   
+						   }else{*/
+	                       $quote->getShippingAddress()->setCountryId($infodata['country_id'])->setRegionId($infodata['region_id']);						
+						   /*}*/
+                 }
+                 $items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+                 if(count($items)){
+                     foreach($items as $item) {
+                       $req['qty'] = $item->getQty();
+                       $_qt = new Varien_Object($req);
+                       $_products = $model->load($item->getProductId());
+                       $quote->addProduct($_products,$_qt);
+                    }
+                 }
+				
+				
+			   if($store == 'vc_retail' || $store == 'shopshowers'){
+				   
+				if($store == 'vc_retail'){	   
+				
+				$data = $_REQUEST['product'];
+					
+				$data = explode(',',$data);
+				
+				$bundle_option = '';
+				$bundle_option_qty = '';
+				
+				$option_id = array();
+				$option_val = array();
+				$value = array();
+				
+				
+				for($i=0;$i<count($data);$i++){
+					$temp = $data[$i];
+					$temp = explode('_',$temp);
+					$option_id[] = $temp[0];
+					$temp_2 = $temp[1];
+					$temp_2 = explode('=',$temp_2);
+					$option_val[] = $temp_2[0];
+					$value[] = $temp_2[1];
+				}
+				
+				if($value[0] == 0){ $option_val[0] = 0; }
+				if($value[1] == 0){ $option_val[1] = 0; }
+				if($value[2] == 0){ $option_val[2] = 0; }
+				if($value[3] == 0){ $option_val[3] = 0; }
+				if($value[4] == 0){ $option_val[4] = 0; }
+				if($value[5] == 0){ $option_val[5] = 0; }
+				
+				$product = Mage::getModel('catalog/product')->load($temp[0]);
+				
+				
+				$buyInfo = array(
+				'product' => 3612,
+				'related_product' => null,
+				'bundle_option' => array(
+					$option_id[0] => $option_val[0],
+					$option_id[1] => $option_val[1],
+					$option_id[2] => $option_val[2],
+					$option_id[3] => $option_val[3],
+					$option_id[4] => $option_val[4],
+					$option_id[5] => $option_val[5],
+				),
+				'bundle_option_qty' => array(
+					$option_id[0] => $value[0],
+					$option_id[1] => $value[1],
+					$option_id[2] => $value[2],
+					$option_id[3] => $value[3],
+					$option_id[4] => $value[4],
+					$option_id[5] => $value[5],
+				),
+				'options' => array(
+					21 => $value[6],
+					19 => $value[7],
+				),
+				'qty' => 1,
+				);
+					
+				$cart = Mage::getSingleton('checkout/cart');
+				$product = new Mage_Catalog_Model_Product();
+				$product->load(3612);
+								   
+			   //$quote->addProduct($product,$qt);
+				 $quote->addProduct($product, new Varien_Object($buyInfo));			
+				   
+               /*$data = explode(',',$data);
+			   for($i=0;$i<count($data);$i++){
+				   $temp = $data[$i];
+				   $temp = explode('=',$temp);
+				   $request['qty'] = $temp[1];
+				   $qt = new Varien_Object($request);
+                   $product = $model->load($temp[0]);
+                   
+				   $product = Mage::getModel('catalog/product')->load(3671);
+					$buyInfo = array(
+						'qty' => $temp[1],
+					);
+				   
+				   //$quote->addProduct($product,$qt);
+               		 $quote->addProduct($product, new Varien_Object($buyInfo));
+			   }*/
+			   
+				}else{
+			   
+					$data = $_REQUEST['product'];
+					
+					$data = explode(',',$data);
+					
+					$bundle_option = '';
+					$bundle_option_qty = '';
+					
+					$option_id = array();
+					$option_val = array();
+					$value = array();
+					
+					
+					for($i=0;$i<count($data);$i++){
+						$temp = $data[$i];
+						$temp = explode('_',$temp);
+						$option_id[] = $temp[0];
+						$temp_2 = $temp[1];
+						$temp_2 = explode('=',$temp_2);
+						$option_val[] = $temp_2[0];
+						$value[] = $temp_2[1];
+					}
+					
+					if($value[0] == 0){ $option_val[0] = 0; }
+					if($value[1] == 0){ $option_val[1] = 0; }
+					if($value[2] == 0){ $option_val[2] = 0; }
+					if($value[3] == 0){ $option_val[3] = 0; }
+					if($value[4] == 0){ $option_val[4] = 0; }
+					if($value[5] == 0){ $option_val[5] = 0; }
+					if($value[6] == 0){ $option_val[6] = 0; }
+					if($value[7] == 0){ $option_val[7] = 0; }
+					
+				   $product = Mage::getModel('catalog/product')->load($temp[0]);
+					
+					$buyInfo = array(
+					'product' => 3717,
+					'related_product' => null,
+					'bundle_option' => array(
+						$option_id[0] => $option_val[0],
+						$option_id[1] => $option_val[1],
+						$option_id[2] => $option_val[2],
+						$option_id[3] => $option_val[3],
+						$option_id[4] => $option_val[4],
+						$option_id[5] => $option_val[5],
+						$option_id[6] => $option_val[6],
+						$option_id[7] => $option_val[7]
+					),
+					'bundle_option_qty' => array(
+						$option_id[0] => $value[0],
+						$option_id[1] => $value[1],
+						$option_id[2] => $value[2],
+						$option_id[3] => $value[3],
+						$option_id[4] => $value[4],
+						$option_id[5] => $value[5],
+						$option_id[6] => $value[6],
+						$option_id[7] => $value[7]
+					),
+					'options' => array(
+						22 => $value[8],
+						23 => $value[9],
+					),
+					'qty' => 1,
+					);
+					
+					$cart = Mage::getSingleton('checkout/cart');
+					$product = new Mage_Catalog_Model_Product();
+					$product->load(3717);
+									   
+				   //$quote->addProduct($product,$qt);
+               		 $quote->addProduct($product, new Varien_Object($buyInfo));
+			   
+				}
+			   
+			   
+			   }else{
+               foreach($data as $productId => $qty){
+                   $request['qty'] = $qty;
+				    $qt = new Varien_Object($request);
+                    $product = $model->load($productId);
+                    $quote->addProduct($product,$qt);
+               }
+			   }
+			   
+                $quote->getShippingAddress()->collectTotals();
+                $quote->getShippingAddress()->setCollectShippingRates(true);
+                $quote->getShippingAddress()->collectShippingRates();
+                $rates = $quote->getShippingAddress()->getShippingRatesCollection();
+                    foreach ($rates as $_rate)
+                    {
+                          if(in_array('matrixrate',explode('_',$_rate->getCode()))){
+                              if($_rate->getCode()=='matrixrate_matrixrate_free'){
+                                   $_priceInc = $_rate->getMethodTitle();
+                                   break ;
+                                }else{
+                                  $_priceInc =$_rate->getPrice();
+                              }
+                          }else{
+                               $_priceInc = $_rate->getPrice();
+                               if($_priceInc!=0){
+                                  // break;
+                               }
+                          }
+                    }
+           
+          echo $_priceInc;
+       }		
+
+   }
+  
+    public function getIPaddress(){
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                 $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else{
+                  $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        $ip_server = substr($ip,0,9);
+
+        if($ip_server=='192.168.1'){
+            $ip='125.214.27.143';
+        }
+        return $ip; //'67.222.35.241';
+    }
+
+    public function getOnepage()
+    {
+    return Mage::getSingleton('checkout/type_onepage');
+    }
+
+    
+    public function CheckLogin(){
+        $loggedIn = Mage::helper("customer")->isLoggedIn();
+        if($loggedIn){
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+}

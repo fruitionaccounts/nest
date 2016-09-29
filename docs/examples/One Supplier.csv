@@ -1,0 +1,7 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+US,*,*,*,*,SUPPLIER A,0,100000,0,100000,0,1000,*,25,,UPS Ground,*
+US,*,*,*,*,*,0,100000,0,100000,0,1000,*,12,,UPS Ground,*
+US,*,*,*,*,SUPPLIER A,0,100000,0,100000,0,1000,*,45,,UPS Second Day,*
+US,*,*,*,*,*,0,100000,0,100000,0,1000,*,14,,UPS Second Day,*
+US,*,*,*,*,SUPPLIER A,0,100000,0,100000,0,1000,*,30,,Fedex,*
+US,*,*,*,*,*,0,100000,0,100000,0,1000,*,34,,Fedex,*

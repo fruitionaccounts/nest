@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <digitaledge_productguide>
+            <version>0.1.0</version>
+        </digitaledge_productguide>
+    </modules>
+	<frontend>
+		<routers>
+			<productguide>
+                <use>standard</use>
+                <args>
+                    <module>DigitalEdge_ProductGuide</module>
+                    <frontName>productguide</frontName>
+                </args>
+			</productguide>
+		</routers>
+	</frontend>
+	<!--
+    <global>
+    	<blocks>
+    		<productguide>
+    			<class>DigitalEdge_ProductGuide_Block</class>
+    		</productguide>
+    	</blocks>
+		<helpers>
+            <productguide>
+            	<class>DigitalEdge_ProductGuide_Helper</class>
+            </productguide>
+        </helpers>
+	</global>-->
+</config>

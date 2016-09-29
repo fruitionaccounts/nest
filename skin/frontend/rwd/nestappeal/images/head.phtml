@@ -1,0 +1,262 @@
+<?php
+/**
+* Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE_AFL.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category    design
+* @package     base_default
+* @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+* @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Tenor+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
+<?php echo $this->getChildHtml() ?><?php echo $this->helper('core/js')->getTranslatorScript() ?><?php echo $this->getIncludes() ?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/foundation.min.css') ?>">
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/app.css') ?>">
+<?php $pageTitle = Mage::getSingleton('cms/page')->getIdentifier(); ?>
+<?php if ($pageTitle=='home'):?>
+<?php /*?><script src="<?php echo $this->getSkinUrl('js/modernizr.foundation.js') ?>"></script><?php */?>
+<script src="<?php echo $this->getSkinUrl('js/foundationhome.min.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/app.js') ?>"></script>
+<?php endif; ?>
+<?php /*?><link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/normalize.css') ?>" />
+  
+  <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/foundation.css') ?>" /><?php */?>
+<script src="<?php echo $this->getSkinUrl('js/custom.modernizr.js') ?>"></script>
+<?php /*?><script>
+    jQuery(document).foundation();
+  </script><?php */?>
+<script type="text/javascript">
+jQuery(window).resize(function() {
+sliderThumbResize();
+homeRightResize();
+
+//setHeight('.products-grid .item');
+});
+
+jQuery(window).load(function(){
+
+<?php $pageTitle = Mage::getSingleton('cms/page')->getIdentifier(); ?>
+<?php if ($pageTitle=='home'):?>
+
+jQuery('#inchoo_global_messages').slideDown(0.4);
+jQuery('#inchoo_global_messages_close').show();
+jQuery('#inchoo_global_messages_close').click(function(){
+	jQuery('#inchoo_global_messages').slideUp(0.4);	
+});
+
+<?php endif; ?>
+
+jQuery('.cms-index-index .slider-thumbnail').show(); // hide loading gif
+jQuery('.cms-index-index .slider-images #featured').css('display','inline-block'); // hide loading gif
+jQuery('.cms-index-index .slider-loader').hide(); // hide loading gif
+
+sliderThumbResize();
+homeRightResize();
+//setHeight('.products-grid .item');
+});
+
+
+
+jQuery(document).ready(function(){
+	
+/*jQuery(".testimonials-block-footer li").each(function(i){
+    len=jQuery(this).text().length;
+    if(len>120)
+    {
+      //jQuery(this).text(jQuery(this).text().substr(0,120)+'...');
+	  //jQuery('.footer-testimonial .read-more').show();
+    }
+  });  */   	
+	
+var testimonial = parseFloat(jQuery(".testimonials-block-footer li").length) - 1;	
+
+var random_number = Math.floor((Math.random()*testimonial)+1);
+
+jQuery('.testimonials-block-footer li').eq(random_number).show();
+
+var leng = jQuery('.testimonials-block-footer li').eq(random_number).text().length;
+
+if(leng>120)
+    {
+		jQuery('.testimonials-block-footer li').eq(random_number).html(jQuery('.testimonials-block-footer li').eq(random_number).text().substr(0,120)+'... <a class="readmore" id="'+random_number+'">Read More</a>');
+    }
+	
+jQuery('.cms-index-index .slider-thumbnail').hide(); // hide loading gif
+jQuery('.cms-index-index .slider-images #featured').hide(); // hide loading gif
+
+
+jQuery('.cms-index-index .slider-loader').show(); // hide loading gif
+
+
+// then when the window has fully loaded
+	
+jQuery("#featured").orbit({
+	captions: true,       // do you want captions?
+	captionAnimation: 'fade',     // fade, slideOpen, none
+	captionAnimationSpeed: 800
+});	
+	
+//sliderThumbResize();
+//homeRightResize();
+
+
+
+jQuery('.slider-thumbnail li').click(function(){
+var index_of = jQuery(this).index(); // alert index of li relative to ul parent
+index_of = index_of + 1 ;
+jQuery('li.bullet_'+index_of).click();
+});
+jQuery('#box_1').hover(function(){jQuery('#sub_box_1').show();});jQuery('#box_1').mouseleave(function(){jQuery('#sub_box_1').hide();});jQuery('#box_2').hover(function(){jQuery('#sub_box_2').show();});jQuery('#box_2').mouseleave(function(){jQuery('#sub_box_2').hide();});jQuery('#box_3').hover(function(){jQuery('#sub_box_3').show();});jQuery('#box_3').mouseleave(function(){jQuery('#sub_box_3').hide();});jQuery('.layered-nav dt').click(function(){jQuery(this).next('dd').slideToggle();});jQuery('ul.leftnavigation2 li.level0 a.level-new-0').click(function(){jQuery(this).next('ul.level0').slideToggle();return false;});
+jQuery('#narrow-by-list dt').click(function(){
+jQuery(this).toggleClass('active');
+jQuery(this).next('dd').slideToggle();
+});
+
+jQuery('#nav-new li.level0 > a.level-top').click(function(){
+jQuery(this).toggleClass('active');
+jQuery(this).next('ul.level0').slideToggle();
+return false;
+});
+
+//setHeight('.products-grid .item');
+
+jQuery('.cart-left-title').click(function(){
+	if(jQuery(this).hasClass('active')==1){
+		jQuery(this).removeClass('active');
+		//jQuery(this).next('.cart-left-content').animate({height:'0px'}, 500);
+		//jQuery(this).next('.cart-left-content').animate({visibility:'hidden'}, 500);
+		jQuery(this).next('.cart-left-content').removeClass('active');
+	}else{
+		jQuery(this).addClass('active');
+		//jQuery(this).next('.cart-left-content').animate({height:'auto'}, 500);
+		//jQuery(this).next('.cart-left-content').animate({visibility:'visible'}, 500);
+		jQuery(this).next('.cart-left-content').addClass('active');
+	}
+});
+
+jQuery('.footer-testimonial a.readmore').click(function(){
+	var testimonial_no = jQuery(this).attr('id');
+	testimonial_no = parseFloat(testimonial_no)-3;
+	var testimonial_html = jQuery('.full-testimonial-block li').eq(testimonial_no).html();
+	jQuery('.light-box-inner-container .light-box-content').html(testimonial_html);
+	jQuery('.light-box-overlay').fadeIn();	
+	jQuery('.light-box-inner-container').fadeIn();	
+});
+
+});
+
+function sliderThumbResize(){
+var height = jQuery('.orbit-slide img').css('height');
+height = (parseFloat(height)/4)-1;
+jQuery('.slider-thumbnail li').css('height',height+'px');
+}    
+function homeRightResize(){
+var SliderImageHeight = jQuery('.orbit-slide img').css('height');
+var HomeRightMembership = jQuery('.home-right-column .home-right-membership').css('height');
+var NewsletterContainer = jQuery('.home-right-column .newsletter-container').css('height'); 
+var margin = parseFloat(SliderImageHeight) - (parseFloat(HomeRightMembership) + parseFloat(NewsletterContainer));
+if(parseFloat(margin)>0){
+jQuery('.home-right-column .newsletter-container').css('margin-top',margin);
+}else{
+jQuery('.home-right-column .newsletter-container').css('margin-top','1px');	
+}
+}
+</script>
+<script type="text/javascript">function displayTooltip(id)
+{jQuery('.tooltip-'+id).show();}
+function hideTooltip(id)
+{jQuery('.tooltip-'+id).hide();}
+
+
+var maxHeight = 0;
+/*function setHeight(column){
+    //Get all the element with class = col
+    column = jQuery(column);
+    //Loop all the column
+    column.each(function(){       
+        //Store the highest value
+        if(jQuery(this).height() > maxHeight) {
+            maxHeight = jQuery(this).height();
+        }
+    });
+    //Set the height
+    column.height(maxHeight);
+}*/
+
+
+function closeLightBox(){
+	jQuery('.light-box-overlay').fadeOut();	
+	jQuery('.light-box-inner-container').fadeOut();	
+}
+
+</script>
+
+    <?
+	$session  = Mage::getSingleton('customer/session');
+
+	$customer = $session->getCustomer();
+	
+	define('expire_date', 'expire_date');  
+	
+	$cust_package_expire = $customer['expire_date'];
+	$cust_package_expire = date("Y-m-d", strtotime($cust_package_expire));
+	
+	$today_date = date("Y-m-d");
+	$date_diff =  strtotime($cust_package_expire) - strtotime($today_date);
+
+	$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
+
+
+    if($groupId == 4 || $groupId == 5) {
+	
+		if($date_diff < 0){
+			
+			$cust_package_expire = 'Account Expired';
+			
+			$customer->setData('group_id', 1);
+			$customer->save();
+			
+		}	
+	
+	}
+
+		
+
+
+	?>
+

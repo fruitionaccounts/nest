@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Supernova_Quote>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Supernova_Quote>
+    </modules>
+</config> 

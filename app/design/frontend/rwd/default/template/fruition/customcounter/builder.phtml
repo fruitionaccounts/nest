@@ -1,0 +1,567 @@
+<script>
+    function getUrl() {
+        return '<?php echo Mage::getUrl('',array('_secure'=>true)) ?>';
+    }
+</script>
+<section ng-controller="builderController" ng-init="loadProducts()" class="custom-counter-panel">
+    <div class="design-summary">
+        <div class="summary" ng-if="thicknessLabel">
+            <h3 ng-show="priceTab!=1"><?php echo $this->__('Summary'); ?></h3>
+            <h3 ng-click="submit(1, 1);" ng-show="priceTab==1" class="click"><?php echo $this->__('Summary'); ?></h3>
+            <div class="specs">
+                <span class="spec">
+                    <strong><?php echo $this->__('Thickness:'); ?></strong>
+                    <thickness />
+                </span>
+                <span class="spec" ng-if="slabName">
+                    <strong><?php echo $this->__('Stone:'); ?></strong>
+                    <slab-name />
+                </span>
+                <span class="spec" ng-if="sinkName">
+                    <strong><?php echo $this->__('Sinks:'); ?></strong>
+                    <sink-name />
+                </span>
+            </div>
+            <div class="specs" ng-show="sinkPos1">
+                <span class="spec" ng-show="faucet1Label">
+                    <strong><?php echo $this->__('faucet 1:'); ?></strong>
+                    {{faucet1Label}}
+                </span>
+                <span class="spec">
+                    <strong><?php echo $this->__('sink hole x:'); ?></strong>
+                    {{sinkPos1}}<?php echo $this->__('in from left edge'); ?>
+                </span>
+                <span class="spec">
+                    <strong><?php echo $this->__('sink hole y:'); ?></strong>
+                    {{sinkVertPos1}}<?php echo $this->__('in from back edge'); ?>
+                </span>
+                <span class="spec" ng-show="faucetCenter1">
+                    <strong><?php echo $this->__('faucet hole:'); ?></strong>
+                    {{faucetCenter1}}<?php echo $this->__('in from sink hole'); ?>
+                </span>
+                <span class="spec" ng-show="faucet2Label">
+                    <strong><?php echo $this->__('faucet 2:'); ?></strong>
+                    {{faucet2Label}}
+                </span>
+                <span class="spec" ng-show="sinkPos2">
+                    <strong><?php echo $this->__('sink hole x:'); ?></strong>
+                    {{sinkPos2}}<?php echo $this->__('in from left edge'); ?>
+                </span>
+                <span class="spec" ng-show="sinkPos2">
+                    <strong><?php echo $this->__('sink hole y:'); ?></strong>
+                    {{sinkVertPos2}}<?php echo $this->__('in from back edge'); ?>
+                </span>
+                <span class="spec" ng-show="faucetCenter2">
+                    <strong><?php echo $this->__('faucet hole:'); ?></strong>
+                    {{faucetCenter2}}<?php echo $this->__('in from sink hole'); ?>
+                </span>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="countertop-slab">
+            <div class="cp-counter-left" ng-class="{polished: polish.left, backsplash: backsplash.left}"  ng-style="{height: stoneDepth*8}">
+                <span ng-show="polish.left" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('Polished'); ?> <edge /></span>
+                <span ng-show="backsplash.left" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('4" Backsplash'); ?></span>
+            </div>
+            <div class="protect-width">
+                <div class="shrink-main-width" ng-show="stoneWidth" ng-style="{width: stoneWidth*8}">
+                    <span class="shrink-width-span"><slab-width width="stoneWidth"/>'</span>
+                    <div class="horz-line"></div>
+                    <div class="cp-counter-back" ng-class="{polished: polish.back, backsplash: backsplash.back}">
+                        <span ng-show="backsplash.back"><?php echo $this->__('4" Backsplash'); ?></span>
+                        <span ng-show="polish.back"><?php echo $this->__('Polished'); ?> <edge /></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cp-counter" ng-style="{width: stoneWidth*8, height: stoneDepth*8}" ng-show="stoneWidth">
+                <div class="sink1-display" ng-show="sinkCount > 0; selectedSink != ''">
+                    <faucet1.1></faucet1.1>
+                    <faucet1.2></faucet1.2>
+                    <faucet1.3></faucet1.3>
+                    <sink1left></sink1left>
+                </div>
+                <div class="sink2-display" ng-show="sinkCount == 2 && selectedSink != ''">
+                    <faucet2.1></faucet2.1>
+                    <faucet2.2></faucet2.2>
+                    <faucet2.3></faucet2.3>
+                    <sink2left></sink2left>
+                </div>
+            </div>
+            <div class="cp-counter-right" ng-class="{polished: polish.right, backsplash: backsplash.right}" ng-style="{height: stoneDepth*8}">
+                <span ng-show="backsplash.right" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('4" Backsplash'); ?></span>
+                <span ng-show="polish.right" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('Polished'); ?> <edge /></span>
+            </div>
+            <div class="shrink-main-height" ng-show="stoneDepth" ng-style="{height: stoneDepth*8}">
+                <div class="vert-line"></div>
+                <span class="shrink-height-span">
+                    <slab-depth depth="stoneDepth"/>
+                </span>
+            </div>
+            <br clear="left"/>
+            <div class="cp-counter-front" ng-show="edge.name" ng-style="{width: stoneWidth*8}">
+                <span><?php echo $this->__('Polished'); ?> <edge /></span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <section class="tabs">
+        <div ng-click="proceed('dimensionsTab')" ng-class="{open: dimensionsTab}"><?php echo $this->__('Dimensions'); ?></div>
+        <div ng-click="proceed('stonesTab')" ng-class="{open: stonesTab}"><?php echo $this->__('Stone'); ?></div>
+        <div ng-click="proceed('edgingTab')" ng-class="{open: edgingTab}"><?php echo $this->__('Edging'); ?></div>
+        <div ng-click="proceed('sinksTab')" ng-class="{open: sinksTab}"><?php echo $this->__('Sinks'); ?></div>
+        <div ng-click="proceed('faucetsTab')" ng-class="{open: faucetsTab}"><?php echo $this->__('Faucets'); ?></div>
+        <div ng-click="proceed('priceTab')" ng-class="{open: priceTab}"><?php echo $this->__('Price'); ?></div>
+        <span class="clear"></span>
+    </section>
+    <div class="messaging" ng-show="message">
+        {{message}}
+    </div>
+    <div ng-init="loadStones();dimensionsTab=1;stonesTab=0;edgingTab=0;sinksTab=0;" ng-show="dimensionsTab" class="tab-content dimensions-content">
+        <div class="loading" ng-show="loading">
+            <img src="<?php echo $this->getSkinUrl('images/loading.gif'); ?>"/>
+            <span><?php echo $this->__('Loading'); ?></span>
+        </div>
+        <div class="details" ng-show="productsLoaded">
+            <fieldset>
+                <div class="col-1 col col3">
+                    <label>
+                        <h3><?php echo $this->__('Width'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_dimensions_width_help')->toHtml(); ?></span></i></h3>
+                        <input name="stone-width" ng-model="stoneWidth" type="number" min="23" max="120" step=".25" onblur="this.value = limitWidth(this.value)" stone-init/> <strong><?php echo $this->__('(inches)'); ?></strong>
+                    </label>
+
+                    <span><?php echo $this->__('23" to 120"<br />(.25" increments)'); ?></span>
+
+                </div>
+                <div class="col-2 col col3">
+                    <label>
+                        <h3><?php echo $this->__('Depth'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_dimensions_height_help')->toHtml(); ?></span></i></h3>
+                        <input name="stone-depth" ng-model="stoneDepth" type="number" min="15" max="26" step=".25" onblur="this.value = limitDepth(this.value)" stone-init/> <strong><?php echo $this->__('(inches)'); ?></strong>
+                    </label>
+                    <span><?php echo $this->__('15" to 26"<br />(.25" increments)'); ?></span>
+                </div>
+                <div class="col-3 col col3 thickness">
+                    <h3><?php echo $this->__('Thickness'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_dimensions_thickness_help')->toHtml(); ?></span></i></h3>
+                    <label ng-repeat="thickness in productData.prepared_attributes['thickness'] | filter: {label: '!2 cm or 3 cm'}" ng-if="thickness.value > 0" ng-click="$parent.$parent.thicknessLabel = thickness.label">{{thickness.label}}
+                        <input type="radio" name="stoneThickness" ng-model="$parent.$parent.thickness" value="{{thickness.value}}" stone-init/>
+                        <div class="thickness-preview">
+                            <h3>{{thickness.label}}</h3>
+                            <img ng-src="<?php echo Mage::getBaseUrl(); ?>/skin/frontend/base/default/images/fruition/customcounter/{{thickness.label| filter: spaceless}}.jpg"/>
+                        </div>
+                    </label>
+                </div>
+            </fieldset>
+            <div class="buttons-set">
+                <button type="button" ng-click="proceed('stonesTab')">
+                    <span><?php echo $this->__('Next'); ?></span>
+                </button>
+            </div>
+            <script>
+                function limitWidth(val){
+                    //limit value to 23-120, .25 increments
+                    if(val<23) return 23;
+                    if(val>120) return 120;
+                    return (Math.ceil(val * 4) / 4).toFixed(2);
+                }
+                function limitDepth(val){
+                    //limit value to 15-26, .25 increments
+                    if(val<15) return 15;
+                    if(val>26) return 26;
+                    return (Math.ceil(val * 4) / 4).toFixed(2);
+                }
+            </script>
+        </div>
+    </div>
+    <div class="stones-tab tab-content" ng-show="stonesTab">
+        <div class="loading" ng-show="loading">
+            <img src="<?php echo $this->getSkinUrl('images/loading.gif'); ?>"/>
+            <span><?php echo $this->__('Loading'); ?></span>
+        </div>
+        <div class="details" ng-show="productsLoaded">
+            <div class="filters">
+                <ul>
+                    <li ng-repeat="(key, attribute) in productData.prepared_attributes" ng-if="key != 'remnant_min_width' && key != 'remnant_max_width' && key != 'remnant_min_depth' && key != 'remnant_max_depth' &&key != 'stone_min_width' && key != 'stone_max_width' && key != 'stone_min_depth' && key != 'stone_max_depth' && key != 'min_width_1' && key != 'min_width_2' && key != 'min_depth_sink' && key != 'sink_width' && key != 'sink_depth' && key != 'sink_material' && key != 'sink_type'">
+                        <label>
+                            <strong>{{key|underscoreless}}</strong>
+                            <select name="{{key}}" ng-model="$parent.$parent[key]">
+                                <option value="">- {{key|underscoreless}} -</option>
+                                <option ng-repeat="option in attribute | filter: {label: '!2 cm or 3 cm'}" value="{{option.value}}" ng-if="option.label!='' && zeroEvaluate(key, option.value)">{{option.label}}</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li class="clear"></li>
+                </ul>
+            </div>
+            <div class="figure-set">
+                <h2 class="remnant-only"><?php echo $this->__('CHOOSE A REMNANT & GET A DEAL! Sign up for a coupon when you email your quote:'); ?></h2>
+                <figure ng-repeat="stone in productsArray | filter : {attribute_set_id:vanitySlabs, price_group: price_group, color: color, stone: stone, veins: veins, tone: tone, stone_remnant_flag: 1} | filter: thicknessFilter" ng-show="rdimensions(stoneWidth, stoneDepth, stone)" ng-click="thisSlab(stone.entity_id, productsArray.indexOf(stone));$parent.stonesTab=0;$parent.edgingTab=1;$parent.slabName = stone.name; $parent.slabBg = 'url(/media/catalog/product'+stone.thumbnail+')'; $parent.remnantFlag = true;" ng-class="{selected: $index == slabSelected}" class="remnant-product">
+                    <style ng-if="rdimensions(stoneWidth, stoneDepth, stone)">
+                        .remnant-only { display: block !important; }
+                    </style>
+                    <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{stone.thumbnail}}" alt="{{stone.name}}" width="100"/>
+                    <figcaption>
+                        <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{stone.thumbnail}}" alt="{{stone.name}}" width="200"/>
+                        <h3>{{stone.name}}</h3>
+                        <span>{{stone.price|currency}}</span>
+                        <span>{{stone.stone_label}}</span><br />
+                        <span>{{stone.price_group_label}}</span><br />
+                        <br />
+                        <span><a ng-click="orderSample(stone.sku);"><?php echo $this->__('Order a Sample'); ?></a></span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="clear"></div>
+            <div class="figure-set">
+                <h4 class="remnant-only"><?php echo $this->__('Check out the additional stone options below for about a 3 week lead time:'); ?></h4>
+                <figure ng-repeat="stone in (filteredCollection = ( productsArray | filter : {attribute_set_id:vanitySlabs, price_group: price_group, color: color, stone: stone, veins: veins, tone: tone} | filter: thicknessFilter))" ng-show="dimensions(stoneWidth, stoneDepth, stone)" ng-click="thisSlab(stone.entity_id, productsArray.indexOf(stone));$parent.stonesTab=0;$parent.edgingTab=1;$parent.slabName = stone.name; $parent.slabBg = 'url(/media/catalog/product'+stone.thumbnail+')'; $parent.remnantFlag = false;" ng-class="{selected: $index == slabSelected}">
+                    <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{stone.thumbnail}}" alt="{{stone.name}}" width="100"/>
+                    <figcaption>
+                        <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{stone.thumbnail}}" alt="{{stone.name}}" width="200"/>
+                        <h3>{{stone.name}}</h3>
+                        <span>{{stone.stone_label}}</span><br />
+                        <span>{{stone.price_group_label}}</span><br />
+                        <br />
+                        <span><a ng-click="orderSample(stone.sku);"><?php echo $this->__('Order a Sample'); ?></a></span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="buttons-set">
+                <button class="back" type="button" ng-click="dimensionsTab=1;stonesTab=0;">
+                    <span><?php echo $this->__('Back'); ?></span>
+                </button>
+                <button type="button" ng-click="proceed('edgingTab', 'stonesTab')">
+                    <span><?php echo $this->__('Next'); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="edgingTab" class="tab-content">
+        <div class="loading" ng-show="edgingLoading">
+            <img src="<?php echo $this->getSkinUrl('images/loading.gif'); ?>"/>
+            <span><?php echo $this->__('Loading'); ?></span>
+        </div>
+        <div class="details" ng-show="edgingLoaded">
+            <section class="polishing">
+                <h3><?php echo $this->__('Polished Edges'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_edging_polish_help')->toHtml(); ?></span></i></h3>
+                <fieldset>
+                    <label class="back"><?php echo $this->__('Back'); ?>
+                        <input type="checkbox" ng-model="polish.back" name="polish" value="stoneWidth" ng-false-value="0" ng-change="backsplash.back = false;"/>
+                    </label>
+                    <label class="left"><?php echo $this->__('L<br>e<br>f<br>t'); ?>
+                        <input type="checkbox" ng-model="polish.left" name="polish" value="stoneDepth" ng-false-value="0" ng-change="backsplash.left = false;"/>
+                    </label>
+                    <label class="right"><?php echo $this->__('R<br>i<br>g<br>h<br>t'); ?>
+                        <input type="checkbox" ng-model="polish.right" name="polish" value="stoneDepth" ng-false-value="0" ng-change="backsplash.right = false;"/>
+                    </label>
+                    <label class="front"><?php echo $this->__('Front (always polished)'); ?>
+                        <input type="hidden" ng-model="polish.front" name="polish" value="stoneWidth"/>
+                    </label>
+                </fieldset>
+            </section>
+            <section class="edge-type">
+                <h3><?php echo $this->__('Edge Type'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_edging_type_help')->toHtml(); ?></span></i></h3>
+                <fieldset>
+                    <label ng-repeat="edge in productsArray | filter: {attribute_set_id: edging} | filter: thicknessFilter | orderBy: 'price'" ng-show="edgeDimensions(stoneWidth, stoneDepth, edge)" ng-click="$parent.edge = edge; $parent.edgeSelected = $index" ng-class="{selected: $parent.edgeSelected == $index}">
+                        <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{edge.thumbnail}}"/>
+                        <input type="radio" name="edge-type" ng-model="edgeType" value="{{edge.sku}}"/>
+                        <div class="hover">
+                            <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{edge.image}}"/>
+                            <h4>{{edge.name}}</h4>
+                            <p>{{edge.price|currency}}/inch</p>
+                        </div>
+                    </label>
+                </fieldset>
+            </section>
+            <section class="backsplash-options">
+                <h3><?php echo $this->__('Backsplash'); ?> <i><span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('counter_edging_backsplash_help')->toHtml(); ?></span></i></h3>
+                <fieldset>
+                    <label class="back"><?php echo $this->__('Back'); ?>
+                        <input type="checkbox" ng-model="backsplash.back" value="stoneWidth" ng-false-value="0" ng-change="polish.back = false;"/>
+                    </label>
+                    <label class="left"><?php echo $this->__('L<br>e<br>f<br>t'); ?>
+                        <input type="checkbox" ng-model="backsplash.left" value="stoneDepth" ng-false-value="0" ng-change="polish.left = false;"/>
+                    </label>
+                    <label class="right"><?php echo $this->__('R<br>i<br>g<br>h<br>t'); ?>
+                        <input type="checkbox" ng-model="backsplash.right" value="stoneDepth" ng-false-value="0" ng-change="polish.right = false;"/>
+                    </label>
+                </fieldset>
+            </section>
+            <div class="buttons-set">
+                <button class="back" type="button" ng-click="sinksTab=0;stonesTab=1;">
+                    <span><?php echo $this->__('Back'); ?></span>
+                </button>
+                <button type="button" ng-click="processEdge();">
+                    <span><?php echo $this->__('Next'); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="sinksTab" class="tab-content">
+        <div class="details">
+            <section class="sink-count" ng-init="sinkCount=1">
+                <h3><?php echo $this->__('Number of Sinks'); ?></h3>
+                <label>
+                    <input type="radio" value="0" ng-model="sinkCount" ng-change="setSinkCount(selectedSink)"/> <?php echo $this->__('No Sink'); ?>
+                </label>
+                <label>
+                    <input type="radio" value="1" ng-model="sinkCount" ng-change="setSinkCount(selectedSink)"/> <?php echo $this->__('1 Sink'); ?>
+                </label>
+                <label ng-show="stoneWidth>=42">
+                    <input type="radio" value="2" ng-model="sinkCount" ng-change="setSinkCount(selectedSink)"/> <?php echo $this->__('2 Sinks'); ?>
+                </label>
+            </section>
+            <section class="sinks" ng-show="sinkCount>0">
+                <div class="figure-set">
+                    <figure ng-repeat="sink in productsArray | filter: {attribute_set_id: sinks, custom_counter_application: 1}" ng-show="sinkDimensions(stoneWidth, stoneDepth, sink, sinkCount);" ng-click="selectSink(sink); sinkPosition('', sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink1vert', sinkVertPos1, sinkVertPos2, sink1Hole, sink2Hole); $parent.sinkName = sink.name; $parent.sinkSku = sink.sku; $parent.sinkImg=sink.thumbnail; $parent.sinkSelected = $index" ng-class="{selected: $parent.sinkSelected == $index}">
+                        <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{sink.sink_icon}}" alt="{{sink.name}}"/>
+                        <figcaption>
+                            <img ng-src="<?php echo Mage::getUrl('media/catalog/product'); ?>{{sink.thumbnail}}" alt="{{sink.name}}"/>
+                            <h3>{{sink.name}}</h3>
+                            <p>
+                                <ul>
+                                    <li><strong><?php echo $this->__('Width:'); ?></strong> {{sink.label_sink_width}}"</li>
+                                    <li><strong><?php echo $this->__('Type:'); ?></strong> {{sink.label_sink_type}}</li>
+                                    <li><strong><?php echo $this->__('Height:'); ?></strong> {{sink.label_sink_depth}}"</li>
+                                    <li><strong><?php echo $this->__('Material:'); ?></strong> {{sink.label_sink_material}}</li>
+                                    <li><strong><?php echo $this->__('Min Width for 1 Sink:'); ?></strong> {{sink.label_min_width_1}}"</li>
+                                    <li><strong><?php echo $this->__('Min Width for 2 Sinks:'); ?></strong> {{sink.label_min_width_2}}"</li>
+                                </ul>
+                            </p>
+                        </figcaption>
+                    </figure>
+                </div>
+                <section class="sink-placement">
+                    <div class="sink1" ng-show="sinkCount>0">
+                        <h3><?php echo $this->__('Sink #1'); ?></h3>
+                        <span><?php echo $this->__('distance from left edge'); ?></span>
+                        <input name="sink_1_position" ng-model="sinkPos1" type="number" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink1')" min="{{sinkMin1}}" max="{{sinkMax1}}" step=".25" ng-blur="limitSink1($event)"/> <?php echo $this->__('(inches)'); ?>
+                        <span class="yellow"><?php echo $this->__('will center this sink on left half'); ?></span>
+                        <div class="vessel-options" ng-show="sinkSku == 'LAB-CUT-VES'">
+                            <span><?php echo $this->__('distance from back edge:'); ?></span>
+                            <input type="number" ng-model="sinkVertPos1" name="sink_1_vertical_position" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink1vert', sinkVertPos1, sinkVertPos2, sink1Hole, sink2Hole)" min="{{sink1MinDepth}}" max="{{sink1MaxDepth}}" step=".25" ng-blur="limitSink1Vert($event)"/> <?php echo $this->__('(inches)'); ?>
+                            <span class="yellow"><?php echo $this->__('must be at least 7" from any edge'); ?></span>
+                            <span><?php echo $this->__('hole diameter:'); ?></span>
+                            <input type="number" ng-model="sink1Hole" name="sink_1_hole" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink1Hole', sinkVertPos1, sinkVertPos2, sink1Hole, sink2Hole)" min="1.75" max="{{sink1HoleMax}}" step=".25" ng-blur="limitSink1Hole($event)"/> <?php echo $this->__('(inches)'); ?>
+                            <span class="yellow"><?php echo $this->__('Pipe is 1.5"<br />Increase diameter to submerge sink into counter'); ?></span>
+                        </div>
+                    </div>
+                    <div class="sink2" ng-show="sinkCount==2">
+                        <h3><?php echo $this->__('Sink #2'); ?></h3>
+                        <span><?php echo $this->__('distance from left edge'); ?></span>
+                        <input name="sink_2_position" ng-model="sinkPos2" type="number" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink2')" min="{{sinkMin2}}" max="{{sinkMax2}}" step=".25" ng-blur="limitSink2($event)"/> <?php echo $this->__('(inches)'); ?>
+                        <span class="yellow"><?php echo $this->__('will center this sink on right half'); ?></span>
+                        <div class="vessel-options" ng-show="sinkSku == 'LAB-CUT-VES'">
+                            <span><?php echo $this->__('distance from back edge:'); ?></span>
+                            <input type="number" ng-model="sinkVertPos2" name="sink_2_vertical_position" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink2vert', sinkVertPos1, sinkVertPos2, sink1Hole, sink2Hole)" min="{{sink2MinDepth}}" max="{{sink2MaxDepth}}" step=".25" ng-blur="limitSink2Vert($event)"/> <?php echo $this->__('(inches)'); ?>
+                            <span class="yellow"><?php echo $this->__('must be at least 7" from any edge'); ?></span>
+                            <span><?php echo $this->__('hole diameter:'); ?></span>
+                            <input type="number" ng-model="sink2Hole" name="sink_2_hole" ng-change="sinkPosition(sinkPos1, sinkPos2, stoneWidth, stoneDepth, sinkCount, 'sink2Hole', sinkVertPos1, sinkVertPos2, sink1Hole, sink2Hole)" min="1.75" max="{{sink2HoleMax}}" step=".25" ng-blur="limitSink2Hole($event)"/> <?php echo $this->__('(inches)'); ?>
+                            <span class="yellow"><?php echo $this->__('Pipe is 1.5"<br />Increase diameter to submerge sink into counter'); ?></span>
+                        </div>
+                    </div>
+                    <script>
+                        function limitSink(val, min, max){
+                            //limit value to 23-120, .25 increments
+                            if(val<min) return min;
+                            if(val>max) return max;
+                            return (Math.ceil(val * 4) / 4).toFixed(2);
+                        }
+                    </script>
+                </section>
+            </section>
+            <div class="buttons-set">
+                <button class="back" type="button" ng-click="sinksTab=0;edgingTab=1;">
+                    <span><?php echo $this->__('Back'); ?></span>
+                </button>
+                <button type="button" ng-click="processSink()">
+                    <span><?php echo $this->__('Next'); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="faucetsTab" class="tab-content">
+        <div class="details" ng-init="faucet1Option = 0">
+            <section class="faucet-options" ng-if="sinkSku != 'LAB-CUT-VES'">
+                <h3><?php echo $this->__('Hole Placement'); ?></h3>
+                <label ng-click="$parent.f1o = 1" ng-class="{selected: $parent.f1o == 1}">
+                    <img src="<?php echo $this->getSkinUrl('images/countertops/fac1over.png'); ?>"/>
+                    <span><?php echo $this->__('No Holes'); ?></span>
+                    <input type="radio" ng-model="$parent.faucet1Option" value="0" ng-change="setFaucets()"/>
+                </label>
+                <label ng-click="$parent.f1o = 2" ng-class="{selected: $parent.f1o == 2}">
+                    <img src="<?php echo $this->getSkinUrl('images/countertops/fac2over.png'); ?>"/>
+                    <span><?php echo $this->__('1 Hole'); ?></span>
+                    <input type="radio" ng-model="$parent.faucet1Option" value="1" ng-change="setFaucets()"/>
+                </label>
+                <label ng-click="$parent.f1o = 3" ng-class="{selected: $parent.f1o == 3}">
+                    <img src="<?php echo $this->getSkinUrl('images/countertops/fac3over.png'); ?>"/>
+                    <span><?php echo $this->__('3 Holes (4" spread)'); ?></span>
+                    <input type="radio" ng-model="$parent.faucet1Option" value="2" ng-change="setFaucets()"/>
+                </label>
+                <label ng-click="$parent.f1o = 4" ng-class="{selected: $parent.f1o == 4}">
+                    <img src="<?php echo $this->getSkinUrl('images/countertops/fac4over.png'); ?>"/>
+                    <span><?php echo $this->__('3 Holes (8" spread)'); ?></span>
+                    <input type="radio" ng-model="$parent.faucet1Option" value="3" ng-change="setFaucets()"/>
+                </label>
+            </section>
+            <section class="vessel-faucets" ng-show="sinkSku == 'LAB-CUT-VES'">
+                <div class="vessel-sink-1">
+                    <h3><?php echo $this->__('Vessel Sink #1'); ?></h3>
+                    <label ng-click="f1o = 5" ng-class="{selected: f1o == 5}">
+                        <span><?php echo $this->__('45&deg; Left'); ?></span>
+                        <input type="radio" ng-model="faucet1Option" value="vl1" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f1o = 6" ng-class="{selected: f1o == 6}">
+                        <span><?php echo $this->__('Center'); ?></span>
+                        <input type="radio" ng-model="faucet1Option" value="vc1" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f1o = 7" ng-class="{selected: f1o == 7}">
+                        <span><?php echo $this->__('45&deg; Right'); ?></span>
+                        <input type="radio" ng-model="faucet1Option" value="vr1" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f1o = 8" ng-class="{selected: f1o == 8}">
+                        <span><?php echo $this->__('None'); ?></span>
+                        <input type="radio" ng-model="faucet1Option" value="vn1" ng-change="setFaucets()"/>
+                    </label>
+                    <div class="clear"></div>
+                    <h3 class="hole-distance" ng-show="faucet1Option!='' && faucet1Option!='vn1'"><?php echo $this->__('Distance'); ?></h3>
+                    <label class="hole-distance" ng-show="faucet1Option!='' && faucet1Option!='vn1'">
+                        <input type="number" ng-model="faucetCenter1"  step=".25" min="{{faucet1MinHD}}" max="{{faucet1MaxHD}}" onkeydown="return false" ng-change="setFaucets()"/>
+                        <span class="yellow"><?php echo $this->__('From center of faucet hole to center of sink hole'); ?></span>
+                    </label>
+                </div>
+                <div class="vessel-sink-2">
+                    <h3><?php echo $this->__('Vessel Sink #2'); ?></h3>
+                    <label ng-click="f2o = 1" ng-class="{selected: f2o == 1}">
+                        <span><?php echo $this->__('45&deg; Left'); ?></span>
+                        <input type="radio" ng-model="faucet2Option" value="vl2" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f2o = 2" ng-class="{selected: f2o == 2}">
+                        <span><?php echo $this->__('Center'); ?></span>
+                        <input type="radio" ng-model="faucet2Option" value="vc2" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f2o = 3" ng-class="{selected: f2o == 3}">
+                        <span><?php echo $this->__('45&deg; Right'); ?></span>
+                        <input type="radio" ng-model="faucet2Option" value="vr2" ng-change="setFaucets()"/>
+                    </label>
+                    <label ng-click="f2o = 4" ng-class="{selected: f2o == 4}">
+                        <span><?php echo $this->__('None'); ?></span>
+                        <input type="radio" ng-model="faucet2Option" value="vn2" ng-change="setFaucets()"/>
+                    </label>
+                    <div class="clear"></div>
+                    <h3 class="hole-distance" ng-show="faucet2Option!='' && faucet2Option!='vn2'"><?php echo $this->__('Distance'); ?></h3>
+                    <label class="hole-distance" ng-show="faucet2Option!='' && faucet2Option!='vn2'">
+                        <input type="number" ng-model="faucetCenter2" step=".25" min="{{faucet2MinHD}}" max="{{faucet2MaxHD}}" onkeydown="return false" ng-change="setFaucets()" />
+                        <span class="yellow"><?php echo $this->__('From center of faucet hole to center of sink hole'); ?></span>
+                    </label>
+                </div>
+            </section>
+            <div class="buttons-set">
+                <button class="back" type="button" ng-click="faucetsTab=0;sinksTab=1;">
+                    <span><?php echo $this->__('Back'); ?></span>
+                </button>
+                <button type="button" ng-click="processFaucets();">
+                    <span><?php echo $this->__('Next'); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="priceTab" class="tab-content">
+        <div class="loading" ng-show="cartLoading">
+            <img src="<?php echo $this->getSkinUrl('images/loading.gif'); ?>"/>
+            <span><?php echo $this->__('Loading'); ?></span>
+        </div>
+        <div class="details" ng-hide='cartLoading'>
+            <span class="total-price">
+                <strong><?php echo $this->__('Total Price:'); ?> </strong>{{totalPrice|currency}}
+            </span>
+            <div class="buttons-set">
+                <button class="back" type="button" ng-click="faucetsTab=1;priceTab=0;">
+                    <span><?php echo $this->__('Back'); ?></span>
+                </button>
+                <button ng-click="submit()" type="button">
+                    <span><?php echo $this->__('Add to Cart'); ?></span>
+                </button>
+                <div class="email-quote-form">
+                    <form method="post" action="<?php echo $this->getUrl('netsuite/postToNetsuite.php'); ?>" target="_blank">
+                        <input type="hidden" name="stonecolor" value="{{slabName}}"/>
+                        <input type="hidden" name="quoteamount" value="{{totalPrice}}"/>
+                        <input type="hidden" name="diagram" value="<?php echo $this->getUrl('customcounter/index/diagram', array('id' => '{{diagramId}}')); ?>"/>
+                        <ul>
+                            <li>
+                                <label>
+                                    <span><?php echo $this->__('First Name'); ?></span>
+                                    <input name="firstname" type="text"/>
+                                </label>
+                                <label>
+                                    <span><?php echo $this->__('Last Name'); ?></span>
+                                    <input name="lastname" type="text"/>
+                                </label>
+                                <label>
+                                    <span><?php echo $this->__('E-Mail'); ?></span>
+                                    <input name="email" type="text"/>
+                                </label>
+                                <label>
+                                    <button type="submit" ng-click="submit(1)">
+                                        <span><?php echo $this->__('E-Mail My Quote'); ?></span>
+                                    </button>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="coupon"/>
+                                    <span><?php echo $this->__('Please send me a coupon for remnant stones.'); ?></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    prevFunction = function prev() {
+        siblingInput = jQuery(prevFunction.this).next('input[step]');
+        inputVal = parseFloat(siblingInput.val());
+        inputNewVal = inputVal - parseFloat(siblingInput.attr('step'));
+        if(inputNewVal < parseFloat(siblingInput.attr('min'))){
+            inputNewVal = inputVal;
+        }
+        siblingInput.val(inputNewVal);
+        siblingInput.trigger('input');
+    }
+    nextFunction = function next() {
+        siblingInput = jQuery(nextFunction.this).prev('input[step]');
+        inputVal = parseFloat(siblingInput.val());
+        inputNewVal = inputVal + parseFloat(siblingInput.attr('step'));
+        if(inputNewVal > parseFloat(siblingInput.attr('max'))){
+            inputNewVal = inputVal;
+        }
+        siblingInput.val(inputNewVal);
+        siblingInput.trigger('input');
+    }
+    jQuery(document).ready(function(){
+        jQuery('.custom-counter-panel input[step]').each(function(){
+            jQuery(this).before('<a class="number-step-back">&loarr;</a>');
+            jQuery(this).after('<a class="number-step-forward">&roarr;</a>');
+        });
+        var prevInterval;
+        var forwardInterval;
+        jQuery(document).on('mousedown', '.number-step-back', function(){
+            prevFunction.this = this;
+            prevInterval = setInterval(prevFunction, 100);
+        });
+        jQuery(document).on('mouseup mouseleave', '.number-step-back', function(){
+            clearInterval(prevInterval);
+        });
+        jQuery(document).on('mousedown', '.number-step-forward', function(){
+            nextFunction.this = this;
+            forwardInterval = setInterval(nextFunction, 100);
+        });
+        jQuery(document).on('mouseup mouseleave', '.number-step-forward', function(){
+            clearInterval(forwardInterval);
+        });
+    });
+</script>

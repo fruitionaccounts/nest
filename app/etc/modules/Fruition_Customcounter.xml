@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fruition_Customcounter>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Fruition_Customcounter>
+    </modules>
+</config>

@@ -1,0 +1,43 @@
+<config>
+	<!--
+    <tabs>
+        <kitchendiagram_master translate="label" module="kitchendiagram">
+            <label>Email Kitchendiagram</label>
+            <sort_order>196</sort_order>
+        </kitchendiagram_master>
+    </tabs>
+    <sections>
+        <kitchendiagram_config  translate="label" module="kitchendiagram">
+            <label>Setting</label>
+            <tab>kitchendiagram_master</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+              <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                       <email translate="label">
+                            <label>Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email>
+
+                        </fields>
+                </general>
+            </groups>
+       </kitchendiagram_config>
+    </sections>
+        
+-->
+</config>

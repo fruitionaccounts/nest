@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<modules>
+		<Cedcoss_Dealers>
+			<version>0.1.0</version>
+		</Cedcoss_Dealers>
+	</modules>
+	<global>
+		<models>
+       		<dealers>
+	            <class>Cedcoss_Dealers_Model</class>
+	            <resourceModel>dealers_resource</resourceModel>     
+	        </dealers>
+			
+	   </models>
+	   <blocks>
+			  
+			<dealers>
+        	    	<class>Cedcoss_Dealers_Block</class>
+            </dealers>
+			<!--<adminhtml>
+      			<rewrite>
+					<sales_order_create>Cedcoss_Dealers_Block_Sales_Order_Create</sales_order_create>
+				</rewrite>
+			</adminhtml>-->
+      	</blocks>
+		<helpers>
+			<dealers>
+        		<class>Cedcoss_Dealers_Helper</class>
+      		</dealers>
+    	</helpers>
+	</global>
+	
+		 
+		
+	
+	<frontend>
+	   <routers>
+			<dealers>
+				 <use>standard</use>
+				<args>
+					<module>Cedcoss_Dealers</module>
+					<frontName>dealer-portal</frontName>
+				</args>
+			</dealers>
+        </routers>
+		
+		<layout>
+        	<updates>
+       			 <dealers>
+          			  <file>dealers.xml</file>
+       			 </dealers>
+    		</updates>
+		</layout>
+    </frontend>
+</config>

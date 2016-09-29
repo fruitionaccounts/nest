@@ -1,0 +1,378 @@
+<?php
+/**
+ * Template for Mage_Adminhtml_Block_Widget_Grid
+ *
+ *  getId()
+ *  getCollection()
+ *  getColumns()
+ *  getPagerVisibility()
+ *  getVarNamePage()
+ */
+$numColumns = sizeof($this->getColumns());
+//die(__FILE__);
+?>
+<!--link href='<?php echo Mage::getBaseUrl('js')?>/magelynx_importexportplugin/jquery.gridster.css' rel='stylesheet' type='text/css'-->
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+    var jq172 = jQuery.noConflict();
+</script>
+<style>
+.sortable-grid-wrapper .product-image {background:#227; float:left; margin: 3px 3px 3px 0; height:90px; width:90px;position:relative;}
+.ghost{opacity:0.5}
+.sortable-grid-wrapper {height:100px;}
+.sortable-grid {width:100%; height:100%;}
+.block-placeholder {display:block; width:89px; height:89px; margin:3px 3px 3px 0; border:1px dotted green; float:left;}
+.hidden-block {display:none;}
+.draggable-images .product-image {text-align:center; height:90px; width:90px; background:#fff; border:1px  solid #ccc;  margin:0 auto 10px; float:left; }
+.label {width:90px;margin: 0 10px; clear:both; float:none;}
+
+</style>
+
+        <div style="position:fixed; bottom:0px; left:15px; right:15px; height:235px; z-index:1000; border-radius:3px; border:1px solid #77A;" >
+        <div style="position:absolute; background:#ddd; opacity:0.99; left:0; top:0; width:100%; height:100%; z-index:0; border-top:1px solid #333;"></div>
+        <div style="position:relative; z-index:1000; padding: 0 10px;">
+        <h3 style="padding:5px 5px 3px 5px; margin-bottom:3px; text-align:center; border-bottom:1px solid #ccc;">Drag images to the products areas</h3>
+        <div style="overflow-x:scroll;">
+        <div class="draggable-images">
+        <table><tr>
+           <?php foreach(glob(Mage::helper('importexportplugin')->getImageFolder('browse').DS.'*') as $filename) :?>
+<?php
+    $_imageUrl =$filename;    
+    $imageResized = Mage::getBaseDir('media').DS."resized".DS.basename($filename);
+    if (!file_exists($imageResized)&&file_exists($_imageUrl)) :
+
+        try{
+        $imageObj = new Varien_Image($_imageUrl);
+        $imageObj->constrainOnly(TRUE);
+        $imageObj->keepAspectRatio(TRUE);
+        $imageObj->keepFrame(FALSE);
+        $imageObj->resize(90, 90);
+        $imageObj->save($imageResized);
+        }catch(Exception $e){
+            //die($e->getMessage());
+        }
+    endif;
+    $imageResized = str_replace(Mage::getBaseDir('media'), Mage::getBaseUrl('media'), $imageResized);
+
+?>
+<td>
+<div class="product-image">
+    <img img_data="<?php echo $filename?>" src="<?php echo $imageResized;?>" alt="<?php echo basename($filename); ?>"/>
+
+  </div>
+
+<div class="label"><?php echo basename($filename);?></div>
+  </td>
+           <?php endforeach;?>
+           </tr></table>
+           </div>
+           </div>
+           </div>
+        </div>    
+
+<?php if($this->getCollection()): ?>
+    <?php if($this->canDisplayContainer()): ?>
+        <?php if($this->getGridHeader()): ?>
+        <div class="content-header">
+            <table cellspacing="0">
+                <tr>
+                    <td style="width:50%;"><h2><?php echo $this->getGridHeader(); ?></h2></td>
+                </tr>
+            </table>
+        </div>
+        <?php endif ?>
+
+        <div id="<?php echo $this->getId() ?>">
+    <?php else: ?>
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php endif; ?>
+<?php if($this->getPagerVisibility() || $this->getExportTypes() || $this->getFilterVisibility()): ?>
+    <table cellspacing="0" class="actions">
+        <tr>
+        <?php if($this->getPagerVisibility()): ?>
+            <td class="pager">
+            <?php echo $this->__('Page') ?>
+
+            <?php $_curPage  = $this->getCollection()->getCurPage() ?>
+            <?php $_lastPage = $this->getCollection()->getLastPageNumber() ?>
+            <?php if($_curPage>1): ?>
+                <a href="#" title="<?php echo $this->__('Previous page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage-1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="Go to Previous page" class="arrow"/></a>
+            <?php else: ?>
+                <img src="<?php echo $this->getSkinUrl('images/pager_arrow_left_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
+            <?php endif; ?>
+
+            <input type="text" name="<?php echo $this->getVarNamePage() ?>" value="<?php echo $_curPage ?>" class="input-text page" onkeypress="<?php echo $this->getJsObjectName() ?>.inputPage(event, '<?php echo $_lastPage ?>')"/>
+
+            <?php if($_curPage < $_lastPage): ?>
+                <a href="#" title="<?php echo $this->__('Next page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage+1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="Go to Next page" class="arrow"/></a>
+            <?php else: ?>
+                <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
+            <?php endif; ?>
+
+            <?php echo $this->__('of %s pages', $this->getCollection()->getLastPageNumber()) ?>
+            <span class="separator">|</span>
+            <?php echo $this->__('View') ?>
+            <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
+                <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif; ?>>20</option>
+                <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif; ?>>30</option>
+                <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif; ?>>50</option>
+                <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif; ?>>100</option>
+                <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif; ?>>200</option>
+            </select>
+            <?php echo $this->__('per page') ?><span class="separator">|</span>
+            <?php echo $this->__('Total %d records found', $this->getCollection()->getSize()) ?>
+            <span id="<?php echo $this->getHtmlId() ?>-total-count" class="no-display"><?php echo $this->getCollection()->getSize() ?></span>
+            <?php if($this->getRssLists()): ?>
+                <?php foreach ($this->getRssLists() as $_rss): ?>
+                <span class="separator">|</span><a href="<?php echo $_rss->getUrl() ?>" class="link-feed"><?php echo $_rss->getLabel() ?></a>
+                <?php endforeach ?>
+            <?php endif; ?>
+        </td>
+    <?php endif ?>
+    <?php if($this->getExportTypes()): ?>
+        <td class="export a-right">
+            <img src="<?php echo $this->getSkinUrl('images/icon_export.gif') ?>" alt="" class="v-middle"/>&nbsp; <?php echo $this->__('Export to:') ?>
+            <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
+            <?php foreach ($this->getExportTypes() as $_type): ?>
+                <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
+            <?php endforeach; ?>
+            </select>
+            <?php echo $this->getExportButtonHtml() ?>
+        </td>
+    <?php endif; ?>
+        <td class="filter-actions a-right">
+            <?php echo $this->getMainButtonsHtml() ?>
+        </td>
+        </tr>
+    </table>
+<?php endif; ?>
+<?php if($this->getMassactionBlock()->isAvailable()): ?>
+<?php echo $this->getMassactionBlockHtml() ?>
+<?php endif ?>
+<style>
+#dropbox-wrap {border:none; cellspacing:0; cellpadding:0;}
+#dropbox-wrap >tbody >tr >  td {border:none; padding:0 ;}
+</style>
+<div class="grid">
+    <table id="dropbox-wrap">
+    <tbody>
+    <tr>
+    <td>
+    <div class="-hor-scroll">
+        <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
+        <?php foreach ($this->getColumns() as $_column): ?>
+        <col <?php echo $_column->getHtmlProperty() ?> />
+        <?php endforeach; ?>
+        <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
+            <thead>
+                <?php if ($this->getHeadersVisibility()): ?>
+                    <tr class="headings">
+                    <?php foreach ($this->getColumns() as $_column): ?>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
+                    <?php endforeach; ?>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($this->getFilterVisibility()): ?>
+                    <tr class="filter">
+                    <?php $i=0;foreach ($this->getColumns() as $_column): ?>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
+                    <?php endforeach; ?>
+                    </tr>
+                <?php endif ?>
+            </thead>
+        <?php endif; ?>
+        <?php if ($this->getCountTotals()): ?>
+            <tfoot>
+                <tr class="totals">
+                <?php foreach ($this->getColumns() as $_column): ?>
+                    <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
+                <?php endforeach; ?>
+                </tr>
+            </tfoot>
+        <?php endif; ?>
+
+        <tbody>
+        <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
+        <?php foreach ($this->getCollection() as $_index=>$_item): ?>
+            <tr title="<?php echo $this->getRowUrl($_item) ?>"<?php if ($_class = $this->getRowClass($_item)):?> class="<?php echo $_class; ?>"<?php endif;?> >
+            <?php $i=0;foreach ($this->getColumns() as $_column): ?>
+
+                <?php if ($this->shouldRenderCell($_item, $_column)):?>
+                    <?php $_rowspan = $this->getRowspan($_item, $_column);?>
+                    <td <?php echo ($_rowspan ? 'rowspan="' . $_rowspan . '" ' : '') ?>class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>">
+                        <?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?>
+                    </td>
+                    <?php if ($this->shouldRenderEmptyCell($_item, $_column)):?>
+                        <td colspan="<?php echo $this->getEmptyCellColspan($_item)?>" class="last"><?php echo $this->getEmptyCellLabel()?></td>
+                    <?php endif;?>
+                <?php endif;?>
+
+            <?php endforeach; ?>
+            </tr>
+            <?php if ($_multipleRows = $this->getMultipleRows($_item)):?>
+                <?php foreach ($_multipleRows as $_i):?>
+                <tr>
+                    <?php $i=0;foreach ($this->getMultipleRowColumns($_i) as $_column): ?>
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns-1?'last':'' ?>">
+                            <?php echo (($_html = $_column->getRowField($_i)) != '' ? $_html : '&nbsp;') ?>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
+                <?php endforeach;?>
+            <?php endif;?>
+
+            <?php if ($this->shouldRenderSubTotal($_item)): ?>
+                <tr class="subtotals">
+                    <?php $i = 0; foreach ($this->getSubTotalColumns() as $_column): ?>
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i == $numColumns ? 'last' : '' ?>">
+                            <?php echo ($_column->hasSubtotalsLabel() ? $_column->getSubtotalsLabel() :
+                                $_column->getRowField($this->getSubTotalItem($_item))
+                            );
+                            ?>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php elseif ($this->getEmptyText()): ?>
+            <tr>
+                <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns ?>"><?php echo $this->getEmptyText() ?></td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+
+        </table>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+<?php if($this->canDisplayContainer()): ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    <?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
+    <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
+    <?php if($this->getRowClickCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
+    <?php endif; ?>
+    <?php if($this->getCheckboxCheckCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.checkboxCheckCallback = <?php echo $this->getCheckboxCheckCallback() ?>;
+    <?php endif; ?>
+    <?php if($this->getRowInitCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.initRowCallback = <?php echo $this->getRowInitCallback() ?>;
+        <?php echo $this->getJsObjectName() ?>.initGridRows();
+    <?php endif; ?>
+    <?php if($this->getMassactionBlock()->isAvailable()): ?>
+    <?php echo $this->getMassactionBlock()->getJavaScript() ?>
+    <?php endif ?>
+    <?php echo $this->getAdditionalJavaScript(); ?>
+
+var context_menu= '<?php echo str_replace("\n",'','
+        <div id="context_menu" style="position:absolute; left:20px; top:10px; background:white; border:1px solid #ddd; padding:3px;">
+            <a onclick="delete_elm();">Delete</a>
+        </div>' );
+?>';
+
+jq172(document).on('contextmenu', function(){
+   if(jq172('#context_menu')){
+        jq172('#context_menu').remove();
+   }
+});
+jq172(document).on('click', function(){
+if(jq172('#context_menu')){
+     jq172('#context_menu').remove();
+}
+});
+
+
+function delete_elm(){
+if(confirm('Are you sure? The image will be removed from the gallery')){
+    jq172(current_item).remove();
+
+    ajaxUpdateData();
+}
+}
+function show_context_menu(image_element){
+    current_item = image_element;
+    if(jq172('#context_menu')){
+        jq172('#context_menu').remove();
+        jq172(image_element).append(context_menu);
+    }
+}
+    jq172(".sortable-grid .product-image").bind('contextmenu', function(){
+        show_context_menu(this);
+        return false;   
+//        jq172(this).remove();
+    });
+
+//jq172(function(){ //DOM Ready
+    jq172(".sortable-grid").sortable({
+            connectWith:'.sortable-grid',
+           placeholder: 'block-placeholder',
+            update:function(e){
+                ajaxUpdateData();
+                jq172(".sortable-grid .product-image").bind('contextmenu', function(){
+                    show_context_menu(this);
+                    return false;   
+                //        jq172(this).remove();
+                });
+
+            }
+        });
+    jq172(".sortable-grid").disableSelection();
+    jq172(".sortable-grid .product-image").bind('contextmenu', function(){
+        show_context_menu(this);
+        return false;   
+//        jq172(this).remove();
+    });
+    jq172(".draggable-images .product-image").draggable({
+        connectToSortable: '.sortable-grid',
+        stop: function(e, ui){
+            jq172(".sortable-grid .product-image").removeClass('ui-draggable').each(function(iterator){
+                jq172(this).css('display','');
+
+                
+            });
+
+        },
+        helper: function(e){
+            var elem = jq172("<div>").addClass('product-image ghost').text(jq172(e.target).text());
+
+            return elem;
+        },
+
+
+
+    });
+
+
+    
+//});
+
+function ajaxUpdateData(){
+    var params = {};
+    $$('.sortable-grid-wrapper').each(function(wrapper){
+        var product_id = "product_"+wrapper.id.replace('sortable_grid_', '');
+        params[product_id] = [];
+
+        wrapper.select('.product-image').each(function(div){
+            params[product_id].push(div.select('img')[0].readAttribute('img_data').replace('<?php echo Mage::getBaseDir(); ?>',''));
+        })
+
+        params[product_id] = params[product_id].join(",");
+    })
+
+    new Ajax.Request('<?php echo $this->getUrl('importexportplugin/adminhtml_index/updateImages')?>', {
+        'method' : 'post',
+        'parameters': params
+    });
+
+}
+
+//]]>
+</script>
+<?php endif; ?>
+<?php endif ?>

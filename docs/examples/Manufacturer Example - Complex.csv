@@ -1,0 +1,17 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+US,*,*,*,*,NIKE,*,*,*,*,0,99,*,18,,Regular,*
+US,*,*,*,*,NIKE,*,*,*,*,*,*,*,40,,Registered,*
+US,*,*,*,*,NIKE,*,*,*,*,*,*,*,89,,EMS,*
+US,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,12,,Regular,*
+US,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,19,,Registered,*
+US,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,49,,EMS,*
+US,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,Regular,*
+US,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,Registered,*
+US,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,EMS,*
+US,AK,*,*,*,ADIDAS,*,*,*,*,*,*,*,30,,Regular,*
+US,AK,*,*,*,ADIDAS,*,*,*,*,*,*,*,40,,Registered,*
+US,*,*,*,*,NIKE,*,*,*,*,100,*,*,10,,Regular,*
+US,NY,*,*,*,NIKE,*,*,0,49.99,0,1,*,10,,Regular,*
+US,NY,*,*,*,NIKE,*,*,50,99.99,0,1,*,20,,Regular,*
+US,NY,*,*,*,NIKE,*,*,100,*,1,*,*,25,,Regular,*
+US,NY,*,*,*,NIKE,*,*,0,99.99,1,*,*,27,,Regular,*

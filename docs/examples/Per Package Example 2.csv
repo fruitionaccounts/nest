@@ -1,0 +1,26 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+US,*,*,*,*,A,*,*,*,*,0,1,*,10,,Ground,*
+US,*,*,*,*,A,*,*,*,*,1,2,*,15,,Ground,*
+US,*,*,*,*,A,*,*,*,*,2,*,*,20,,Ground,*
+US,*,*,*,*,A,*,*,*,*,0,1,*,20,,Domestic Express,*
+US,*,*,*,*,A,*,*,*,*,1,2,*,25,,Domestic Express,*
+US,*,*,*,*,A,*,*,*,*,2,*,*,30,,Domestic Express,*
+*,*,*,*,*,A,*,*,*,*,0,1,*,15,,International,*
+*,*,*,*,*,A,*,*,*,*,1,2,*,20,,International,*
+*,*,*,*,*,A,*,*,*,*,2,*,*,25,,International,*
+*,*,*,*,*,A,*,*,*,*,0,1,*,30,,International Express,*
+*,*,*,*,*,A,*,*,*,*,1,2,*,35,,International Express,*
+*,*,*,*,*,A,*,*,*,*,2,*,*,40,,International Express,*
+US,*,*,*,*,B,*,*,*,*,0,1,*,2,,Ground,*
+US,*,*,*,*,B,*,*,*,*,1,2,*,4,,Ground,*
+US,*,*,*,*,B,*,*,*,*,2,*,*,6,,Ground,*
+US,*,*,*,*,B,*,*,*,*,0,1,*,10,,Domestic Express,*
+US,*,*,*,*,B,*,*,*,*,1,2,*,12,,Domestic Express,*
+US,*,*,*,*,B,*,*,*,*,2,*,*,14,,Domestic Express,*
+*,*,*,*,*,B,*,*,*,*,0,1,*,5,,International,*
+*,*,*,*,*,B,*,*,*,*,1,2,*,6,,International,*
+*,*,*,*,*,B,*,*,*,*,2,*,*,7,,International,*
+*,*,*,*,*,B,*,*,*,*,0,1,*,15,,International Express,*
+*,*,*,*,*,B,*,*,*,*,1,2,*,16,,International Express,*
+*,*,*,*,*,B,*,*,*,*,2,*,*,17,,International Express,*
+US,*,*,*,*,C,*,*,*,*,*,*,*,100,,Ground,*

@@ -1,0 +1,233 @@
+
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div> 
+<?php
+
+
+$old=Mage::getSingleton('customer/session')->getDiagramRetry();
+if(empty($old))
+{
+	$old['first_name']="";
+
+	$old['last_name']="";
+
+	$old['description']="";
+	$old['email']="";
+		$old['phone']="";
+}
+$max_file_size=20*1024*1024; //20 MB
+?>
+<script lang="javascript">
+var exts=["\.jpg$", "\.jpeg$", "\.bmp$", "\.gif$", "\.png$", "\.pdf$"];
+function checkimage()
+{
+
+	file = jQuery("#userfile")[0].files[0];
+	
+	if(typeof(file)=="undefined")
+	{
+		alert("Please upload your diagram.");
+		return false;
+	}
+	fileName = file.name;
+	fileSize = file.size;
+
+	good=(fileSize<= <?php echo $max_file_size ?> );
+	if(!good)
+	{
+		alert("File is too big");
+		return false;
+	}
+	good=false;
+	for(i=0;i<exts.length;i++)
+	{
+		patt=new RegExp(exts[i],"i");
+		if(patt.test(fileName))
+		{
+			good=true;
+		}
+	}
+	if(!good)
+	{
+		alert("File must be of type .jpg, .jpeg, .bmp, .gif, .png, or .pdf");
+		return false;
+	}
+	
+	return true;
+}
+</script>
+<div class="header-cont-last"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('ques-left-content')->toHtml() ?></div><br />
+<div class="leftform">
+<form id="diagram_form" action="<?php echo Mage::getUrl("*/*/post");?>">
+    <div class="fieldset">
+        <!-- <h2 class="legend"><?php// echo Mage::helper('contacts')->__('Kitchen Diagram & Contact Information') ?></h2>  -->
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('First Name') ?></label>
+                    <div class="input-box">
+                        <input class="input-text required-entry" type='text' maxlength='40' value="<?php echo $old['first_name'] ?>" name='first_name' id='first_name' />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Last Name') ?></label>
+                    <div class="input-box">
+                        <input type='text' class="input-text required-entry"  maxlength='80' name='last_name' value="<?php echo $old['last_name'] ?>" id='last_name'/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Email') ?></label>
+                    <div class="input-box">
+                       <input type='text' class="input-text required-entry"  maxlength='100' name='email' value="<?php echo $old['email'] ?>" id='email'/>
+                    </div>
+                </div>
+                
+            </li>
+		<li class="fields">
+        <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Phone') ?></label>
+                    <div class="input-box">
+                     <input type='text' class="input-text required-entry"  maxlength='30' name='phone' value="<?php echo $old['phone'] ?>" id='phone'/>
+                    </div>
+                </div>
+                
+
+        </li>
+        <li class="wide">
+        <div class="field" style="width: 332px;">
+                     <label for="diagram" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Upload') ?></label>
+                <div class="input-box">
+                    <input required type='file' id="userfile" name="diagram" /> <p style='color:#808080;font-size:11px;padding-left:3px;'>Max File size limit is 20MB</p>
+                </div>
+                
+                </div>
+        </li>
+
+            <li class="wide">
+                <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comment') ?></label>
+                <div class="input-box">
+                    <textarea id="description" style='width:317px;' class="input-text" name='description' maxlength='1000'><?php echo $old['description'] ?> </textarea>
+                </div>
+            </li>
+        </ul>
+		<!--<div class="contact_right"><a href="<?php //echo $this->getBaseUrl(''); ?>storelocator" ><img title="Store Locator" src="<?php //echo $this->getSkinUrl('images/find-showroom.jpg') ?>" alt="Store Locator" /></a></div>-->
+		<div class="buttons-set">
+        <div style="display:none;">
+ <table style="display:none;">
+ <tr style='display:none;' >
+        <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;' width='50%'>Website </td>
+        <td style='width:250px;' ><input type='text' style='width:250px;'  maxlength='255' name='Website' value='LazyGranite.com'>
+          </input></td>
+      </tr>
+      <tr style='display:none;' >
+        <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;' width='50%'>Lead Source </td>
+        <td style='width:250px;'  ><select style='width:250px;' name='Lead Source'>
+            <option value='-None-'>-None-</option>
+            <option value='BG4L Estimator'>BG4L Estimator</option>
+            <option value='BG4L Lightbox'>BG4L Lightbox</option>
+            <option value='Google AdWords'>Google AdWords</option>
+            <option value='Home Show Feb 2014'>Home Show Feb 2014</option>
+            <option value='Home Show Feb 2015'>Home Show Feb 2015</option>
+            <option value='Home Show Sep 2013'>Home Show Sep 2013</option>
+            <option value='Home Show Sep 2014'>Home Show Sep 2014</option>
+            <option value='Kitchen Countertop Showroom Form'>Kitchen Countertop Showroom Form</option>
+            <option selected value='LazyGranite-Diagram'>LazyGranite-Diagram</option>
+            <option value='LazyGranite Estimator'>LazyGranite Estimator</option>
+            <option value='LazyGranite Lightbox'>LazyGranite Lightbox</option>
+            <option value='LazyGranite-Quote Request'>LazyGranite-Quote Request</option>
+            <option value='Networking Event'>Networking Event</option>
+            <option value='Referral - Employee'>Referral - Employee</option>
+            <option value='Referral - End User'>Referral - End User</option>
+            <option value='Referral - Other (Unpaid)'>Referral - Other (Unpaid)</option>
+            <option value='Referral - Paid'>Referral - Paid</option>
+            <option value='ShopShowers Quote Request'>ShopShowers Quote Request</option>
+            <option value='Trade Show - Surfaces 2014'>Trade Show - Surfaces 2014</option>
+            <option value='Vanity Counters- Quote Request'>Vanity Counters- Quote Request</option>
+          </select></td>
+      </tr>
+      </table></div>
+			<p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+			<input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+			<button type="button" onclick="shipIt();" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+
+		</div>
+	</div>
+	</form>
+	</div>
+	<div class="rightimg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('sample-diagram')->toHtml() ?></div>
+	
+	<div class="clear"></div>
+	<div id="textarea"></div>
+	<div class="header-cont-last"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diagram-content')->toHtml() ?></div>
+	
+<?php
+	
+$action="https://system.na1.netsuite.com/app/site/crm/externalleadpage.nl?compid=1192565&formid=3&h=c7eec82e76337013ac3e&weblead=T"; //leadsource=46 removed; hopefully, it will get put in a cookie. (FLJ, 9/2/15)
+?>	
+	<form id="post_to_netsuite" action="<?php echo $action;?>" method="post">
+		 <input type="hidden"  name="firstname" value="" id="fname" />
+        <input type="hidden"  name="lastname" value="" id="lname" />
+		<input type="hidden"  name="email" value=""  id="email" />   
+		<input id="phone" name="phone" value="" type="hidden" />
+		<input id="comments" name="comments" value="" type="hidden" />
+		<input id="custentity13" name="custentity13" value="" type="hidden" />
+	</form>
+<script>
+function shipIt()
+{
+	if(!checkimage())
+	{
+		return;
+	}
+	var iframe = jQuery('<iframe name="postiframe" id="postiframe" style="display: none"></iframe>');
+
+	            jQuery("body").append(iframe);
+
+	            var form = jQuery('#diagram_form');
+	            form.attr("action", "<?php echo Mage::getUrl("*/*/post");?>");
+	            form.attr("method", "post");
+
+	            form.attr("encoding", "multipart/form-data");
+	            form.attr("enctype", "multipart/form-data");
+
+	            form.attr("target", "postiframe");
+	            form.attr("file", jQuery('#userfile').val());
+	            form.submit();
+
+	            jQuery("#postiframe").load(function () {
+	                iframeContents = this.contentWindow.document.body.innerHTML;
+					if(iframeContents.indexOf('redirect:')==0)
+					{
+						window.location.href=iframeContents.replace("redirect:","");
+					}
+					if(iframeContents.indexOf('message:')==0)
+					{
+						window.location.href=iframeContents.replace("message:","");
+					}
+					if(iframeContents.indexOf('diagram_link:')==0)
+					{
+						postToNetSuite(iframeContents.replace('diagram_link:',""));
+						return false;
+					}
+	                jQuery("#textarea").html(iframeContents);
+	            });
+
+	            return false;
+	
+}
+
+function postToNetSuite(diagram_link)
+{
+	var form = jQuery('#post_to_netsuite');
+	var source =jQuery('#diagram_form');
+	var oldaction=form.attr("action");
+	form.attr("action", appendNSParams(oldaction));
+	form.find("#custentity13").val(diagram_link);
+	form.find("#fname").val(source.find("#first_name").val());
+	form.find("#lname").val(source.find("#last_name").val());
+	form.find("#phone").val(source.find("#phone").val());
+	form.find("#email").val(source.find("#email").val());
+	form.find("#comments").val(source.find("#description").val());
+	form.submit();
+}
+</script>

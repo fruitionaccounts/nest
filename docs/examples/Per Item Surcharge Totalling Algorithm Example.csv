@@ -1,0 +1,9 @@
+Country,Region/State,City,Zip From,Zip To,Package Id,Weight >,Weight <=,Price >,Price <=,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,*,*,*,0,14.99,*,*,*,6.99,,Ground,*
+USA,*,*,*,*,*,*,*,14.99,34.99,*,*,*,7.99,,Ground,*
+USA,*,*,*,*,*,*,*,34.99,69.99,*,*,*,8.99,,Ground,*
+USA,*,*,*,*,*,*,*,69.99,99.99,*,*,*,9.99,,Ground,*
+USA,*,*,*,*,*,*,*,99.99,129.99,*,*,*,10.99,,Ground,*
+USA,*,*,*,*,*,*,*,129.99,*,*,*,*,11.99,,Ground,*
+USA,*,*,*,*,overweight,150,*,*,*,*,*,*,75,,Ground,*
+USA,"HI,AK,PR",*,*,*,overweight,70,*,*,*,*,*,*,75,,Ground,*

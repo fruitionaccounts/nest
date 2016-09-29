@@ -1,0 +1,187 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ * @see Mage_Catalog_Block_Product_View_Type_Grouped
+ */
+
+$haystack = array(
+"A" => "",
+"A7" => "Deep Blue Pearl",
+"A1" => "Absolute Black",
+"A2" => "African Red",
+"A3" => "Antique Brown",
+"A4" => "Baltic Brown",
+"A5" => "Bianco Romano",
+"A6" => "Blue Pearl",
+"A8" => "Giallo Ornamental",
+"A9" => "Imperial White",
+"A10" => "Kashmir White",
+"A11" => "Mint Brown",
+"A12" => "Red Stream",
+"A13" => "Rusty Sand",
+"A14" => "Santa Cecilia",
+"A15" => "Steel Black",
+"A16" => "Tan Brown",
+"A17" => "Uba Tuba",
+"A18" => "White Tiger"
+);
+
+?>
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?php $_helper = $this->helper('catalog/output');
+      $productId = $_helper->productAttribute($_product, $_product->getId(), 'id');
+      $productName =  trim(str_replace("Granite","",$_product->getAttributeText('color'))); //$_helper->productAttribute($_product, $_product->getName(), 'name'); 
+	  $color_value=$_helper->productAttribute($_product,$_product->getColor(),'color');
+	  
+	  //Find all products in category Granite Tile with color $color_value where tile_type in Sink_Kit, 12 x 12
+	$category=Mage::getResourceModel('catalog/category_collection')
+		->addFieldToFilter('name', 'Stone Tile')
+			->getFirstItem();
+	$_associatedProducts=$category->getProductCollection()
+		->addAttributeToFilter('color',$color_value);
+	Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($_associatedProducts);
+	
+	
+//      $_associatedProducts = array(); // $this->getAssociatedProducts();
+      $_hasAssociatedProducts = count($_associatedProducts) > 0;
+      if ($_hasAssociatedProducts) {
+		 
+	/*	$sqFeetPrice=$_product->getGranite_estimate();
+		$sinkKitPrice=$_product->getGranite_estimatesinkkit();*/
+	$sqFeetPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice(), true);
+	$sinkKitPrice="";
+	    foreach ($_associatedProducts as $_item) {
+			$_item->load($_item->getId());
+            if (stripos($_item->getName(),'12 x 12') !== FALSE) {
+                //$sqFeetPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true);
+            }
+            if (stripos($_item->getName(),'Sink Kit') !== FALSE){
+                $sinkKitPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true);
+            }
+        } 
+      }
+
+?>
+<div class="inner2">
+	<h2 class="instruction">Tell us about your project:</h2>
+	<?php
+		
+	$action="https://system.na1.netsuite.com/app/site/crm/externalleadpage.nl?compid=1192565&formid=1&h=ddd849276ed22952b632&weblead=T"; //&leadsource=46 removed; hopefully, it will get put in a cookie. (FLJ, 9/2/15)
+	//old $action= $this->getUrl('quote/index/quote');
+	?>
+<form name="form-product-size-list" action="<?php echo $action?>" method="post"  id="form-product-size-list">
+	<div class="oops"></div>
+<?php //populate the to-be-hidden dropdown 
+	$selection_key=array_search($productName,$haystack);
+	if($selection_key===FALSE)
+	{
+		$selection_key="A";
+	}
+	?>
+
+	<select name="custentity6" id="custentity6" style="display:none;">
+	<?php
+	foreach($haystack as $key=>$option)
+	{
+		?>
+		<option value="<?php echo str_replace("A","",$key)?>" <?php if($key==$selection_key) {echo "selected";}?> >
+			<?php echo $option;?>
+		</option>
+		<?php
+	}	
+	?>
+</select>
+    <input type="hidden" name="custentity8" id="quote" value="" />
+    <input type="hidden" name="productId" id="productId" value="<?php echo $productId ?>" />
+    <input type="hidden" name="productName" id="productName" value="<?php echo $productName ?>" />
+<input type="hidden" id="zc_gad" name="zc_gad" value=""/>
+    <input type="hidden" name="sqFeetPrice" id="sqFeetPrice" value="<?php echo $sqFeetPrice ?>" />
+    <input type="hidden" name="sinkKitPrice" id="sinkKitPrice" value="<?php echo $sinkKitPrice ?>" />
+	<div id="form-organizer">
+	<div id="chosen-product">
+		<div class="sample-frame">
+		<h2 class="product-name"><?php echo $productName; ?></h2>
+                                    <img <?php if(!$_product->isSaleable()): ?>onmouseover="showImageHolder('<?php echo $_product->getId();?>')" <?php endif; ?> src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100,100); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                    
+		</div><!--end sample-frame-->
+	</div><!--end chosen-product-->
+	<div id="left-questions">
+    <ul class="product-list-child">
+        <li>
+            <span class="child-product-name"> How Many Square Feet Do You Need?</span>            
+			<!--name="custentityest_sqft" old is "SquareFeetQuantity"-->
+            <input type="text"  name="custentityest_sqft" maxlength="12" value="" title="Qty" class="input-text email required-entry" style="padding: 5px; width: 45px; margin-left: 5px;" id="SquareFeetQuantity" />
+        </li>    
+		<?php if($sinkKitPrice == ""):?>      
+        <li>
+            <span class="child-product-name">No Sink Kit is available for this color</span>            <!--name="custentity7" old is "SinkKit" and value="1"-->
+            <!--input type="checkbox"  name="custentity7"  value="T" title="SinkKit" class="input-text qty" style="width: 10px; margin: 5px 0px 0px 5px;" id="SinkKit" disabled="disabled" /-->
+        </li>     
+		<?php else:?>      
+        <li>
+            <span class="child-product-name">Do You Want a Sink Kit?</span>            <!--name="custentity7" old is "SinkKit" and value="1"-->
+            <input type="checkbox"  name="custentity7"  value="T" title="SinkKit" class="input-checkbox sink-kit" style="width: 20px; height: 20px; margin: 5px 0px 0px 5px;" id="SinkKit" />
+        </li>      
+	<?php endif;?>    
+    </ul>
+</div><!--end of left-questions-->   
+<div id="right-questions"> 
+    <ul class="product-list-child">        
+        <li>
+            <span class="child-product-name" > First Name</span>
+			<!-- name="firstname" old is "fname"-->
+            <input type="text"  name="firstname" value="" title="First Name" class="input-text email required-entry" style="margin-left: 5px; padding: 5px;" id="fname" />          
+        </li>                          
+        <li>
+            <span class="child-product-name" > Last Name</span>
+			<!-- name="lastname" old is "lname" -->
+            <input type="text"  name="lastname" value="" title="Last Name" class="input-text email required-entry" style="margin-left: 5px; padding: 5px;" id="lname" />          
+        </li>                                  
+        <li>
+            <span class="child-product-name"> Your E-mail</span>
+            <input type="text"  name="email" value="" title="Email" class="input-text email required-entry" style="margin-left: 5px; padding: 5px;" id="email" />          
+        </li>                  
+    </ul>    
+</div><!--end of right-questions-->
+	</div> <!--end #form-organizer-->
+<script type="text/javascript">decorateTable('super-product-table')</script>
+</form>
+<div class="next-tab">
+<div class="action-gotocart" >
+	<!-- old is onclick="subMitCart(); " ;new is "jQuery('#form-product-size-list').submit();"-->
+    <button onclick="subMitCart();" class="btn-send" title="Submit Quote" type="button">
+        <span><?php echo $this->__('Email my Estimate');?></span>
+    </button>  
+</div>  
+<div class="backtrack" onclick="runPart1()">back</div>
+</div><!--end .next-tab-->
+</div>

@@ -1,0 +1,4 @@
+Country,Region/State,City,Zip From,Zip To,Package Id,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+*,*,*,*,*,PLANTS,*,*,*,*,*,*,*,14.5,I=3,Standard,*
+*,*,*,*,*,SEEDS,*,*,*,*,*,*,*,18,I=5,Standard,*
+*,*,*,*,*,A,*,*,*,*,*,*,*,26,I=10,Standard,*

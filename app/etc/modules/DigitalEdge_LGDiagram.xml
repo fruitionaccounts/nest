@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <DigitalEdge_LGDiagram>
+      <active>true</active>
+      <codePool>local</codePool>
+    </DigitalEdge_LGDiagram>
+  </modules>
+</config>

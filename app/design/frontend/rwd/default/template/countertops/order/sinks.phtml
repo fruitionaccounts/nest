@@ -1,0 +1,128 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+$staticBlockSinks = Mage::getModel('cms/block')->load('counter_sinks_info')->getContent();
+
+$staticBlockVessel1Left = Mage::getModel('cms/block')->load('counter_vessel1-left-info')->getContent();
+$staticBlockVessel1Left =  str_replace("#", '<span class="vessel1center">16</span>"', $staticBlockVessel1Left);
+$staticBlockVessel2Left = Mage::getModel('cms/block')->load('counter_vessel2-left-info')->getContent();
+$staticBlockVessel2Left =  str_replace("#", '<span class="vessel2center">50</span>"', $staticBlockVessel2Left);
+
+$staticBlockVessel1Top = Mage::getModel('cms/block')->load('counter_vessel1-back-info')->getContent();
+$staticBlockVessel1Top =  str_replace("#", '7"', $staticBlockVessel1Top);
+$staticBlockVessel2Top = Mage::getModel('cms/block')->load('counter_vessel2-back-info')->getContent();
+$staticBlockVessel2Top =  str_replace("#", '7"', $staticBlockVessel2Top);
+
+$staticBlockVessel1Hole = Mage::getModel('cms/block')->load('counter_vessel1-hole-info')->getContent();
+$staticBlockVessel1Hole =  str_replace("#", '<span class="v1holesize">1.75</span>"', $staticBlockVessel1Hole);
+$staticBlockVessel2Hole = Mage::getModel('cms/block')->load('counter_vessel2-hole-info')->getContent();
+$staticBlockVessel2Hole =  str_replace("#", '<span class="v2holesize">1.75</span>"', $staticBlockVessel2Hole);
+?>
+
+<div class="cp-message" ng-bind-html="myData.textf"><?php //echo $staticBlock9; ?></div>
+<br clear="left"/>
+<div class="sinks-options">
+<div class="loadingsinks"><center><img src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/rwd/default/images/countertops/cp-spinner.gif"></center></div>
+	<div class="sinks-number" style="display:none">
+		<p>Number of Sinks</p>
+		<div class="mousey" onclick="chooseNum(0)"><input type="radio" name="sinknum" onclick="chooseNum(0)" checked value="0"> none</div>
+		<div id="onesink" class="mousey" onclick="chooseNum(1)"><input type="radio" name="sinknum" onclick="chooseNum(1)" value="1"> 1 sink</div>
+		<div id="twosinks" class="mousey" onclick="chooseNum(2)"><input type="radio" name="sinknum" onclick="chooseNum(2)" value="2"> 2 sinks</div>
+	</div>
+
+	<div class="sinks-types">
+		<div class="sinks-bowls" style="display:none">
+		<div class="sink-bowltypes">
+		<b>Sink Types</b></div><br clear="left">
+		<div class="sinkbowltypes"><center><img src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/rwd/default/images/countertops/cp-spinner.gif"></center></div>
+		<br clear="left">
+		</div>
+		<div class="sinks-bowl1">
+			<b>Sink #1</b> <br>
+			distance from left edge<br>
+			<div class="triangle-left" onclick="moveSink1('minus')"></div> <div class="bowl1-div"><input type="text" class="bowl1-distance" name="sinkoneedge" ng-model="sink1" ng-blur="doneSink('1')" ng-Change="sinkChanged('1')" value="16"></div> <div class="triangle-right" onclick="moveSink1('add')"></div> <div class="inches">(inches)</div><br clear="left">
+			<div class="sink1text"><span class="sink1center">16"</span> will center this sink on left half</div>		
+		</div>
+		<div class="sinks-bowl2">
+			<b>Sink #2</b> <br>
+			distance from left edge<br>	
+			<div class="triangle-left" onclick="moveSink1('minus','',2)"></div> <div class="bowl1-div"><input type="text"  class="bowl2-distance" name="sinktwoedge" ng-model="sink2" ng-blur="doneSink('2')" ng-Change="sinkChanged('2')" value="50"></div> <div class="triangle-right" onclick="moveSink1('add','',2)"></div> <div class="inches">(inches)</div><br clear="left">
+			<div class="sink2text"><span class="sink2center">50"</span> will center this sink on right half</div>
+		</div>
+
+
+		<div class="sinks-vessel1">
+			<b>Sink #1</b> <br>
+			distance from left edge<br>
+			<div class="triangle-left" onclick="moveSink2('left','',1)"></div> <div class="bowl1-div"><input disabled="disabled" type="text" class="vessel1-distance" name="sinkoneedge" ng-model="vessel1" ng-blur="doneVessel('1')" ng-Change="vesselChanged('11')" value="16"></div> <div class="triangle-right" onclick="moveSink2('right','',1)"></div> <div class="inches">(inches)</div><br clear="left">
+			<div class="sink1text v1texthole"><?php echo $staticBlockVessel1Left; ?></div>	
+
+			<div class="vessel1">
+				distance from back edge<br>
+				<div class="triangle-left" onclick="moveSink2('up','',1)"></div> <div class="bowl1-div"><input disabled="disabled" type="text" class="bowl1-distance-top" name="sinkoneedge" ng-model="vessel11" ng-blur="doneVessel('1')" ng-Change="vesselChanged('12')" value="16"></div> <div class="triangle-right" onclick="moveSink2('down','',1)"></div> <div class="inches">(inches)</div><br clear="left">
+				<div class="sink1text v1texthole"><?php echo $staticBlockVessel1Top; ?></div>			
+			</div>
+
+			<div class="vessel1">
+				hole diameter<br>
+				<div class="triangle-left" onclick="changeSize('small',1)"></div> <div class="bowl1-div"><input disabled="disabled" type="text" class="bowl1-distance-width" name="sinkoneedge" ng-model="vessel111" ng-blur="doneVessel('1')" ng-Change="vesselChanged('13')" value="16"></div> <div class="triangle-right" onclick="changeSize('large', 1)"></div> <div class="inches">(inches)</div><br clear="left">
+				<div class="vessel1text v1texthole"><?php echo $staticBlockVessel1Hole; ?></div>			
+			</div>	
+		</div>
+
+		<div class="sinks-vessel2">
+			<b>Sink #2</b> <br>
+			distance from left edge<br>	
+			<div class="triangle-left" onclick="moveSink2('left','',2)"></div> <div class="bowl1-div"><input disabled="disabled" type="text"  class="vessel2-distance" name="sinkoneedge" ng-model="vessel112" ng-blur="doneVessel('2')" ng-Change="vesselChanged('21')" value="50"></div> <div class="triangle-right" onclick="moveSink2('right','',2)"></div> <div class="inches">(inches)</div><br clear="left">
+			<div class="sink2text v2texthole"><?php echo $staticBlockVessel2Left; ?></div>
+
+
+			<div class="vessel1">
+				distance from back edge<br>
+				<div class="triangle-left" onclick="moveSink2('up','',2)"></div> <div class="bowl1-div"><input disabled="disabled" type="text" class="bowl2-distance-top" name="sinkoneedge" ng-model="vessel113" ng-blur="doneVessel('2')" ng-Change="vesselChanged('22')" value="16"></div> <div class="triangle-right" onclick="moveSink2('down','',2)"></div> <div class="inches">(inches)</div><br clear="left">
+				<div class="sink1text v2texthole"><?php echo $staticBlockVessel2Top; ?></span></div>			
+			</div>
+
+			<div class="vessel1">
+				hole diameter<br>
+				<div class="triangle-left" onclick="changeSize('small',2)"></div> <div class="bowl1-div"><input disabled="disabled" type="text" class="bowl2-distance-width" name="sinktwowidth" ng-model="sink1" ng-blur="doneVessel('2')" ng-Change="vesselChanged('23')" value="16"></div> <div class="triangle-right" onclick="changeSize('large', 2)"></div> <div class="inches">(inches)</div><br clear="left">
+				<div class="vessel2text v2texthole"><?php echo $staticBlockVessel2Hole; ?></div>			
+			</div>				
+		</div>
+
+
+	</div>
+<br clear="left"/>
+</div>
+<br clear="left"/>
+

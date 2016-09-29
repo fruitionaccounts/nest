@@ -1,0 +1,148 @@
+<?php
+
+
+
+
+class Supernova_Orders_IndexController extends Mage_Core_Controller_Front_Action
+{
+    public $settings;
+    public $log = array();
+    public $_rates = 0;
+    
+    public function indexAction()
+    {
+            $this->loadLayout();
+            $this->renderLayout();
+    }
+
+     public function getProductsAction()
+    {
+            $body =  $this->getLayout()->createBlock('orders/products')->toHtml();
+    	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($body));
+    }
+    public function getproductAction(){
+           $body =  $this->getLayout()->createBlock('orders/product')->toHtml();
+    	   $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($body));
+    }
+    
+   public function getMethodAvailable(){
+          return   Mage::getBlockSingleton('orders/checkout_shipping_method_available');
+   }
+     public function getInfoCountry(){
+         include("geoip.php");
+         include("geoipcity.php");
+         include("geoipregionvars.php");
+         $giCity = geoip_open("media/GeoIP/GeoLiteCity.dat",GEOIP_STANDARD);
+         $ip =$this->getIPaddress();
+         $record = geoip_record_by_addr($giCity, $ip);
+         $infoData = array();
+          $countryIds = array();
+                    foreach ( Mage::getModel('directory/country')->getResourceCollection()->loadByStore() as $country) {
+                        $countryIds[] = $country->getCountryId();
+                    }
+                $collection = Mage::getModel('directory/region')->getResourceCollection()
+                        ->addCountryFilter($countryIds)
+                        ->load();
+                    foreach ($collection as $region) {
+                       
+                       if($region->getCode()==$record->region){
+                            $infoData['region_id']=   $region->getRegionId();
+                  }
+            }
+             $infoData['country_id'] = $record->country_code;
+             return $infoData;
+     }
+   public function caculatorAction(){
+       if($data = $this->getRequest()->getPost()){
+            $quote = Mage::getModel('sales/quote');
+            $model = Mage::getModel('catalog/product');
+            $quote = Mage::getModel('sales/quote');
+            $infodata = $this->getInfoCountry();
+              if($this-> CheckLogin()){
+                  $shipping =   $this->getOnepage()->getQuote()->getShippingAddress();
+                  $countryId = $shipping->getCountryId();
+                   $regionId = $shipping->getRegionId();
+                      if(!empty($countryId) && (!empty($regionId))){
+                            $quote->getShippingAddress()->setCountryId($shipping->getCountryId())->setRegionId($shipping->getRegionId());
+                      }else{
+                           $quote->getShippingAddress()->setCountryId($infodata['country_id'])->setRegionId($infodata['region_id']);
+                      }
+                 }else{
+                       $quote->getShippingAddress()->setCountryId($infodata['country_id'])->setRegionId($infodata['region_id']);
+                 }
+                 $items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+                 if(count($items)){
+                     foreach($items as $item) {
+                       $req['qty'] = $item->getQty();
+                       $_qt = new Varien_Object($req);
+                       $_products = $model->load($item->getProductId());
+                       $quote->addProduct($_products,$_qt);
+                    }
+                 }
+
+               foreach($data as $productId => $qty){
+                   $request['qty'] = $qty;
+                    $qt = new Varien_Object($request);
+                    $product = $model->load($productId);
+                    $quote->addProduct($product,$qt);
+               }
+                $quote->getShippingAddress()->collectTotals();
+                $quote->getShippingAddress()->setCollectShippingRates(true);
+                $quote->getShippingAddress()->collectShippingRates();
+                $rates = $quote->getShippingAddress()->getShippingRatesCollection();
+                    foreach ($rates as $_rate)
+                    {
+                          if(in_array('matrixrate',explode('_',$_rate->getCode()))){
+                              if($_rate->getCode()=='matrixrate_matrixrate_free'){
+                                   $_priceInc = $_rate->getMethodTitle();
+                                   break ;
+                                }else{
+                                  $_priceInc =$_rate->getPrice();
+                              }
+                          }else{
+                               $_priceInc = $_rate->getPrice();
+                               if($_priceInc!=0){
+                                  // break;
+                               }
+                          }
+                    }
+           
+          echo $_priceInc;
+       }
+   }
+  
+    public function getIPaddress(){
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                 $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else{
+                  $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        $ip_server = substr($ip,0,9);
+
+        if($ip_server=='192.168.1'){
+            $ip='125.214.27.143';
+        }
+        return $ip; //'67.222.35.241';
+    }
+
+    public function getOnepage()
+    {
+    return Mage::getSingleton('checkout/type_onepage');
+    }
+
+    
+    public function CheckLogin(){
+        $loggedIn = Mage::helper("customer")->isLoggedIn();
+        if($loggedIn){
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+}

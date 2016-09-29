@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+<!--
+Default layout, loads most of the pages
+-->
+    <default>
+         <reference name="head">     
+             <action method="addItem">
+                  <type>skin_js</type>
+                  <name>js/angular.js</name>
+             </action>
+             <action method="addItem">
+                  <type>skin_js</type>
+                  <name>js/angular-sanitize.min.js</name>
+             </action>
+             <action method="addCss">
+                 <stylesheet>css/countertops.css</stylesheet>
+             </action>
+         </reference>
+    </default>
+    <checkout_cart_index translate="label">
+        <label>Shopping Cart</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="checkout.cart">
+            <action method="setCartTemplate"><value>checkout/cart.phtml</value></action>
+        </reference>
+        <block type="core/text_list" name="additional.product.info" translate="label">
+            <label>Additional Product Info</label>
+        </block>
+    </checkout_cart_index>
+</layout>

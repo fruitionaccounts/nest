@@ -1,0 +1,12 @@
+Country,Region/State,City,Zip From,Zip To,Manufacturer,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+GBR,*,*,WC1%,*,Fresh,*,*,0,30,*,*,*,4.95,,Monday fresh delivery,*
+GBR,*,*,WC1%,*,Fresh,*,*,30,10000,*,*,*,0,,Monday fresh delivery,*
+GBR,*,*,WC1%,*,Fresh,*,*,0,30,*,*,*,4.95,,Tuesday fresh delivery,*
+GBR,*,*,WC1%,*,Fresh,*,*,30,10000,*,*,*,0,,Tuesday fresh delivery,*
+GBR,*,*,*,*,*,*,*,0,30,*,*,*,4.95,,Parcelforce,*
+GBR,*,*,*,*,*,*,*,30,10000,*,*,*,0,,Parcelforce,*
+GBR,*,*,*,*,Fresh,*,*,*,*,*,*,*,-1,,Tuesday fresh delivery,*
+GBR,*,*,*,*,Fresh,*,*,*,*,*,*,*,-1,,Monday fresh delivery,*
+GBR,*,*,WC1%,*,*,*,*,0,30,*,*,*,4.95,,Parcelforce,*
+GBR,*,*,WC1%,*,*,*,*,30,10000,*,*,*,0,,Parcelforce,*
+GBR,*,*,WC1%,*,Fresh,*,*,*,*,*,*,*,-1,,Parcelforce,*

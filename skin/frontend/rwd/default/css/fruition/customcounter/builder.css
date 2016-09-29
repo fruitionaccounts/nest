@@ -1,0 +1,185 @@
+.custom-counter-panel { }
+.custom-counter-panel .design-summary .summary { float: left; border: 1px solid #616264; padding: 5px; width: 150px; font-size: 12px; }
+.custom-counter-panel .design-summary .summary .click { cursor: pointer; }
+.custom-counter-panel .design-summary .summary .spec { display: block; }
+.custom-counter-panel .design-summary .countertop-slab { float: left !important; width: 1039px; margin-left: 10px; }
+.custom-counter-panel .tab-content { width: 100%; position: relative; }
+.custom-counter-panel .tabs div { float: left; width: 199px; position: relative; height: 30px; line-height: 30px; background: #178791; color: #FFF; text-transform: uppercase; text-align: center; margin-right: 1px; cursor: pointer; }
+.custom-counter-panel .tabs div:hover, .custom-counter-panel .tabs div.open { background: #616264; }
+.custom-counter-panel .tab-content .details { width: 100%; padding: 20px; }
+.cp-counter { background-size: 106% auto; background-repeat: repeat; background-color: #DDD; background-position: 12% 12%; }
+
+h3 i { margin-left: 20px; height: 20px; width: 20px; display: inline-block; position: relative; cursor: pointer; top: -2px; }
+h3 i:after { text-transform: lowercase; font-style: normal; width: 20px; height: 20px; border-radius: 10px; background: #199ca3; color: #FFF; font-weight: 700; font-size: 12px; content: 'i'; text-align: center; line-height: 20px; display: block; }
+h3 i span { display: none; }
+h3 i:hover:after { background: #a0d6d9; }
+h3 i span { position: absolute; width: 300px; background: #FFF; border: 1px solid #616264; border-radius: 6px; top: 18px; left: 18px; font-size: 12px !important; text-transform: none; line
+14px; font-style: normal !important; padding: 10px; z-index: 999; }
+h3 i:hover span { display: block; }
+
+.custom-counter-panel .buttons-set button { border: 0; background: none; border-radius: 0; display: inline-block; }
+.custom-counter-panel .buttons-set button span { display: inline-block; background: #178791; line-height: 28px; height: 30px; text-align: center; padding: 0 30px; color: #FFF; text-transform: uppercase; font-size: 20px; font-weight: 500; letter-spacing: 1px; }
+.custom-counter-panel .buttons-set button:hover span { background: #616264; }
+.custom-counter-panel .buttons-set button.back span { background: #616264; }
+.custom-counter-panel .buttons-set button.back span:hover { background: #999; }
+
+.custom-counter-panel .col { float: left; }
+.custom-counter-panel .col3 { width: 33.333%; }
+.custom-counter-panel .col3.thickness label { float: left; margin-right: 10px; }
+.custom-counter-panel .col3.thickness label input { margin-left: 5px; }
+.dimensions-content label { width: 100%; }
+.dimensions-content .col-1 input { width: 70%; }
+.dimensions-content .col-2 input { width: 70%; }
+
+.dimensions-content .thickness label { position: relative; }
+.dimensions-content .thickness .thickness-preview { position: absolute; padding: 10px; background: #FFF; border: 1px solid #616264; border-radius: 3px; width: 256px; display: none; left: 60px; top: -240px; }
+.dimensions-content .thickness .thickness-preview img { width: 100%; height: auto; }
+.dimensions-content .thickness label:hover { font-weight: 700; }
+.dimensions-content .thickness label:hover .thickness-preview { display: block; }
+.stones-tab .figure-set figure { float: left; width: 100px; margin: 0 10px 10px 0; height: 100px; cursor: pointer; border: 2px solid white; position: relative; }
+.stones-tab .figure-set figure.selected { border: 2px solid #178791; }
+.stones-tab .figure-set figure figcaption { display: none; background: #FFF; border-radius: 3px; border: 1px solid #616264; z-index: 200; position: absolute; bottom: 80px; left: 20px; width: 206px; box-shadow: 1px 1px 3px rgba(0,0,0,0.3); padding: 2px; }
+.stones-tab .figure-set figure:hover figcaption { display: block; }
+.stones-tab .figure-set figure img { height: 100px; width: 100px; }
+.stones-tab .figure-set figure figcaption img { display: block; }
+.stones-tab .figure-set figure.remnant-product { border: 2px solid #178791; }
+.stones-tab .figure-set figure figcaption h3 { font-size: 14px; }
+.stones-tab .figure-set figure figcaption span a { cursor: pointer; text-decoration: underline; color: #178791; }
+.stones-tab .remnant-only { display: none; }
+.filters { padding-bottom: 10px; border-bottom: 1px solid #616264; margin-bottom: 20px; }
+.filters strong { display: block; }
+.filters li { float: left; margin: 0 10px 0 0; padding: 0 10px 0 0; border-right: 1px solid #616264; line-height: 20px; }
+.filters li label { text-transform: capitalize; }
+.filters li select:not([name="thickness"]) { text-transform: capitalize; }
+.loading { width: 400px; height: 300px; text-align: center; margin: 0 auto; position: relative; }
+.loading img { position: absolute; z-index: 99; top: 0; }
+.loading span { margin: 0 auto; padding-top: 200px; font-size: 16px; display: block; width: 130px; text-align: right; z-index: 999; position: relative; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; }
+.custom-counter-panel div[ng-show="edgingTab"] .details section { float: left; width: 33.3%; }
+.polishing fieldset { width: 240px; }
+.polishing label { border: 1px solid #616264; font-size: 12px; text-transform: uppercase; text-align: center; }
+.polishing label:hover { background: #178791; color: #FFF; cursor: pointer; }
+.polishing label.back { width: 200px; height: 20px; }
+.polishing label.left { width: 20px; height: 100px; line-height: 12px; padding-top: 15px; box-sizing: border-box; float: left; margin: 20px -1px 0 0; }
+.polishing label.left input, .polishing label.right input { margin-top:  5px; }
+.polishing label.right { width: 20px; height: 100px; line-height: 12px; padding-top: 10px; box-sizing: border-box; float: right; margin: 20px 2px 0 -2px; }
+.polishing label.front { width: 200px; height: 20px; clear: both; margin-top: 98px; }
+
+.edge-type fieldset { padding: 10px; background: #3EB4BA; float: left; }
+.edge-type fieldset label { float: left; margin: 0; position: relative; cursor: pointer; }
+.edge-type fieldset label:nth-of-type(4n) { clear: both; }
+.edge-type fieldset label img { width: 60px; }
+.edge-type fieldset label input { visibility: hidden; height: 0; }
+.edge-type fieldset label .hover { display: none; position: absolute; bottom: 80%; left: 20%; background: #FFF; border: 1px solid #616264; padding: 10px; box-shadow: 2px 2px 2px rgba(0,0,0,0.3); z-index: 200; }
+.edge-type fieldset label:hover .hover { display: block; }
+.edge-type fieldset label .hover img { width: 200px; display: block; margin-bottom: 10px; }
+.edge-type fieldset label.selected img { background: #178791; border-radius: 3px; }
+
+.backsplash-options fieldset { width: 240px; }
+.backsplash-options label { border: 1px solid #616264; font-size: 12px; text-transform: uppercase; text-align: center; }
+.backsplash-options label:hover { background: #178791; color: #FFF; cursor: pointer; }
+.backsplash-options label.back { width: 200px; height: 20px; }
+.backsplash-options label.left { width: 20px; height: 100px; line-height: 12px; padding-top: 15px; box-sizing: border-box; float: left; margin: 20px -1px 0 0; }
+.backsplash-options label.left input, .backsplash-options label.right input { margin-top:  5px; }
+.backsplash-options label.right { width: 20px; height: 100px; line-height: 12px; padding-top: 10px; box-sizing: border-box; float: right; margin: 20px 2px 0 -2px; }
+.backsplash-options label.front { width: 200px; height: 20px; clear: both; margin-top: 98px; }
+
+section.sink-count { width: 25%; float: left; border-right: 1px solid #616264; height: 200px; }
+section.sink-count label { display: block; }
+section.sink-count label input { margin-right: 5px; }
+section.sinks { background: none !important; width: 75%; float: left; padding-left: 20px; margin-bottom:  20px; }
+.sink1-display img { display:  none; width: 100%; }
+.sink2-display img { display:  none; width: 100%; }
+section.sinks .figure-set figure { float: left; width: 120px; margin: 0 10px 10px 0; height: 100px; cursor: pointer; border: 2px solid white; position: relative; cursor: pointer; }
+section.sinks .figure-set figure.selected { background: #178791; border-radius: 3px; }
+section.sinks .figure-set figure img { max-width: 100%; height: auto; }
+section.sinks .figure-set figure.selected { border: 2px solid #178791; }
+section.sinks .figure-set figure figcaption { display: none; background: #FFF; border-radius: 3px; border: 1px solid #616264; z-index: 200; position: absolute; bottom: 80px; left: 20px; width: 206px; box-shadow: 1px 1px 3px rgba(0,0,0,0.3); padding: 5px; }
+section.sinks .figure-set figure:hover figcaption { display: block; }
+section.sinks .figure-set figure figcaption img { display: block; max-width: 100%; height: auto; }
+section.sinks .figure-set figure figcaption h3 { font-size: 14px; }
+section.sinks .sink-placement { display: block; clear: both; }
+.sink-placement .sink1 { float: left; width: 50%; padding-right: 20px; box-sizing: border-box; border-right: 1px solid #616264; }
+.sink-placement .sink2 { float: left; width: 50%; padding-left: 40px; box-sizing: border-box; }
+.sink-placement>div input { width: 70%; margin-bottom: 10px; }
+.sink-placement span { display: block; margin-bottom: 10px; }
+.sink-placement>div .yellow { display: block; color: #178791; margin-bottom: 20px; }
+.BEA-SIN-OS { position: absolute; top: 50px; left: 50px; height: 75px; width: 121px; border: 2px solid #a6a8ab; border-radius: 107px / 67px; background: #FFF; }
+.BEA-SIN-OL { position: absolute; top: 40px; left: 50px; height: 85px; width: 131px; border: 2px solid #a6a8ab; border-radius: 107px / 67px; background: #FFF; }
+.BEA-SIN-RS { position: absolute; top: 50px; left: 50px; height: 75px; width: 121px; border: 2px solid #a6a8ab; background: #FFF; }
+.BEA-SIN-RL { position: absolute; top: 40px; left: 50px; height: 85px; width: 131px; border: 2px solid #a6a8ab; background: #FFF; }
+.LAB-CUT-VES { position: absolute; top: 40px; left: 50px; height: 14px; width: 14px; border: 2px solid #a6a8ab; border-radius: 7px; background: #000; border: 0; }
+.faucet-options { margin-bottom: 20px; }
+.faucet-options label { float: left; width: 100px; margin-right: 20px; position: relative; cursor: pointer; }
+.faucet-options label img { max-width: 100%; height: auto; }
+.faucet-options label span { display: none; padding: 10px; background: #FFF; border: 1px solid #616264; border-radius: 3px; box-shadow: 2px 2px 2px rgba(0,0,0,0.3); position: absolute; z-index: 200; bottom: 80%; left: 20%; width: 145px; text-align: center; }
+.faucet-options label:hover span { display: block; }
+.faucet-options label input { height: 0; visibility: hidden; }
+.faucet-options label:hover, .faucet-options label.selected { background: #178791; border-radius: 3px; }
+.vessel-faucets { margin-bottom: 20px; }
+.vessel-faucets .vessel-sink-1 { float: left; width: 50%; }
+.vessel-faucets .vessel-sink-2 { float: left; width: 50%; }
+.vessel-faucets label:not(.hole-distance) { line-height: 28px; height: 30px; border: 1px solid #178791; background: #3EB4BA; padding: 0 15px; text-align: center; float: left; margin-right: 10px; color: #FFF; cursor: pointer; }
+.vessel-faucets label.selected { background: #F1FFBC; border: 1px solid #3EB4BA; color: #616264; }
+.vessel-faucets label input[type="radio"] { visibility: hidden; height: 0; width: 0; }
+.vessel-faucets h3.hole-distance { margin-top: 15px; }
+.vessel-faucets label.hole-distance span { display: block; padding: 10px 0; }
+
+.total-price { font-size: 18px; }
+
+.cp-counter-left { margin-top: 66px; height: 176px; padding: 0; }
+.cp-counter-right { height: 176px; padding: 0; }
+.cp-counter-back { margin-top: 18px; padding: 0; }
+.cp-counter-front { overflow: hidden; border-bottom: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; float: left; height: 20px; text-align: center; margin-left: 25px; width: 488px; display: block; }
+.cp-counter-front span { line-height: 20px; }
+.shrink-main-width { margin-top: 20px; }
+.shrink-width-span { top: 4px; }
+.shrink-height-span { background: none !important; }
+.shrink-height-span span { left: 5px !important; padding: 5px; }
+.polished { display: block; position: relative; font-size: 12px; }
+.cp-counter-left.polished { border: 1px solid black; border-right: 0; }
+.cp-counter-back.polished { border: 1px solid black; border-bottom: 0; line-height: 20px; }
+.cp-counter-right.polished { border: 1px solid black; border-left: 0; }
+.backsplash { display: block; background: #F1FFBC; border: 0 !important; position: relative; font-size:  12px; }
+.cp-counter-left span { transform: rotate(-90deg); display: block; position: relative; top: 76px; width: 176px; text-align: center; left: -78px; }
+.cp-counter-back span { background: none; padding: 0; color: #000; font-weight: 400; border-radius: 0; width: 100px; text-align: center; line-height: 20px; }
+.cp-counter-right span { transform: rotate(90deg); display: block; position: relative; top: 76px; width: 176px; text-align: center; left: -79px; }
+.sink-measure { position: absolute; border-bottom: 1px dashed #616264; border-right: 1px dashed #616264; left: 0; }
+.sink-measure span { position: absolute; bottom: 0; width: 50px; text-align: center; left: 50%; margin-left: -50px; }
+.sink-measure-1 { height: 10px; }
+.sink-measure-2 { height: 30px; }
+.faucet-hole { width: 11px; height: 11px; border-radius: 6px; border: 1px solid #616264; display: block; position: absolute; background: #FFF; }
+.faucet-line { transform-origin: top left; border-left: 1px dashed #616256; width: 50px; position: absolute; padding-left: 10px; line-height: 0; }
+
+.messaging { border: 1px solid darkred; background: red; color: #FFF; padding: 5px; margin: 10px 0; box-sizing: border-box; }
+
+.email-quote-form { padding-top: 20px; margin-top: 20px; border-top: #616264; }
+.email-quote-form ul li label { width: 25%; float: left; text-align: left; }
+.email-quote-form ul li label span { font-weight: 700; margin-bottom: 5px; display: block; font-size: 16px; }
+.email-quote-form ul li label input[type='text'] { width: 90%; }
+.email-quote-form ul li label button { margin-top: 29px; }
+.email-quote-form ul li:last-child label { width: 100%; padding-top: 10px; }
+.email-quote-form ul li:last-child label span { display: inline; margin: 0; font-size: 12px; font-weight: 400; }
+
+.customcounter-index-diagram .footer .specs { float: left; width: 45%; margin-bottom: 30px; }
+.customcounter-index-diagram .footer .specs.right { float: right; }
+.customcounter-index-diagram .footer .specs ul li { padding: 10px 0; border-bottom: 1px solid #616264; font-size: 16px; }
+
+.customcounter-index-diagram .footer>ul { margin-bottom: 20px; }
+.customcounter-index-diagram .footer>ul>li { list-style: disc; margin: 7px 0 7px 16px; }
+
+.customcounter-index-print .footer .specs { float: left; width: 45%; margin-bottom: 30px; }
+.customcounter-index-print .footer .specs.right { float: right; }
+.customcounter-index-print .footer .specs ul li { padding: 10px 0; border-bottom: 1px solid #616264; font-size: 16px; }
+
+.customcounter-index-print .footer>ul { margin-bottom: 20px; }
+.customcounter-index-print .footer>ul>li { list-style: disc; margin: 7px 0 7px 16px; }
+
+.builder-container { width: 1200px; margin: 30px auto; }
+.builder-container .design-summary { margin-bottom: 30px; }
+
+@media print { .cp-counter { background: #EEE; } }
+
+.number-step-back { display: inline-block; width: 28px; height: 28px; color: #FFF; text-align: center; line-height: 25px; background: #178791; cursor: pointer; }
+.number-step-back:hover { background: #616264; text-decoration: none; color: #FFF; }
+.number-step-forward { display: inline-block; width: 28px; height: 28px; color: #FFF; text-align: center; line-height: 25px; background: #178791; cursor: pointer; }
+.number-step-forward:hover { background: #616264; text-decoration: none; color: #FFF; }

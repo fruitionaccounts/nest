@@ -1,0 +1,56 @@
+<?php 	$code=Mage::app()->getStore()->getRootCategoryId();
+		$category = Mage::getModel('catalog/category')->load($code); 
+		$tree = $category->getTreeModel(); 
+		$tree->load();
+
+		$ids = $tree->getCollection()->getAllIds(); 
+		$arr = array();
+
+		if ($ids)
+		{ 
+			foreach ($ids as $id)
+			{ 
+				$cat = Mage::getModel('catalog/category'); 
+				$cat->load($id); 
+				array_push($arr, $cat); 
+			} 
+		}
+		//die(var_dump($arr));
+?>
+<div class="entry-edit">
+	<?php foreach($arr as $cat): ?>
+		<div class="section-config">
+			<div class="entry-edit-head collapseable">
+				<a id="<?php echo $cat->getName() ?>-head" class="" onclick="Fieldset.toggleCollapse('<?php echo $cat->getName() ?>', ''); return false;" href="#"><?php echo $cat->getName() ?></a>
+				<input id="<?php echo $cat->getName() ?>-state" type="hidden" value="0" name="config_state[<?php echo $cat->getName() ?>]">
+				<fieldset id="<?php echo $cat->getName() ?>" class="config collapseable" style="display: none;">
+					<legend><?php echo $cat->getName() ?></legend>
+					<?php echo $this->getLayout()->createBlock('dealers/sales_create_search_grid')->setCategory($cat->getEntity_id())->toHtml(); ?>
+				</fieldset>
+			</div>
+			<script type="text/javascript">
+				//<![CDATA[
+				Fieldset.applyCollapse('<?php echo $cat->getName() ?>');
+				//]]>
+			</script>
+		</div>
+	<?php endforeach; ?>
+    <!--<div class="entry-edit-head">
+        <div style="float: right;"><?php //echo $this->getButtonsHtml() ?></div>
+        <h4 class="fieldset-legend <?php //echo ($this->getHeaderCssClass()) ? $this->getHeaderCssClass().' icon-head' : '' ?>"><?php //echo $this->getHeaderText() ?></h4>
+    </div>
+    <div class="fieldset">
+		<?php //echo $this->getLayout()->createBlock('dealers/sales_create_search_grid')->toHtml(); ?>
+    </div>
+</div>-->
+<script type="text/javascript">
+function addproducts()
+{
+	myArray= new Array();
+	$('#dealers_create_search_grid input:checkbox:checked').each(function(){ myArray.push(jQuery(this).val()); })
+	new Ajax.Updater('order-items', '<?php echo Mage::helper("adminhtml")->getUrl('salessurvey/adminhtml_survey/addProducts')?>', {
+		  parameters: { 'ids[]': myArray }
+		});
+}
+
+</script>

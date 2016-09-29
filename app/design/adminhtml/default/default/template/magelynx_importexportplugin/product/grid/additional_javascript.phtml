@@ -1,0 +1,44 @@
+<script type="text/javascript">
+<?php $massaction_id = $this->getData('parent_block')->getMassactionBlock()->getHtmlId();?>
+$('<?php echo  $massaction_id ?>').select('button')[0].addClassName('go');
+if($$('#<?php echo  $massaction_id ?> button span span span').length){
+    $('<?php echo  $massaction_id ?>').select('button span span span')[0].update('<?php echo $this->__('Export'); ?>');
+}else if($$('#<?php echo  $massaction_id ?> button span span').length){
+    $('<?php echo  $massaction_id ?>').select('button span span')[0].update('<?php echo $this->__('Export'); ?>');
+}else if($$('#<?php echo  $massaction_id ?> button span').length){
+    $('<?php echo  $massaction_id ?>').select('button span')[0].update('<?php echo $this->__('Export'); ?>');
+}
+
+$$('.filter-actions')[0].insert({top:$('<?php echo  $massaction_id ?>').select('button')[0]});
+$('<?php echo  $massaction_id ?>-select').up('span').hide();
+if($$('p.switcher').length){  
+    $('<?php echo  $massaction_id ?>').select('.right .entry-edit')[0].insert({bottom: '<div style="float:right;" class="substitutor" padding-right:5px;">'+$$('p.switcher')[0].innerHTML+'</div>'});
+    if(typeof global_store_current != 'undefined'){
+        $$('div.substitutor select')[0].value= global_store_current;
+    }
+
+    $$('p.switcher')[0].hide();
+}
+
+$('<?php echo  $massaction_id ?>').select('.right')[0].addClassName('ml_massacton_right');
+$$('.content-header .head-products')[0].update('<?php echo $this->__('Products') ?>'); 
+
+var ml_separator = '<span class="separator">|</span>';
+
+////////// decorate pager
+var ml_html = '';
+var ml_counter = 0;
+
+var ml_portions = $$('.actions .pager')[0].innerHTML.split(ml_separator);
+tmp = ml_portions[1];
+ml_portions[1] = ml_portions[2];
+ml_portions[2] = tmp;
+ml_portions.each(function(portion){
+    ml_html += '<div class="separated'+ml_counter+'">'+portion+"</div>";
+    ml_counter ++;
+});
+//////////
+$$('.actions .pager')[0].update( ml_html );
+
+</script>
+

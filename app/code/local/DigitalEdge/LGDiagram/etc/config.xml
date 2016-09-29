@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<modules>
+			<digitaledge_lgdiagram>
+				<version>0.8.0</version>
+			</digitaledge_lgdiagram>
+		</modules>
+		<blocks>
+			<kitchendiagram>
+				<rewrite>
+					<kitchendiagram>Techinflo_Kitchendiagram_Block_Kitchendiagram</kitchendiagram>
+				</rewrite>
+			</kitchendiagram>
+		</blocks>
+		<template>
+			<email>
+				<kitchendiagram_email_email_template translate="label" module="kitchendiagram">
+					<label>Kitchen Diagram</label>
+					<file>kitchendiagram_form.html</file>
+					<type>text</type>
+				</kitchendiagram_email_email_template>
+			</email>
+		</template>
+	</global>
+    <frontend>
+        <routers>
+            <lazy-granite-diagram>
+                <use>standard</use>
+                <args>
+                    <module>DigitalEdge_LGDiagram</module>
+                    <frontName>lazy-granite-diagram</frontName>
+                </args>
+            </lazy-granite-diagram>
+        </routers>
+        
+        <layout>
+            <updates>
+                <kitchendiagram>
+                    <file>kitchendiagram.xml</file>
+                </kitchendiagram>
+            </updates>
+        </layout>
+    </frontend>
+
+    <!--<adminhtml>
+
+		<acl>
+                    <resources>
+                        <admin>
+                            <children>
+                                <system>
+                                    <children>
+                                        <config>
+                                            <children>
+                                                <kitchendiagram_config translate="title" module="kitchendiagram">
+                                                    <title>Setting Email Kitchendiagram</title>
+                                                    <sort_order>50</sort_order>
+                                                </kitchendiagram_config>
+                                            </children>
+                                        </config>
+                                    </children>
+                                </system>
+                            </children>
+                        </admin>
+                    </resources>
+                </acl>
+
+    </adminhtml>-->
+
+
+     <default>
+        <kitchendiagram>
+            <kitchendiagram>
+                <enabled>1</enabled>
+            </kitchendiagram>
+            <email>
+                <recipient_email><![CDATA[mail@bathandgranite4less.com]]></recipient_email>
+                <sender_email_identity>custom2</sender_email_identity>
+                <email_template>kitchendiagram_email_email_template</email_template>
+            </email>
+        </kitchendiagram>
+    </default>
+</config>

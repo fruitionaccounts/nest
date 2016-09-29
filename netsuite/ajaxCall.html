@@ -1,0 +1,27 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+
+<form id="emailForm" action="postToNetsuite.php" method="post" >
+
+First<input name="firstname" type="text" size="25"><br>
+Last<input name="lastname" type="text" size="25"><br>
+Email<input name="email" type="text" size="25"><br>
+Include my coupon<input id="includeCoupon" name="coupon" value="T" type="checkbox"><br>
+<input type="submit" value="submit">
+</form>
+
+<script>
+$(document).ready(function() {
+    $('#emailForm').submit(function() {
+        window.open('', 'formpopup', 'width=400,height=100');
+        this.target = 'formpopup';
+    });
+});
+</script>
+
+</body>
+</html>

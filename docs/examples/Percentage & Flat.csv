@@ -1,0 +1,7 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,HONEY,*,*,*,*,*,*,*,0,%=33,Ground,*
+USA,*,*,*,*,*,*,*,*,*,*,*,*,4.95,,Ground,*
+USA,*,*,*,*,CHEESE,*,*,*,*,*,*,*,14,%=20+12,Ground,*
+USA,*,*,*,*,HONEY,*,*,*,*,*,*,*,0,%=33,Overnight,*
+USA,*,*,*,*,*,*,*,*,*,*,*,*,6.95,,Overnight,*
+USA,*,*,*,*,CHEESE,*,*,*,*,*,*,*,5,,Overnight,*

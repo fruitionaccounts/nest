@@ -1,0 +1,34 @@
+
+<layout version="0.1.0">
+<!--    <adminhtml_sales_order_create_index>
+        <reference name="head">
+            <action method="addJs"><script>mage/adminhtml/sales/centinel.js</script></action>
+			<action method="removeItem"><type>js</type> <name>mage/adminhtml/product/composite/configure.js</name></action>
+			<action method="addJs"> <file>digitaledge/adminhtml/product/composite/configure.js</file></action>
+			
+            <action method="removeItem"><type>js</type>
+			<name>mage/adminhtml/sales.js</name></action>
+
+            <action method="addJs"><file>digitaledge/adminhtml/sales.js</file></action>
+        </reference>
+
+		<remove name="card_validation" />
+		<remove name="shipping_method" />
+		<remove name="billing_method" />
+		<remove name="coupons" />
+		<remove name="newsletter" />
+        <reference name="content">
+            <block type="core/template" name="order_header" template="digitaledge/needed_header.phtml" before="form" />
+		</reference>
+    </adminhtml_sales_order_create_index>
+	
+	<adminhtml_sales_order_create_load_block_data>
+		<remove name="card_validation" />
+	</adminhtml_sales_order_create_load_block_data>
+	<adminhtml_sales_order_create_load_block_card_validation>
+		<remove name="card_validation" />
+</adminhtml_sales_order_create_load_block_card_validation>
+	<adminhtml_sales_order_create_load_block_header>
+		<remove name="card_validation" />
+	</adminhtml_sales_order_create_load_block_header>-->
+</layout>

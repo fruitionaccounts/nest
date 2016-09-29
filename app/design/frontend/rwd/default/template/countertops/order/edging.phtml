@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+$staticBlock5 = Mage::getModel('cms/block')->load('counter_edging_info')->getContent();
+$staticBlock6 = Mage::getModel('cms/block')->load('counter_edging_polish_help')->getContent();
+$staticBlock7 = Mage::getModel('cms/block')->load('counter_edging_type_help')->getContent();
+$staticBlock8 = Mage::getModel('cms/block')->load('counter_edging_backsplash_help')->getContent();
+
+?>
+<div class="edging">
+<div class="cp-message"><?php echo $staticBlock5; ?></div>
+
+<br clear="left"/>
+<div class="edge-options">
+	<div class="edge-polish">
+		<div class="help">
+			<div class="bubble help-polish" >
+				<?php echo $staticBlock6; ?>
+			</div>
+		</div>	
+		<b>Polished Edges</b><div class="cp-info info-polish" onmouseover="infoOver('polish',94, 'edge')" onmouseout="infoOut('polish')">i</div><br clear="all"/>
+
+		<div class="polish-back" ><div class="ptop" onclick="choosePolish('top')"></div><input type="checkbox" class="pedge-top-check" onclick="choosePolish('top')" ><span class="edge-text-top" onclick="choosePolish('top')">BACK</span></div>
+		<div class="polish-left"><div class="pleft" onclick="choosePolish('left')"></div><span class="edge-text-left" onclick="choosePolish('left')">LEFT</span><input class="pedge-left-check" type="checkbox" onclick="choosePolish('left')"></div>
+		<div class="polish-middle"></div>
+		<div class="polish-right"><div class="pright" onclick="choosePolish('right')"></div><input type="checkbox" class="pedge-right-check" onclick="choosePolish('right')"><span class="edge-text-right" onclick="choosePolish('right')">RIGHT</span></div>
+		<br clear="left"/>
+		<div class="polish-front">FRONT (always polished)</div>
+	</div>	
+	
+	<div class="edge-type">
+		<div class="help">
+			<div class="bubble help-type" >
+				<?php echo $staticBlock7; ?>
+			</div>
+		</div>
+		<b>Edge Type</b><div class="cp-info info-edging" onmouseover="infoOver('type',56, 'edge')" onmouseout="infoOut('type')">i</div><br clear="all"/>
+		<div class="edgetypes"><center><img src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/rwd/default/images/countertops/cp-spinner.gif"></center></div>
+	</div>
+	<div class="edge-backsplash">
+		<div class="help">
+			<div class="bubble help-backsplash" >
+				<?php echo $staticBlock8; ?>
+			</div>
+		</div>
+	<b>Backsplash</b><div class="cp-info info-backsplash" onmouseover="infoOver('backsplash',62, 'edge')" onmouseout="infoOut('backsplash')">i</div><br clear="all"/>
+
+			<div class="backsplash-back"><div class="btop" onclick="chooseBacksplash('top')"></div><input type="checkbox" class="bedge-top-check" onclick="chooseBacksplash('top')"><span class="edge-text-top" onclick="chooseBacksplash('top')">BACK</span></div>
+			<div class="backsplash-left"><div class="bleft" onclick="chooseBacksplash('left')"></div><span class="edge-text-left" onclick="chooseBacksplash('left')">LEFT</span><input type="checkbox" class="bedge-left-check" onclick="chooseBacksplash('left')"></div>
+			<div class="backsplash-middle"></div>
+			<div class="backsplash-right"><div class="bright" onclick="chooseBacksplash('right')"></div><input type="checkbox" class="bedge-right-check" onclick="chooseBacksplash('right')"><span class="edge-text-right" onclick="chooseBacksplash('right')">RIGHT</span></div>
+			<br clear="left"/>
+		</div>
+	<br clear="left">
+	</div>
+</div>
+
+</div>

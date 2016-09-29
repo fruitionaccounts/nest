@@ -1,0 +1,51 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,NIKE,*,*,*,*,*,*,*,18,,Regular,*
+USA,*,*,*,*,NIKE,*,*,*,*,*,*,*,40,,Registered,*
+USA,*,*,*,*,NIKE,*,*,*,*,*,*,*,89,,EMS,*
+USA,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,12,,Regular,*
+USA,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,19,,Registered,*
+USA,*,*,*,*,ADIDAS,*,*,*,*,*,*,*,49,,EMS,*
+USA,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,Regular,*
+USA,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,Registered,*
+USA,AK,*,*,*,NIKE,*,*,*,*,*,*,*,-1,,EMS,*
+USA,AK,*,*,*,ADIDAS,*,*,*,*,*,*,*,30,,Regular,*
+USA,AK,*,*,*,ADIDAS,*,*,*,*,*,*,*,40,,Registered,*
+USA,*,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,10,,UPS Ground,*
+USA,*,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,15,,UPS Overnight,*
+USA,*,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,5,,UPS Ground,*
+USA,*,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,8,,UPS Overnight,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,12,,UPS Ground,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,14,,UPS Overnight,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,16,,UPS Ground,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,18,,UPS Overnight,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,20,,UPS Ground,*
+USA,*,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,22,,UPS Overnight,*
+*,*,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,50,,International,*
+*,*,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,55,,International Express,*
+*,*,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,45,,International,*
+*,*,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,48,,International Express,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,52,,International,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,54,,International Express,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,56,,International,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,58,,International Express,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,70,,International,*
+*,*,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,72,,International Express,*
+USA,AK,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,-1,,UPS Ground,*
+USA,AK,*,*,*,FLAT LARGE,*,*,*,*,*,*,*,-1,,UPS Overnight,*
+USA,AK,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,20,,UPS Ground,*
+USA,AK,*,*,*,FLAT MEDIUM,*,*,*,*,*,*,*,22,,UPS Overnight,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,15,,UPS Ground,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,0,5,*,16,,UPS Overnight,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,18,,UPS Ground,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,5,10,*,20,,UPS Overnight,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,25,,UPS Ground,*
+USA,AK,*,*,*,VARIED SMALL,*,*,*,*,10,*,*,30,,UPS Overnight,*
+USA,*,*,*,*,BOOK,*,*,*,*,*,*,*,25,,UPS Ground,*
+USA,*,*,*,*,CD,*,*,*,*,*,*,*,2,,UPS Ground,*
+USA,*,*,*,*,DVD,*,*,*,*,*,*,*,12,,UPS Ground,*
+USA,*,*,*,*,BOOK,*,*,*,*,*,*,*,45,,UPS Second Day,*
+USA,*,*,*,*,CD,*,*,*,*,*,*,*,10,,UPS Second Day,*
+USA,*,*,*,*,DVD,*,*,*,*,*,*,*,14,,UPS Second Day,*
+USA,*,*,*,*,BOOK,*,*,*,*,*,*,*,30,,Fedex,*
+USA,*,*,*,*,CD,*,*,*,*,*,*,*,32,,Fedex,*
+USA,*,*,*,*,DVD,*,*,*,*,*,*,*,34,,Fedex,*

@@ -1,0 +1,233 @@
+<?php
+/**
+ * Vanity Countertops
+ *
+ * We are loading the custom simple product and templates
+ */
+
+// load variables if the customer is returning
+$width = '';
+$height = '';
+$thickness = '';
+$stonesku = '';
+$stonecolor = '';
+$polish = '';
+$edgetype = '';
+$edgename = '';
+$backsplash = '';
+$sinknames = '';
+$sinktype = '';
+$sinknum = '';
+$sinksku = '';
+$sinksize = '';
+$sink1inch = '';
+$sink2inch = '';
+$faucet = '';
+$faucetdescription = '';
+$f1degree =  '';
+$f2degree = '';
+$f1dis =  '';
+$f2dis = '';
+$v1holeleft = '';
+$v2holeleft = '';
+$v1holeback = '';
+$v2holeback = '';
+$v1holeinch = '';
+$v2holeinch = '';
+$oldsku = '';
+
+if (isset($_GET['oldsku'])){ $oldsku = $_GET['oldsku']; }
+if (isset($_GET['w'])){ $width = $_GET['w']; }
+if (isset($_GET['h'])){ $height = $_GET['h']; }
+if (isset($_GET['t'])){ $thickness = $_GET['t']; }
+if (isset($_GET['s'])){ $stonesku = $_GET['s']; }
+if (isset($_GET['sn'])){ $stonecolor = $_GET['sn']; }
+
+if ($stonecolor){
+	$stonecolor = '<b>STONE:</b>'.$stonecolor;
+}
+if (isset($_GET['p'])){
+	$polish = explode(",",$_GET['p']);
+}
+if (isset($_GET['e'])){ $edgetype = $_GET['e']; }
+if ($edgetype == ''){
+	$edgetype = 'LAB-ED-EAS';
+}
+if (isset($_GET['en'])){ $edgename = $_GET['en']; }
+if ($edgename == ''){
+	$edgename = 'Eased Edge';
+}
+if (isset($_GET['b'])){
+	$backsplash = explode(",",$_GET['b']);
+}
+if (isset($_GET['sinknames'])){ $sinknames = $_GET['sinknames']; }
+if ($sinknames){
+	$sinknames = '<b>SINKS:</b><span>'.$sinknames.'</span>';
+}
+if (isset($_GET['sink'])){ $sinktype = $_GET['sink']; }
+if (isset($_GET['sinknum'])){ $sinknum = $_GET['sinknum']; }
+if (isset($_GET['sinksku'])){ $sinksku = $_GET['sinksku']; }
+if (isset($_GET['sinksize'])){ $sinksize = $_GET['sinksize']; }
+if (isset($_GET['sink1inch'])){ $sink1inch = $_GET['sink1inch']; }
+if (isset($_GET['sink2inch'])){ $sink2inch = $_GET['sink2inch']; }
+if (isset($_GET['f'])){ $faucet = $_GET['f']; }
+if (isset($_GET['fd'])){ $faucetdescription = $_GET['fd']; }
+if ($faucetdescription){
+	$faucetdescription = '<b>FAUCETS:</b><span>'.$faucetdescription.'</span>';
+}
+
+if (isset($_GET['f1degree'])){ $f1degree = $_GET['f1degree']; }
+if (isset($_GET['f2degree'])){ $f2degree = $_GET['f2degree']; }
+if (isset($_GET['f1dis'])){ $f1dis = $_GET['f1dis']; }
+if (isset($_GET['f2dis'])){ $f2dis = $_GET['f2dis']; }
+if (isset($_GET['v1holeleft'])){ $v1holeleft = $_GET['v1holeleft']; }
+if (isset($_GET['v2holeleft'])){ $v2holeleft = $_GET['v2holeleft']; }
+if (isset($_GET['v1holeback'])){ $v1holeback = $_GET['v1holeback']; }
+if (isset($_GET['v2holeback'])){ $v2holeback = $_GET['v2holeback']; }
+if (isset($_GET['v1holeinch'])){ $v1holeinch = $_GET['v1holeinch']; }
+if (isset($_GET['v2holeinch'])){ $v2holeinch = $_GET['v2holeinch']; }
+
+$staticBlockTitle = Mage::getModel('cms/block')->load('counter_page_title')->getContent();
+$staticBlockSubtext = Mage::getModel('cms/block')->load('counter_page_subtext')->getContent();
+$staticBlockSinkinfowidth = Mage::getModel('cms/block')->load('counter_sinksize_width_info')->getContent();
+$staticBlockSinkinfodepth = Mage::getModel('cms/block')->load('counter_sinksize_depth_info')->getContent();
+$staticBlockCoupon = Mage::getModel('cms/block')->load('counter_coupon_info')->getContent();
+
+?>
+
+<?php $product = $this->getProduct(); ?>
+<?php $product_id = $product->getId(); ?>
+
+<div class="baseurl" style="display:none"><?php echo Mage::getBaseUrl(); ?></div>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+
+<div class="product-order" ng-app="countertops" >
+
+    <?php echo $staticBlockTitle; ?>
+    <?php echo $staticBlockSubtext; ?>
+
+	<div id="cp-controller" class="cp-controller" ng-controller="appCtrl" >
+	<div class="cp-design">
+		<div class="cp-summary">
+			<span id="designsum">DESIGN SUMMARY</span>
+			<div class="design-thickness"></div>
+			<div class="oldsku"><?php echo $oldsku; ?></div>
+			<div class="coupon-text"><?php echo $staticBlockCoupon;?></div>
+			<div class="design-stone"><?php echo $stonecolor;?></div>
+			<div class="design-sinks"><?php echo $sinknames;?></div>
+			<div class="design-faucets"><?php echo $faucetdescription; ?></div>
+			<div class="rthickness"><?php echo $thickness;?></div>
+			<div class="quoteamount"></div>
+			<div class="sinknum"><?php echo $sinknum;?></div>
+			<div class="sinksku"><?php echo $sinksku;?></div>
+			<div class="sinktype"><?php echo $sinktype;?></div>
+			<div class="sinksize"><?php echo $sinksize;?></div>	
+			<div class="sink1dis"><?php echo $sink1inch;?></div>
+			<div class="sink2dis"><?php echo $sink2inch;?></div>
+			<div class="polishback"><?php if (isset($polish[1])){ echo $polish[1]; } ?></div>
+			<div class="polishleft"><?php if (isset($polish[0])){ echo $polish[0]; } ?></div>
+			<div class="polishright"><?php if (isset($polish[2])){ echo $polish[2]; } ?></div>
+			<div class="edgetype"><?php echo $edgetype;?></div>
+			<div class="edgename"><?php echo $edgename;?></div>
+			<div class="edgechoice">3</div>
+			<div class="backsplashback"><?php if (isset($backsplash[1])){ echo $backsplash[1]; } ?></div>
+			<div class="backsplashleft"><?php if (isset($backsplash[0])){ echo $backsplash[0]; } ?></div>
+			<div class="backsplashright"><?php if (isset($backsplash[2])){ echo $backsplash[2]; } ?></div>
+			<div class="skunum"><?php echo $stonesku;?></div>
+			<div class="vessel1left"><?php echo $v1holeleft;?></div>
+			<div class="vessel1top"><?php echo $v1holeback;?></div>
+			<div class="vesselsize1"><?php echo $v1holeinch;?></div>
+			<div class="vessel2left"><?php echo $v2holeleft;?></div>
+			<div class="vessel2top"><?php echo $v2holeback;?></div>	
+			<div class="vesselsize2"><?php echo $v2holeinch;?></div>
+			<div class="faucettype"><?php echo $faucet;?></div>
+			<div class="faucet1degree"><?php echo $f1degree;?></div>
+			<div class="faucet1dis"><?php echo $f1dis;?></div>
+			<div class="faucet2degree"><?php echo $f2degree;?></div>
+			<div class="faucet2dis"><?php echo $f2dis;?></div>
+			<div class="site-base"><?php echo Mage::getBaseUrl();?></div>
+			<div class="sinkinfowidth"><?php echo $staticBlockSinkinfowidth; ?></div>
+			<div class="sinkinfodepth"><?php echo $staticBlockSinkinfodepth; ?></div>
+			<div class="samplecheck"></div>
+		</div>
+		<div class="countertop-slab">
+			<div class="cp-counter-left"><span class="edging"></span><span class="polish">Polished</span><span class="backsplash">4" Backsplash</span></div>		
+			<div class="protect-width">
+				<div class="shrink-main-width">
+					<span class="shrink-width-span"><?php echo $width;?>"</span>
+					<div class="horz-line"></div>
+					<div class="cp-counter-back"><span class="backsplash">4" Backsplash</span><span class="polish">Polished</span><span class="edging"></span></div>
+				</div>
+			</div>
+			<?php // countertop ?>
+			<div class="cp-counter" boxsize row-height="myheight">
+				<div class="sink1-display">
+				<div class="centerhole1" style="display:none">
+					<div class="left45"><div class="sinkholeleft1"><div class="lineinfo1"></div></div>
+					<svg height="98" width="44" class="line1">
+    				<line fill="none" stroke="#000" stroke-miterlimit="10" x1="4" y1="70" x2="112" y2="172" stroke-dasharray="5,5" ></line>
+					</svg></div>
+					<div class="right45"><div class="sinkholeright1"><div class="lineinfo1"></div></div>
+					<svg height="98" width="30" class="line1">
+    				<line fill="none" stroke="#000" stroke-miterlimit="10" x1="134" y1="-37" x2="-44" y2="151" stroke-dasharray="5,5" ></line>
+					</svg></div>
+					<div class="center1"><div class="sinkholecenter1"><div class="lineinfo1"></div></div></div>
+					
+				</div>					
+				<div class="sink1-lefthole"><div class="centerhole"></div></div><div class="sink1-middlehole"></div><div class="sink1-righthole"></div>
+				</div>
+				<div class="sink2-display">
+					<div class="centerhole2" style="display:none">
+						<div class="left452"><div class="sinkholeleft2"><div class="lineinfo2"></div></div>
+						<svg height="98" width="44" class="line1">
+	    				<line fill="none" stroke="#000" stroke-miterlimit="10" x1="4" y1="70" x2="112" y2="172" stroke-dasharray="5,5" ></line>
+						</svg></div>
+						<div class="right452"><div class="sinkholeright2"><div class="lineinfo2"></div></div>
+						<svg height="98" width="30" class="line1">
+	    				<line fill="none" stroke="#000" stroke-miterlimit="10" x1="134" y1="-37" x2="-44" y2="151" stroke-dasharray="5,5" ></line>
+						</svg></div>
+						<div class="center2"><div class="sinkholecenter2"><div class="lineinfo2"></div></div></div>
+							
+					</div>	
+				<div class="sink2-lefthole"></div><div class="sink2-middlehole"></div><div class="sink2-righthole"></div></div>
+				<div class="sink1-display-dash-line"></div>
+				<div class="sink1-distance">16"</div>
+				<div class="sink2-display-dash-line"></div>
+				<div class="sink2-distance">16"</div>
+				
+			</div>
+			<div class="cp-counter-right"><span class="backsplash">4" Backsplash</span><span class="polish">Polished</span><span class="edging"></span></div>
+			<div class="shrink-main-height">
+				<div class="vert-line"></div>
+				<span class="shrink-height-span"><?php echo $height;?>"</span>	
+			</div><br clear="left">
+			<div class="cp-counter-front"><span class="polish">Polished</span><span class="edging"></span></div>
+			<div class="cp-text-front">FRONT</div>
+		</div>
+		<div class="cp-text-push-down"></div>
+	</div>
+	<div class="cp-nav product-collateral toggle-content tabs">
+		<ul class="toggle-tabs">
+			<li ng-repeat="section in sections" id="{{section.name|lowercase}}_tab_selected" ng-class="{current : isSelected(section.name)}"><span ng-click="setMaster(section.name)">{{section.name}}</span></li>
+		</ul>
+		<dl class="collateral-tabs" >
+			<dd ng-if="ctab.name === 'DIMENSIONS'" class="tab-container current"><div class="tab-content cp-dimensions" ><?php echo $this->getChildHtml('cp-dimensions') ?></div></dd>
+			<dd ng-if="ctab.name === 'STONE'" class="tab-container current"><div class="tab-content stone"><?php echo $this->getChildHtml('cp-stone') ?></div></dd>
+			<dd ng-if="ctab.name === 'EDGING'" class="tab-container current"><div class="tab-content" when-ready="edgingReady(); true"><?php echo $this->getChildHtml('cp-edging') ?></div></dd>
+			<dd ng-if="ctab.name === 'SINKS'" class="tab-container current"><div class="tab-content sinks" when-ready="sinkReady(); true"><?php echo $this->getChildHtml('cp-sinks') ?></div></dd>
+			<dd ng-if="ctab.name === 'FAUCETS'" class="tab-container current"><div class="tab-content faucets" when-ready="faucetReady(); true"><?php echo $this->getChildHtml('cp-faucets') ?></div></dd>
+			<dd ng-if="ctab.name === 'PRICE'" class="tab-container current"><div class="tab-content price" when-ready="priceReady(); true"><center><img src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/rwd/default/images/countertops/cp-spinner.gif"></center></div></dd>
+		</dl>
+	</div>
+	<div class="next-tab">
+		<div class="next-button" onclick="nextTab()">NEXT</div><div class="back-button" onclick="backTab()">BACK</div>
+	</div>
+	</div>
+
+    <?php echo $this->getChildHtml('cp-pdfs') ?>
+</div>
+<div class="filters2"></div>
+<div class="filters3"></div>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/js/countertops/controller.js"></script>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fruition_Countertops>
+      <active>false</active>
+      <codePool>community</codePool>
+      <version>0.1.0</version>
+    </Fruition_Countertops>
+  </modules>
+</config>

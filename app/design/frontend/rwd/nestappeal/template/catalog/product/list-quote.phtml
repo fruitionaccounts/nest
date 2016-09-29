@@ -1,0 +1,532 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+
+//the user may have come from anywhere...check the state!
+//(FLJ, 5/9/2013)
+
+$st= Mage::getSingleton('core/session')->getUserState();
+if($this->getRequest()->getPost())
+{
+	$params=$this->getRequest()->getPost();
+	$st=$params["state"];
+	Mage::getSingleton('core/session')->setUserState($st);
+}
+if(0 && !$st)
+{
+?>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.simplemodal.1.4.4.min.js"></script>
+<script>
+jQuery.noConflict();
+function hitIt()
+{
+	elig=document.getElementById("state");
+	if(elig.options[elig.selectedIndex].value!="-1")
+	{
+		document.getElementById("state_form").submit();
+	}
+}
+jQuery(document).ready(function() {
+	jQuery("#state_form_div").modal({
+	    minHeight:150,
+	    minWidth: 400
+	});
+});
+</script>
+<div id="state_form_div">
+<form id="state_form" method="post">
+	<label><h2>Select your state</h2></label>
+<select id="state" name="state" onchange="hitIt();" >
+<option value="-1">Select your state</option>
+<option value="AL">Alabama</option>
+<option value="AK">Alaska</option>
+<option value="AZ">Arizona</option>
+<option value="AR">Arkansas</option>
+<option value="CA">California</option>
+<option value="CO" selected >Colorado</option>
+<option value="CT">Connecticut</option>
+<option value="DE">Delaware</option>
+<option value="FL">Florida</option>
+<option value="GA">Georgia</option>
+<option value="HI">Hawaii</option>
+<option value="ID">Idaho</option>
+<option value="IL">Illinois</option>
+<option value="IN">Indiana</option>
+<option value="IA">Iowa</option>
+<option value="KS">Kansas</option>
+<option value="KY">Kentucky</option>
+<option value="LA">Louisiana</option>
+<option value="ME">Maine</option>
+<option value="MD">Maryland</option>
+<option value="MA">Massachusetts</option>
+<option value="MI">Michigan</option>
+<option value="MN">Minnesota</option>
+<option value="MS">Mississippi</option>
+<option value="MO">Missouri</option>
+<option value="MT">Montana</option>
+<option value="NE">Nebraska</option>
+<option value="NV">Nevada</option>
+<option value="NH">New Hampshire</option>
+<option value="NJ">New Jersey</option>
+<option value="NM">New Mexico</option>
+<option value="NY">New York</option>
+<option value="NC">North Carolina</option>
+<option value="ND">North Dakota</option>
+<option value="OH">Ohio</option>
+<option value="OK">Oklahoma</option>
+<option value="OR">Oregon</option>
+<option value="PA">Pennsylvania</option>
+<option value="RI">Rhode Island</option>
+<option value="SC">South Carolina</option>
+<option value="SD">South Dakota</option>
+<option value="TN">Tennessee</option>
+<option value="TX">Texas</option>
+<option value="UT">Utah</option>
+<option value="VT">Vermont</option>
+<option value="VA">Virginia</option>
+<option value="WA">Washington</option>
+<option value="WV">West Virginia</option>
+<option value="WI">Wisconsin</option>
+<option value="WY">Wyoming</option>
+</select>
+
+<button type="submit" value="Submit" class="button"><span><span>Submit</span></span></button>
+</form>
+</div>
+<?php
+
+}
+else if(1 ||$st=="CO")
+{
+	
+?>
+
+<script type="text/javascript" src="/js/carousel/carousel.js"></script>
+<script type="text/javascript" src="/js/varien/product.js"></script>
+<script type="text/javascript" src="/js/varien/configurablelazy.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+    var AJAX_LOAD_IMG = '/js/ajax-loader.gif';
+//]]>
+</script>
+
+<!--link rel="stylesheet" type="text/css" href="/skin/frontend/rwd/nestappeal/css/quote.css" media="all" /-->
+<link rel="stylesheet" type="text/css" href="/skin/frontend/base/default/css/widgets.css" media="all" />
+<div class="bath-lazy">
+<?php
+
+echo $this->getLayout()->createBlock('page/html_header')->setTemplate('page/html/lazy-header.phtml')->toHtml();
+/*
+    $tyPageId = 101; //page id in CMS
+
+    $page = Mage::getModel('cms/page');
+    $page->setStoreId(2);
+    $page->load($tyPageId);
+
+    $helper = Mage::helper('cms');
+    $processor = $helper->getPageTemplateProcessor();
+    $tyHtml = $processor->filter($page->getContent());
+    $tyHtml = str_replace("\r", "", $tyHtml);
+    $tyHtml = str_replace("\n", "", $tyHtml);
+    $tyHtml = str_replace('"', '&quot;', $tyHtml);
+    */
+
+//$category = new Mage_Catalog_Model_Category();
+$_productCollection=array();
+
+    		//$category->load(39); /*28 is "Stone Tile"; 39 is "Granite Tiles"*/
+			
+			$category=Mage::getResourceModel('catalog/category_collection')
+				->addFieldToFilter('name', 'Stone Tile')
+					->getFirstItem();
+    		$_productCollection= $category->getProductCollection()
+			/*->addWebsiteFilter(1)
+			->addStoreFilter(2)*/
+			//->addAttributeToFilter('type_id', "grouped")
+			/*->addFieldToFilter('name',array(array('like' => '%12 x 12%')
+				,array('like' => '%Sink Kit%')) )*/
+			->addFieldToFilter('sku',array('like' => '%-14'))
+			->setOrder('name',"ASC")
+			//->setPageSize(36);
+			;
+
+		Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($_productCollection);
+//    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+
+?>
+
+<div id="thankyou">
+<div class="block-select-color">
+    
+    <?php //echo $this->getColorHtmlSelect();?>
+	<p><?php //echo $this->__('See your options on the right');?></p>
+</div>
+<div id="wating-load" class="no-display"></div>
+<input type="hidden" name="products-load" value="<?php echo $this->getUrl('quote/index/getproducts')?>" id="product:load"/>
+<input type="hidden" name="product-load" value="<?php echo $this->getUrl('quote/index/getproduct')?>" id="_product:load"/>
+<?php if(!count($_productCollection)): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products quote-page" id="category-products">
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = 6; ?>
+		<div id="spnova-scroll" class="carousel">
+		<a rel="prev" style="display:none;" class="carousel-control prev" href="javascript:">Prev</a>
+		<div class="middle">
+			<div class="inner" >
+				<!--style="width: 10000px;"-->
+
+				<h2 class="instruction">Please select a stone</h2><div class="oops"></div>
+<?php $mid=""; ?>
+<?php $zeta=0; ?>
+<?php $seen=array() ?>
+		<ul class="bath-lazy products-grid">
+				<?php $i=0; foreach ($_productCollection as $_product): 
+				$_product->load($_product->getId());
+	
+			if (!array_key_exists("A".$_product->getColor(),$seen)) :
+				$seen["A".$_product->getColor()]=true;
+				if($_product->isSaleable()):
+				?>
+				<?php /*if ($i++%$_columnCount==0): ?>
+					<ul class="bath-lazy products-grid<?php echo $mid; ?>" ><!--style="left:<?php echo 129*($zeta);?>px;top:-<?php echo 183*($zeta); ?>px;"-->
+					<?php endif */?>
+						<li class="item<?php /*if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif;*/ ?>" id="<?php echo $_product->getId() ; ?>" <?php if(!$_product->isSaleable()): ?>lang="1"<?php endif; ?> onclick="colorSelected(this,<?php echo $_product->getId() ; ?>)" >
+							<h2 class="product-name"><span href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_product->getAttributeText('color') ?></span></h2>
+                                                        <img <?php if(!$_product->isSaleable()): ?>onmouseover="showImageHolder('<?php echo $_product->getId();?>')" <?php endif; ?> src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100,100); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                                        <?php if(!$_product->isSaleable()): ?>
+                                                        <img style="display: none;"  id="item-stock-<?php echo $_product->getId();?>" src="<?php echo $this->getSkinUrl('images/bkg-gray.png'); ?>"  width="106" height="69" class="imgage-outofstock" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                                        <div style="display: none; z-index: 9999" class="mesages-outofstock" id="mesages-outofstock-<?php echo $_product->getId();?>" onmouseout="hideImageHolder('<?php echo $_product->getId();?>')"> <span><?php echo $this->__('The product is currently unavailable.'); ?></span></div>
+                                                        <?php endif; ?>
+						</li>
+							<?php endif; //in stock ?>
+					<?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+					</ul>
+				<?php $mid=" mid"; $zeta++;?>
+				<?php endif */?>
+				
+		<?php endif; //have not seen?>
+				<?php endforeach ?>
+				</ul><!--end of box-->
+				<div class="next-tab">
+		<button rel="next" class="btn-send next" onclick="runPart2()" href="javascript:void(0)">Next</button>	
+				</div><!--end .next-tab-->
+			</div>				
+		</div>
+		<!--<a rel="next" class="carousel-control next" onclick="runPart2()" href="javascript:void(0)">Next</a>-->
+		</div>
+		<script type="text/javascript">
+			new Carousel($('spnova-scroll').down('.middle'), $('spnova-scroll').down('.inner').select('ul'), $('spnova-scroll').select('a'), {
+				duration: 0.5,
+				transition: 'sinoidal',
+				visibleSlides: 1,
+				circular:false,
+				auto : false,
+				wheel: false
+				});
+				
+				
+        </script>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+</div>
+<?php 
+echo $this->getLayout()->createBlock('cms/block')->setBlockId('how_it_works')->toHtml();
+echo $this->getLayout()->createBlock('cms/block')->setBlockId('more_quote_info')->toHtml();
+							
+														
+?>							
+<div class="div-input-qty">
+	<span class="buy-product step-two"><?php //echo $this->__('specify request'); ?></span>
+	<div id="product-size-list"> </div>
+</div>
+</div>
+<script type="text/javascript">
+var selection=-1;
+function toFixed(value, precision) {
+    var precision = precision || 0,
+    neg = value < 0,
+    power = Math.pow(10, precision),
+    value = Math.round(value * power),
+    integral = String((neg ? Math.ceil : Math.floor)(value / power)),
+    fraction = String((neg ? -value : value) % power),
+    padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+
+    return precision ? integral + '.' +  padding + fraction : integral;
+}
+
+var tiempo=-1;
+function colorSelected(thing, productId) {
+
+if(selection==productId)
+{
+	var suspect=new Date().getTime();
+	if (suspect-tiempo<2000)
+	{
+		return;
+	}	
+}
+tiempo=new Date().getTime();
+	$$('li.item.selected').each(function(prim) {
+		$(prim).removeClassName('selected');
+	});
+	$(thing).addClassName('selected');
+	selection=productId;
+	//jQuery('.carousel-control.next').show();
+	runPart2();
+}
+
+function runPart1()
+{
+	jQuery('.inner2').remove();
+	jQuery('.inner').show();						
+}
+														
+function runPart2()
+{
+	if(selection==-1)
+	{
+							
+		jQuery(".inner .oops").html('Please select a color');
+		jQuery(".inner .oops").show();
+		return;
+	}	
+	jQuery(".inner .oops").hide();					
+var url = "/lazy-granite-estimate/index/getProduct";
+new Ajax.Request(url, {
+                 method:'post',
+                 parameters: {productId:selection},
+
+                 onCreate:function(){
+                           //obj.setOpenWating();
+                           $('product-size-list').update('');
+                 },
+                 onComplete:function(){
+                           //obj.setCloseWating();
+                },
+                 onSuccess: function(transport) {
+							if(jQuery(".inner2:visible").length>0)
+							{
+								return;
+							}
+                          $$('.middle')[0].insert({bottom:transport.responseText.evalJSON()});
+						  jQuery('.inner').hide();
+                          //Effect.ScrollTo( 'category-products', 1000, {axis:'x'} );
+                  },
+				onError:function(x) {
+					alert(x.toString());
+				}
+ });
+}
+</script>
+<?php endif; ?>
+</div>
+
+<?php
+}
+
+else
+{
+?>
+<script lang="javascript">
+document.location.href="/";
+</script>
+
+<?php
+}
+
+?>
+<form id="tyform" action="quote_thanks.html" method="get" style="display:none;">
+	<input type="hidden" name="granite_color" id="msg_granite_color" value="" />
+	<input type="hidden" name="sqft" id="msg_sqft" value="" />
+	<input type="hidden" name="sinkit" id="msg_sinkit" value="" />
+	<input type="hidden" name="price_quote" id="msg_price_quote" value="" />
+</form>
+
+<form  target="transFrame" action='https://crm.zoho.com/crm/WebToLeadForm' name="WebToLeads647174000000103239" id="form_webtoleads" method='POST' onSubmit='javascript:document.charset="UTF-8";' accept-charset='UTF-8'>  
+<iframe name="transFrame" id="transFrame" style="border:none;" ></iframe>
+<input type='text' style='display:none;' name='xnQsjsdp' value='dgz2W0ibsvZthYo@kRl79w$$'/>  
+<input type='hidden' name='zc_gad' id='zc_gad' value=''/>  
+<input type='text' style='display:none;' name='xmIwtLD' value='Wy0CQHdYIG79mKjDMcmAWYon@LN7ABNp'/>  
+<input type='text'  style='display:none;' name='actionType' value='TGVhZHM='/> 
+<input type='text' style='display:none;' name='returnURL' value='' id="webtoleads_retunurl" /> 
+<table border=0 cellspacing=0 cellpadding='6' width=600 style='display:none;'>
+<tr><td colspan='2' align='left' style='color:black;font-family:Arial;font-size:14px;'><strong>BG4L Estimator</strong></td>
+</tr> <br><tr><td nowrap='nowrap' align='left'   style='font-size:12px;font-family:Arial;width:200px;'>First Name </td>
+<td style='width:250px;' ><input type='text' style='width:250px;' id="firstname" maxlength='40' name='First Name' /></div> </td></tr>
+<tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Last Name<span style='color:red;'>*</span> </td>
+<td style='width:250px;' ><input type='text' style='width:250px;' id="lastname" maxlength='80' name='Last Name' /></div> </td></tr>
+<tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Email </td>
+<td style='width:250px;' ><input type='text' style='width:250px;' id="lemail" maxlength='100' name='Email' /></div> </td></tr>
+<tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Phone </td>
+<td style='width:250px;' ><input type='text' style='width:250px;' id="lphone" maxlength='30' name='Phone' /></div> </td></tr>
+<tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Square Feet </td>
+<td style='width:250px;' ><input type='text' style='width:250px;'  id="lge" maxlength='6' name='LEADCF66' /></div> </td></tr>
+<tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Color </td>
+<td style='width:250px;'  ><input type="text" id="lcolor" style='width:250px;' name='LEADCF3'></td></tr>
+ <tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Sink Kit </td>
+ <td style='width:250px;' ><input type='text' id="sinkkit" name='LEADCF102' /></div> </td></tr>
+ <tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Quote Amount </td>
+ <td style='width:250px;' ><input type='text' style='width:250px;'  id="sinkquote" maxlength='7' name='LEADCF67' /></div> </td></tr>
+ <tr><td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Lead Source </td>
+ <td style='width:250px;'  ><input type="text" value="<?php echo $st; ?>" style='width:250px;' id="" name='State'/><input type="hidden" value="BG4L Estimator" style='width:250px;' id="leadsource" name='Lead Source'/></td></tr>
+ <tr><td colspan='2' align='center' style='padding-top: 15px;' >
+ <input   style='font-size:12px;color:black' type='submit'  value='Submit' />
+ <input type='reset'  style='font-size:12px;color:black' value='Reset' /> </td>
+ </tr></table>  </form>
+<script type="text/javascript">
+function subMitCart(){
+var baseurl='<?php echo Mage::getBaseUrl(); ?>';
+    var error = '';
+     if ($('email').getValue() == '')
+        error += "Please, provide Email\r\n";                    
+     if ($('fname').getValue() == '' || $('lname').getValue() == '')
+        error += "Please, provide First and Last Name\r\n";                          
+     if ($('SquareFeetQuantity').getValue() == '')
+        error += "Please, provide desired Quantity\r\n";
+     if (error == '') {
+        //$('form-product-size-list').submit();
+
+        var SinkKit = 0;
+        if ($('SinkKit') && $('SinkKit').checked)
+          SinkKit = 1;
+
+	
+
+		$('msg_granite_color').value=$('productName').getValue();
+		$('msg_sqft').value=$('SquareFeetQuantity').getValue();
+		//divide price/sq.ft by 3 (FLJ, 12/2/15)
+		var quote =  (parseFloat($('sqFeetPrice').getValue())/3) * parseFloat($('SquareFeetQuantity').getValue());       
+            if ($('SinkKit') && $('SinkKit').checked)  {      
+                 quote = parseFloat(quote) + parseFloat($('sinkKitPrice').getValue());
+                 quote = toFixed(quote, 2);
+                 $('msg_sinkit').value='includes';
+            }  else {
+                $('msg_sinkit').value='doesn\'t include';
+            }
+			$('msg_price_quote').value=quote;
+							
+	//NB:As of 8/13/15, the NetSuite configuration expects an integer quote. The client may fix that by midnight, 8/15/15
+var thing= {
+                productId: $('productId').getValue(),
+                productName: $('productName').getValue(),
+                email: $('email').getValue(),
+                FirstName: $('fname').getValue(),
+                LastName: $('lname').getValue(),
+                sqFeetPrice: $('sqFeetPrice').getValue(),
+                sinkKitPrice: $('sinkKitPrice').getValue(),
+                SquareFeetQuantity: $('SquareFeetQuantity').getValue(),
+                SinkKit: SinkKit,
+				quote:quote
+         }
+							
+	//now, make a cookie out of JSON.stringify(thing);
+//	setCookie("quoteinfo", JSON.stringify(thing), 1); //expires in 2.4h		
+        new Ajax.Request('<?php echo $this->getUrl('quote/index/sessify',
+	array("_secure"=>Mage::app()->getFrontController()->getRequest()->isSecure()));?>', {
+          method:'post',	
+		parameters: thing,          
+          onSuccess: function(transport, json) {		
+							
+	//go submit to Netsuite
+	$$('#form-product-size-list #quote')[0].value=quote;	
+	var nsform=jQuery('#form-product-size-list');
+	var oldaction=nsform.attr('action');
+	nsform.attr("action", appendNSParams(oldaction));								
+	jQuery('#form-product-size-list').submit();
+		},onFailure: function() { alert('Quote was not sent! Please repeat.'); }
+        });
+	
+	/*
+	With the new NetSuite bits, this code that used to talk to InfusionSoft is no longer relevant
+	(FLJ, 8/14/15)
+        new Ajax.Request('<?php echo $this->getUrl('quote/index/quote',
+	array("_secure"=>Mage::app()->getFrontController()->getRequest()->isSecure()));?>', {
+          method:'post',
+          parameters: {
+                productId: $('productId').getValue(),
+                productName: $('productName').getValue(),
+                email: $('email').getValue(),
+                FirstName: $('fname').getValue(),
+                LastName: $('lname').getValue(),
+                sqFeetPrice: $('sqFeetPrice').getValue(),
+                sinkKitPrice: $('sinkKitPrice').getValue(),
+                SquareFeetQuantity: $('SquareFeetQuantity').getValue(),
+                SinkKit: SinkKit
+         },          
+          onSuccess: function(transport, json) {
+
+		$('msg_granite_color').value=$('productName').getValue();
+		$('msg_sqft').value=$('SquareFeetQuantity').getValue();
+		var quote =  parseFloat($('sqFeetPrice').getValue()) * parseFloat($('SquareFeetQuantity').getValue());       
+            if ($('SinkKit').checked)  {      
+                 quote = parseFloat(quote) + parseFloat($('sinkKitPrice').getValue());
+                 quote = toFixed(quote, 2);
+                 $('msg_sinkit').value='includes';
+            }  else {
+                $('msg_sinkit').value='doesn\'t include';
+            }
+			$('msg_price_quote').value=quote;
+			baseurl+='quote_thanks.html?granite_color='+$('productName').getValue()+'&sqft='+$('SquareFeetQuantity').getValue()+'&sinkit='+$('msg_sinkit').value+'&price_quote='+$('msg_price_quote').value;
+			<?php if(Mage::getStoreConfig('lightbox_options/zoho/module',Mage::app()->getStore()->getId())==1){ ?>
+			$('webtoleads_retunurl').value=baseurl;
+			$('firstname').value=$('fname').getValue();
+			$('lastname').value=$('lname').getValue();
+			$('lemail').value=$('email').getValue();
+			$('lcolor').value=$('productName').getValue();
+			$('lge').value=$('SquareFeetQuantity').getValue();
+			$('sinkquote').value=$('msg_price_quote').value;
+			if(SinkKit==1)
+			$('sinkkit').value='on';
+
+window.location.href = 	baseurl+='quote_thanks.html?granite_color='+$('productName').getValue()+'&sqft='+$('SquareFeetQuantity').getValue()+'&sinkit='+$('msg_sinkit').value+'&price_quote='+$('msg_price_quote').value;		
+
+			$('form_webtoleads').submit();
+			<?php }else{ ?>
+			$('tyform').submit();
+			<?php } ?>
+            //$('thankyou').update(message);
+          },
+          onFailure: function() { alert('Quote was not sent! Please repeat.'); }
+        });*/
+
+/*
+		Deleted "onSuccess code"
+            var message = "<?php //echo $tyHtml; ?>";
+            message = message.replace(/&quot;/g, '"');
+            message = message.replace('[[granite_color]]', $('productName').getValue());
+            message = message.replace('[[sqft]]', $('SquareFeetQuantity').getValue());          
+            var quote =  parseFloat($('sqFeetPrice').getValue()) * parseFloat($('SquareFeetQuantity').getValue());       
+            if ($('SinkKit').checked)  {      
+                 quote = parseFloat(quote) + parseFloat($('sinkKitPrice').getValue());
+                 quote = toFixed(quote, 2);
+                 message = message.replace('[[sinkit]]', 'includes');
+            }  else {
+                message = message.replace('[[sinkit]]', 'doesn\'t include');
+            }    
+            message = message.replace('[[price]]', quote);
+*/
+     }   
+     else
+	 {
+
+			jQuery(".inner2 .oops").html(error.replace(/\r\n/g,"<br/>"));
+			jQuery(".inner2 .oops").show();
+			var sigma=jQuery(".inner2").height()+jQuery(".inner2 .oops").height();
+			jQuery(".inner2").height(sigma);
+		
+	}
+}
+
+//special thanks to w3schools.com
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+</script>

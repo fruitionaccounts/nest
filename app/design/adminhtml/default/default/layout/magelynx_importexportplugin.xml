@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<layout>                
+  
+    
+    <importexportplugin_adminhtml_index_index>
+        <remove name="notifications" />
+        <reference name="head">
+            <action method="addJs"><script>magelynx_importexportplugin/ajax_dialog.js</script></action>
+            <action method="addCss"><name>magelynx_importexportplugin/css/styles.css</name></action>    
+        </reference>
+
+        <reference name="content">
+
+            <block type="importexportplugin/adminhtml_product" name="importexportplugin_product.grid.container" template="catalog/product.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+
+            </block>
+
+            <block type="adminhtml/template" name="pu_ajax" template="magelynx_importexportplugin/ajax.phtml"  before="-" />
+
+            <block type="adminhtml/template" name="pu_wrapper" template="magelynx_importexportplugin/wrapper.phtml"  after="-" />
+        </reference>
+    </importexportplugin_adminhtml_index_index>
+    
+    <importexportplugin_adminhtml_index_grid>
+        <update handle="formkey"/>
+        <block type="importexportplugin/adminhtml_product_grid" name="importexportplugin_product.grid" output="toHtml">
+        </block>
+    </importexportplugin_adminhtml_index_grid>
+ 
+</layout>
+

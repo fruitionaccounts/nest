@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MageLynx_ImportExportPlugin>
+            <active>true</active>
+            <codePool>local</codePool>            
+        </MageLynx_ImportExportPlugin>
+    </modules>
+</config>

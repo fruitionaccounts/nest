@@ -1,0 +1,231 @@
+<?php
+	
+	Mage::getSingleton('core/session')->setDealerMode(1);
+	$custId=Mage::getSingleton('customer/session')->getCustomerId();
+?>
+<style>
+.upload.prototype {
+	display:none;
+}
+</style>
+<?php
+$max_upload=ini_get('upload_max_filesize');
+if(stripos($max_upload,"m")!==FALSE){
+	$max_upload=1024*1024*$max_upload;
+}
+?>
+<script type="text/javascript">
+function addDiagram() {
+	var form=jQuery("#diagram-upload");
+	var objet=jQuery(".upload.prototype").clone();
+	objet.removeClass("prototype");
+	var totes=form.find(".upload").length;
+	objet.addClass("base_"+totes);
+	objet.find("#file_input").attr("name","diagram_<?php echo $custId;?>_"+totes); 
+	form.append(objet);
+}
+
+var max_size=<?php echo $max_upload;?>;
+var exts=["\.jpg$","\.jpeg$","\.png$","\.gif$","\.pdf$"];
+function checkfile(item)
+{
+	
+	
+        file=jQuery(item)[0].files[0];
+        fileName = file.name;
+        fileSize = file.size;
+
+        good=(fileSize<= max_size);
+        if(!good)
+        {
+                alert("File is too big");
+                jQuery(item).val(""); //blank it out
+                return false;
+        }
+        good=false;
+        var types=[]
+        for(i=0;i<exts.length;i++)
+        {
+                types.push(exts[i].replace("\$","").replace("\\"," "));
+                patt=new RegExp(exts[i],"i");
+                if(patt.test(fileName))
+                {
+                        good=true;
+                }
+        }
+        if(!good)
+        {
+                alert("File must be one of:"+types);
+                jQuery(item).val(""); //blank it out
+                return false;
+        }
+
+		jQuery(item).parent().find("label[for=file_input]").hide();
+        return true;
+
+}
+</script>
+<div id="dealer-diagram-upload-instrs">
+<h4 class="diagrams-label">Upload custom glass and countertop diagrams here:</h4>
+<button onclick="addDiagram()" class="button" ><span><span>Add Diagram</span></span></button><br />
+<span>Total size of all files may not exceed <?php echo (int)($max_upload/(1024*1024));?>MB. File type(s) must be .jpg, .jpeg, .png, .gif, or .pdf. </span> 
+</div>
+<?php if($collection = $this->getCollection()): ?>
+	<?php /* echo $this->getToolbarHtml(); */ 
+	
+	/*
+	Chuck all this into a JSON generator belonging to Cedcoss_Dealers_Block_Sales_Create_Search_Products
+	$attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
+		->setAttributeSetFilter(14)
+	     ->load();
+	foreach($attributeSetCollection as $group)
+	{
+		if($group->getAttributeGroupName()=="Shower Info")
+		{
+			echo "HA".$group->getId();
+		}
+	}
+	*/
+	
+	/*
+	foreach($collection as $categoryIdAndName=>$productCollection){ 
+		$categoryIdAndName = explode('|',$categoryIdAndName); 
+		$categoryId = isset($categoryIdAndName[0])?$categoryIdAndName[0]:0; 
+		$categoryName = isset($categoryIdAndName[1])?$categoryIdAndName[1]:''; 
+		if($productCollection->getSize() > 50 ) {
+			$btnoid=strtolower(str_replace(" ","-",$categoryName));
+			//this is where that JSON generator gets called
+			//args are category name,attribute group
+			
+			?>
+			<button id="add_<?php echo $btnoid;?>" class="scalable" title="Add <?php echo $categoryName?>">Add <?php echo preg_replace("/s$/","(s)",$categoryName)?></button>
+			<?php
+		}
+	}
+	*/
+	//get the IDs of the attribute sets we want to exclude from display
+	$taboo_set_ids=array();
+	$taboo_set_names=array('Stone Samples', 'Vanity Slabs');
+	 $taboo_attribute_set = Mage::getModel("eav/entity_attribute_set")->getCollection()
+		 ->addFieldToFilter('attribute_set_name',array('in' => $taboo_set_names));
+	 foreach($taboo_attribute_set as $taboo_attribute)
+	 {
+		 $taboo_set_ids[]=$taboo_attribute->getId();
+		
+	 }
+	 
+	?>
+	<form id="dealer-checkout" action="<?php echo Mage::getUrl('dealers/add/index');?>" method="post" enctype="multipart/form-data"> 
+		<fieldset id="diagram-upload">
+			 <div class="upload prototype">
+			<label for="file_input">Please add a file</label>
+			<input type="file" id="file_input" onchange="checkfile(this)" />
+		</div>
+		</fieldset>
+	<?php 
+		$i=0;
+		foreach($collection as $categoryIdAndName=>$productCollection){ ?>
+		<?php $categoryIdAndName = explode('|',$categoryIdAndName); ?>
+		<?php $categoryId = isset($categoryIdAndName[0])?$categoryIdAndName[0]:0; ?>
+		<?php $categoryName = isset($categoryIdAndName[1])?$categoryIdAndName[1]:''; ?>
+
+		<?php $true_collection=$productCollection
+						->addAttributeToFilter('type_id', array('neq' => 'bundle'))
+						->addAttributeToFilter('attribute_set_id',array('nin' => $taboo_set_ids ))
+							;
+		Mage::getSingleton('catalog/product_visibility')
+			->addVisibleInSiteFilterToCollection($true_collection);
+		if($true_collection->getSize() == 0 ) {
+				continue;
+		}?>
+		<div class="category-product-<?php echo $categoryId; ?> open dealers-product-grid" style="display: block;"  >
+			<div class="entry-edit-head ">
+				<h4 class="fieldset-legend"><?php echo $this->__('%s',$categoryName) ?></h4>
+			</div>
+			<fieldset id="category-product-fieldset-<?php echo $categoryId; ?>" style="display: block;">
+				<?php /* echo $this->getToolbarHtml($categoryId) */ ?>
+					<table class="data-table" id="category-product-table-<?php echo $categoryId; ?>">
+						<col width="322">
+						<col width="106">
+						<col width="97">
+						<col width="1">
+						<col width="1">
+						<thead>
+							<tr>
+								<th><?php echo $this->__('Product Name') ?></th>
+								<th style="text-align: center;"><?php echo $this->__('SKU') ?></th>
+								<th style="text-align: center;"><?php echo $this->__('Price') ?></th>
+								<th style="text-align: center;"><?php echo $this->__('Select') ?></th>
+								<th style="text-align: center;"><?php echo $this->__('Qty To Add') ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if(count($true_collection)>0){ ?>
+								<?php $_helper = $this->helper('catalog/output');
+									  ?>
+								<?php foreach($true_collection as $_product){ ?>
+									<?php 
+									$outOfStock = false;
+									if($_product->isVisible)
+									{
+									$outOfStock = false;
+									} 
+									?>
+									<?php $type_id = $_product->getTypeId(); ?>
+									<tr class="<?php if(!$_product->isSalable()){ echo "product-out-of-stock";$outOfStock = true; }?>" >
+										<td class="a-left">
+											<a target="_blank" href="<?php echo $_product->getProductUrl(true) ?>" title="<?php echo strip_tags($_product->getName()); ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+											<?php if($type_id!='simple' && !$outOfStock ){ ?>
+												<a product_id="<?php echo $_product->getId(); ?>" list_type="product_to_add" class="f-right" href="javascript:void(0);" onclick="<?php if($type_id=='bundle'){?>bundle_fun('<?php echo Mage::getUrl('dealers/add/bundleProductToAdd');?>',<?php echo $_product->getId(); ?>,<?php echo $i;?>) <?php } elseif($type_id=='grouped'){ ?> grouped_fun('<?php echo Mage::getUrl('dealers/add/groupedProductToAdd');?>',<?php echo $_product->getId(); ?>,<?php echo $i;?>) <?php }else { ?>configure('<?php echo Mage::getUrl('dealers/add/configureProductToAdd');?>',<?php echo $_product->getId(); ?>,<?php echo $i;?>) <?php } ?>"><?php echo $this->__('Configure') ?></a>
+											<?php }else{ ?>
+												<a disabled="disabled" class="f-right" style="color: #CCC;" href="javascript:void(0)"><?php echo $this->__('Configure') ?></a>
+											<?php } ?>
+										</td>
+	<?php
+	//get those prices!(FLJ, 7/27/15)	
+	if($type_id=='grouped')
+	{
+		$finalprice=0;
+		foreach($_product->getTypeInstance(true)->getAssociatedProducts($_product) as $miniproduct)
+		{
+			$finalprice+=$miniproduct->getFinalPrice();
+		}
+	}
+	else
+	{
+		$finalprice=$_product->getFinalPrice();
+	}
+	?>
+										<td class="a-center"><?php echo $_helper->productAttribute($_product, $_product->getSku() , 'sku'); ?></td>
+										
+										<td class="a-center" id="price_<?php echo $i; ?>">
+											<p class="special-price">
+                								<span id="product-price-3824" class="price"><?php echo Mage::app()->getLocale()->currency($currencyCode)->getSymbol().number_format($finalprice, 2, '.', '');?></span>
+                   	 						</p>           
+										</td>
+										
+										<td class="a-center"><input class="checkbox" id="check_<?php echo $i; ?>" type="checkbox" name="check" value="id_<?php echo $i;/* echo $_product->getId(); */ ?>" <?php if($outOfStock || $type_id!='simple'){ echo ' disabled';} ?>></td>
+										<td class="a-center"><input class="input-text qty" id="id_<?php echo $i; ?>" type="text" size="10" name="qty[<?php echo $i++; ?>][<?php echo $_product->getId(); ?>]" <?php if($type_id!='simple' || $outOfStock){ echo ' disabled';} ?>></td>
+									</tr>
+								<?php } ?>
+							<?php } ?>
+						</tbody>
+					</table>
+					<script type="text/javascript">decorateTable('category-product-table-<?php echo $categoryId; ?>')</script>
+				<?php  /* echo $this->getToolbarHtml($categoryId) */ ?>
+			</fieldset>
+		</div>
+		<br/>
+	<?php } ?>
+	</form>
+	<?php /* echo $this->getToolbarHtml();*/ ?>	
+<?php else: ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>	
+<?php endif; ?>
+
+<script type="text/javascript">
+   /*  jQuery(document.body).on('click','li',function(evt){
+		var currentID = jQuery(this).attr('class');
+		var id = currentID.substring(4);
+	}); */
+</script>

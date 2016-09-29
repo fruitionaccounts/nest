@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <customcounter_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>fruition/customcounter/page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/fruition/customcounter/builder.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/fruition/customcounter/builder.css</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/fruition/customcounter/builder-ie.css</name><params/><if><![CDATA[<!--[if (gte IE 9) | (IEMobile)]><!-->]]></if></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="custom-countertop-builder" template="fruition/customcounter/builder.phtml"/>
+        </reference>
+    </customcounter_index_index>
+    <customcounter_index_diagram>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>fruition/customcounter/page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/fruition/customcounter/builder.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/fruition/customcounter/builder.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="custom-countertop-diagram" template="fruition/customcounter/diagram.phtml"/>
+        </reference>
+    </customcounter_index_diagram>
+    <customcounter_index_print>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>fruition/customcounter/page/empty.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/fruition/customcounter/builder.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/fruition/customcounter/builder.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="custom-countertop-diagram" template="fruition/customcounter/diagram.phtml"/>
+        </reference>
+    </customcounter_index_print>
+</layout>

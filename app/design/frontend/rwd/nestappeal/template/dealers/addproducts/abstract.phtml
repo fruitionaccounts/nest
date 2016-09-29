@@ -1,0 +1,32 @@
+<div class="entry-edit">
+		<div class="section-config">
+			<div class="entry-edit-head ">
+				<h4 class="fieldset-legend"></h4>
+			</div>
+				<div class="fieldset">
+					<?php echo $this->getLayout()->createBlock('dealers/sales_create_search_products')->toHtml(); ?>
+				
+			</div>
+			
+		</div>
+</div>
+    <!--<div class="entry-edit-head">
+        <div style="float: right;"><?php //echo $this->getButtonsHtml() ?></div>
+        <h4 class="fieldset-legend <?php //echo ($this->getHeaderCssClass()) ? $this->getHeaderCssClass().' icon-head' : '' ?>"><?php //echo $this->getHeaderText() ?></h4>
+    </div>
+    <div class="fieldset">
+		<?php //echo $this->getLayout()->createBlock('dealers/sales_create_search_grid')->toHtml(); ?>
+    </div>
+
+<script type="text/javascript">
+function addproducts()
+{
+	myArray= new Array();
+	$('#dealers_create_search_grid input:checkbox:checked').each(function(){ myArray.push(jQuery(this).val()); })
+	new Ajax.Updater('order-items', '<?php echo Mage::helper("adminhtml")->getUrl('salessurvey/adminhtml_survey/addProducts')?>', {
+		  parameters: { 'ids[]': myArray }
+		});
+}
+
+</script>
+-->

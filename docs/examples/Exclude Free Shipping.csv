@@ -1,0 +1,19 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,SMALL,*,*,*,*,*,*,*,8,,Overnight,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,10,,Overnight,*
+USA,*,*,*,*,LARGE,*,*,*,*,*,*,*,12,,Overnight,*
+USA,*,*,*,*,DEFAULT,*,*,*,*,*,*,*,10,,Overnight,*
+USA,*,*,*,*,SPECIAL,*,*,*,*,*,*,*,-1,,Overnight,*
+USA,*,*,*,*,SMALL,*,*,*,*,*,*,*,6,,Ground,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,10,,Ground,*
+USA,*,*,*,*,LARGE,*,*,*,*,*,*,*,14,,Ground,*
+USA,*,*,*,*,SPECIAL,*,*,*,*,*,*,*,15,,Ground,*
+USA,*,*,*,*,DEFAULT,*,*,*,*,*,*,*,10,,Ground,*
+*,*,*,*,*,SMALL,*,*,*,*,*,*,*,15,,Intenational,*
+*,*,*,*,*,MEDIUM,*,*,*,*,*,*,*,21,,Intenational,*
+*,*,*,*,*,LARGE,*,*,*,*,*,*,*,25,,Intenational,*
+*,*,*,*,*,DEFAULT,*,*,*,*,*,*,*,21,,Intenational,*
+*,*,*,*,*,SPECIAL,*,*,*,*,*,*,*,-1,,Intenational,*
+USA,*,*,*,*,*,*,*,100,*,*,*,*,0,,Express,*
+*,*,*,*,*,*,*,*,250,*,*,*,*,0,,Express,*
+*,*,*,*,*,SPECIAL,*,*,*,*,*,*,*,-1,,Express,*

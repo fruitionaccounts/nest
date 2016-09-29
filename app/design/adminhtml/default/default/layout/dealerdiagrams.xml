@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+	<adminhtml_sales_order_view>
+		<reference name="order_items">
+		<action method="setTemplate"><template>digitaledge/order/view/items.phtml</template></action>
+		</reference>
+	</adminhtml_sales_order_view>
+</layout>

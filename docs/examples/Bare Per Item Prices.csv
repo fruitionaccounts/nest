@@ -1,0 +1,4 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+GBR,*,*,*,*,*,0,100000,0,10,0,1000,*,5,,UPS Ground,*
+GBR,*,*,*,*,*,0,100000,10,100000,0,1000,*,10,,UPS Ground,*
+GBR,*,*,*,*,FREE,0,100000,0,100000,0,1000,*,0,,UPS Ground,*

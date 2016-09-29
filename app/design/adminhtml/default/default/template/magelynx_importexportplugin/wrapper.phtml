@@ -1,0 +1,189 @@
+<div id="google_spreadsheet">
+   
+    <div id="gs_toolbar">
+    </div>
+</div>
+
+
+<div id="ml-settings-wrapper">
+    <div class="ml-settings-overlay">
+    </div>
+    <div class="ml-settings-content">
+<?php
+$this->getRequest()->setParam('section', 'importexportplugin');
+echo $this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm()->toHtml();
+?>
+<script type="text/javascript"> 
+    $('config_edit_form').writeAttribute('action', '<?php echo $this->getUrl('adminhtml/system_config/save', array('section' => 'importexportplugin')); ?>');
+    $$('fieldset.config').each(function(fildset){
+        if(fildset.up('.section-config')){
+            fildset.up('.section-config').addClassName(fildset.id+'-section');
+        }
+    });
+</script>
+<button id="configform-submit" onclick="if(confirm('<?php echo $this->__('Are you sure? This action will refresh the page.') ?>')){ configForm.submit();}" class="button save"><span><span><span><?php echo $this->__('Save'); ?></span></span></span></button>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+/////////////////////////////////////////
+$$('.head-products')[0].up('td').insert({bottom:'<h3 class="icon-head head-edit-form "><?php echo $this->__('Google Spreadsheet') ?></h3>'});
+$$('#importexportplugin_product_grid')[0].up('div').addClassName('product-grid-wrapper');
+
+function ml_tab_get_content(title_elm){
+    if(title_elm.hasClassName('head-edit-form')){
+        return $('google_spreadsheet');
+    }else{
+        return $$('#importexportplugin_product_grid')[0].up('div');
+    }
+
+}
+
+function ml_activate_tab(h3){
+    $$('.content-header h3').each(function(_h3){
+        _h3.removeClassName('active');
+//        ml_tab_get_content(_h3).addClassName('hidden');
+//        ml_tab_get_content(_h3).removeClassName('show');
+
+
+    });
+
+    h3.addClassName('active');
+//    ml_tab_get_content(h3).show();
+//    ml_tab_get_content(h3).addClassName('show');
+//    ml_tab_get_content(h3).removeClassName('hidden');
+
+    
+    $('html-body').classNames().each(function(classname){
+        if(classname.indexOf('ml-') != -1 && classname.indexOf('-active') != -1){
+            $('html-body').removeClassName(classname);
+        }
+    })
+    if(h3.hasClassName('head-edit-form')){
+        $('html-body').addClassName('ml-gs-active');
+//        $('html-body').removeClassName('ml-grid-active');
+
+        if(!$('gs_iframe')){
+
+//function makeFrame() { 
+   ifrm = document.createElement("IFRAME"); 
+   ifrm.setAttribute("src", "<?php echo Mage::getStoreConfig("importexportplugin/settings/url") ?>"); 
+   ifrm.style.width = "100%"; 
+   ifrm.style.height = "100%"; 
+//ifrm.style["height"] = "400px"; 
+//ifrm.style["width"] = "800px"; 
+
+   ifrm.setAttribute("frameborder",0);
+   ifrm.setAttribute("id",'gs_iframe');
+
+  $('google_spreadsheet').appendChild(ifrm); 
+//} 
+
+  //          $('google_spreadsheet').insert({bottom:'<iframe width="100%" height="100%" id="gs_iframe" frameborder="0" src="<?php echo Mage::getStoreConfig("importexportplugin/products/url") ?>"></iframe>'});
+        }
+
+    }else if(h3.hasClassName('ml-settings')){
+        $('html-body').addClassName('ml-settings-active');
+    }else{
+        $('html-body').addClassName('ml-grid-active');
+//        $('html-body').removeClassName('ml-gs-active');
+
+    }
+
+}
+$$('.head-products')[0].up('td').insert({top:'<h3 class="back-to-magento"><a onclick="return confirm(\'<?php echo $this->__('Are you sure you want to leave this page?') ?>\')"href="<?php echo $this->getUrl('adminhtml/index/index')  ?>"><?php echo $this->__('Back to Admin') ?></a></h3>'});
+$$('.head-products')[0].up('td').insert({bottom:'<h3 class="icon-head ml-settings"><?php echo $this->__('Settings') ?></a></h3>'});
+ <?php if($this->getRequest()->getParam('type', 'export') == 'import'):?>
+ml_activate_tab($$('.content-header h3')[2]);
+
+<?php elseif(Mage::getSingleton('adminhtml/session')->getData('active-settings')):?>
+<?php Mage::getSingleton('adminhtml/session')->setData('active-settings', false); ?>
+ml_activate_tab($$('.content-header h3')[3]);
+<?php else: ?>
+ml_activate_tab($$('.content-header h3')[1]);
+
+<?php endif; ?>
+
+$$('.content-header h3').each(function(_h3){
+    if(!_h3.hasClassName('back-to-magento')){
+        _h3.observe('click', function(){  ml_activate_tab(_h3)});
+    }
+});
+
+$('ml-all-wrap').insert({'bottom': '<div id="ml_blocker"></div>'});
+
+if(typeof ML_AjaxDialog !='undefined' && typeof ML_AjaxDialog.ids != 'undefined' && ML_AjaxDialog.ids.length > 0 ){
+
+ML_AjaxDialog.startCallback = ML_AjaxDialog.startCallback.wrap(  function(callOriginal){
+//            $('ml_tracker').update("<?php echo $this->__('Progress:') ?>"+ this.current_position + '/' + this.ids.length);
+
+    <?php if($this->getRequest()->getParam('type', 'export') == 'export'):?>
+    $('ml_blocker').update("<?php echo $this->__("You can't import while export is progress");?>");
+    <?php else: ?>
+    $('ml_blocker').update("<?php echo $this->__("You can't export while import is progress");?>");
+    <?php endif; ?>
+    return callOriginal();
+});
+function ml_common_end(defaulting){
+        <?php 
+            $ids = Mage::registry('ml-ids');
+            if(count($ids) == 1 && $ids[0] == 'detect'): ?>
+ML_AjaxDialog.ids = ['detect'];
+
+
+//            $('ml_tracker').update("<span style='font-size:10px;'><?php echo $this->__('Validating...');?></span>");
+
+        <?php endif;?>
+
+    <?php if($this->getRequest()->getParam('type', 'export') == 'export'):?>
+var __html = '<div id="import-button" class="ml-button" onclick="setLocation(\'<?php echo $this->getUrl('importexportplugin/adminhtml_product/import'); ?>\')"><?php echo $this->__('Import'); ?></div>';
+        $('ml_blocker').update(__html);
+
+        //$('ml_blocker').update("<?php echo $this->__("button export (can)");?>");
+    <?php else: ?>
+
+        $('ml_blocker').update("<?php echo $this->__("Since the products were updated, you may want to refresh the grid.");?>");
+    <?php endif; ?>
+}
+setTimeout(function(){
+ml_common_end();
+}, 500);
+}
+var __html = '<div id="import-button" class="ml-button" onclick="setLocation(\'<?php echo $this->getUrl('importexportplugin/adminhtml_product/import'); ?>\')"><?php echo $this->__('Import'); ?></div>';
+        $('ml_blocker').update(__html);
+
+
+
+
+
+
+$('ml-all-wrap').insert({'bottom': '<div id="ml_log_trigger" onclick="$$(\'body\')[0].addClassName(\'view-log-active\')"><?php echo $this->__('View log'); ?></div>'})
+;
+$('ml-all-wrap').insert({'bottom': '<div id="ml_log_closer" onclick="$$(\'body\')[0].removeClassName(\'view-log-active\')"><?php echo $this->__(' X '); ?></div>'});
+
+$('html-body').insert({'bottom': $('ml-settings-wrapper')});
+
+
+
+switchStore = function(obj){
+        var storeParam = obj.value ? 'store/'+obj.value + '/' : '';
+        if(obj.switchParams){
+            storeParam+= obj.switchParams;
+        }
+        importexportplugin_product_gridJsObject.reloadParams = { 'store': obj.value };
+        global_store_current = obj.value;
+        importexportplugin_product_gridJsObject.doFilter();
+
+}
+
+var global_store_current  = null;
+
+//toggleSelectsUnderBlock = toggleSelectsUnderBlock.wrap(function(orginal, arg1,arg2){
+//    alert('end');
+//    return original(arg1, arg2);
+//}) 
+
+</script>
+

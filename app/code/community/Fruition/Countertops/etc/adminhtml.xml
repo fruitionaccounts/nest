@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <countertops>
+            <title>Fruition</title>
+            <sort_order>200</sort_order>
+            <children>
+                <example>
+                    <title>Update Vanity Countertops</title>
+                    <sort_order>1</sort_order>
+                    <action>countertops/update?a=2478</action>
+                </example>
+            </children>
+        </countertops>
+    </menu>
+</config>

@@ -1,0 +1,399 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>	
+<?php
+    $tyPageId = 101; //page id in CMS
+
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+
+/*
+    $page = Mage::getModel('cms/page');
+    $page->setStoreId(Mage::app()->getStore()->getId());
+    $page->load($tyPageId);
+
+    $helper = Mage::helper('cms');
+    $processor = $helper->getPageTemplateProcessor();
+    $tyHtml = $processor->filter($page->getContent());
+    $tyHtml = str_replace("\r", "", $tyHtml);
+    $tyHtml = str_replace("\n", "", $tyHtml);
+    $tyHtml = str_replace('"', '&quot;', $tyHtml);*/
+  
+/*  
+We are going to send data to the quote_thanks.html page (quote-thanks.phtml)
+rather than try to manipulate a full page of HTML in JavaScript that was shipped 
+from PHP by brute force. 
+(FLJ, 3/27/2013)
+*/
+?>
+<link media="all" href="http://www.lazygranite.com/skin/frontend/default/lazygranite/css/getway.css" type="text/css" rel="stylesheet">
+<style>
+.custom-area-lazy-countertops {
+	display:block;
+}
+
+.header-top{display:none;}
+.header-cont-last{display:none;}
+
+.header-cont-middle {
+    float: right;
+    margin-left: 440px;
+    margin-right: 0 !important;
+    margin-top: 35px !important;
+}
+.other-products-services, .header-testimonial-btn{display:none;}
+.header-contents{margin:0 !important; padding:0 !important;}
+
+</style>
+<form id="tyform" action="quote_thanks.html" method="get" style="display:none;">
+  <input type="hidden" name="granite_color" id="granite_color" value="" />
+  <input type="hidden" name="sqft" id="sqft" value="" />
+  <input type="hidden" name="sinkit" id="sinkit" value="" />
+  <input type="hidden" name="price_quote" id="price_quote" value="" />
+</form>
+<form target="transFrame"  action='https://crm.zoho.com/crm/WebToLeadForm' name="WebToLeads647174000000103239" id="form_webtoleads" method='POST' onSubmit='javascript:document.charset="UTF-8";' accept-charset='UTF-8'>
+<iframe name="transFrame" id="transFrame" style="border:none;" ></iframe>
+ <input type='text' style='display:none;' name='xnQsjsdp' value='b45c44b1e3df773ef991fd4ebf1276e689b01e765c1b5291bc67ef1020687224'/>
+    <input type='hidden' name='zc_gad' id='zc_gad' value=''/>
+    <input type='text' style='display:none;' name='xmIwtLD' value='a61016e67021028c04f9b8d787345dc81838e8afde6f948e4e47ca1c43f7d2be'/>
+    <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='/>
+   <input type='text' style='display:none;' name='returnURL' id="webtoleads_retunurl"  />
+  <table border=0 cellspacing=0 cellpadding='6' width=600 style='display:none;'>
+    <tr>
+      <td colspan='2' align='left' style='color:black;font-family:Arial;font-size:14px;'><strong>BG4L Estimator</strong></td>
+    </tr>
+    <br>
+    <tr>
+      <td nowrap='nowrap' align='left'   style='font-size:12px;font-family:Arial;width:200px;'>First Name </td>
+      <td style='width:250px;' ><input type='text' style='width:250px;' id="firstname" maxlength='40' name='First Name' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Last Name<span style='color:red;'>*</span></td>
+      <td style='width:250px;' ><input type='text' style='width:250px;' id="lastname" maxlength='80' name='Last Name' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Email </td>
+      <td style='width:250px;' ><input type='text' style='width:250px;' id="lemail" maxlength='100' name='Email' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Phone </td>
+      <td style='width:250px;' ><input type='text' style='width:250px;' id="lphone" maxlength='30' name='Phone' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Square Feet </td>
+      <td style='width:250px;' ><input type='text' style='width:250px;'  id="lge" maxlength='6' name='LEADCF66' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Color </td>
+      <td style='width:250px;'  ><input type="hidden" id="lcolor"  style='width:250px;' name='LEADCF3'/></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Sink Kit </td>
+      <td style='width:250px;' ><input type='hidden' id="sinkkit" value="" name='LEADCF102' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>LGE Quote Amount </td>
+      <td style='width:250px;' ><input type='text' style='width:250px;'  id="sinkquote" maxlength='7' name='LEADCF67' />
+        </div></td>
+    </tr>
+    <tr>
+      <td nowrap='nowrap' align='left'  style='font-size:12px;font-family:Arial;width:200px;'>Lead Source </td>
+      <td style='width:250px;'  ><input type="hidden" value="LazyGranite Estimator" style='width:250px;' id="leadsource" name='Lead Source'/></td>
+    </tr>
+    <tr>
+      <td colspan='2' align='center' style='padding-top: 15px;' ><input   style='font-size:12px;color:black' type='submit'  value='Submit' />
+        <input type='reset'  style='font-size:12px;color:black' value='Reset' /></td>
+    </tr>
+  </table>  <script> var mndFileds=new Array('Last Name');var fldLangVal=new Array('Last Name');function reloadImg(){if(document.getElementById('imgid').src.indexOf('&d') !== -1 ){document.getElementById('imgid').src=document.getElementById('imgid').src.substring(0,document.getElementById('imgid').src.indexOf('&d'))+'&d'+new Date().getTime();}else{document.getElementById('imgid').src = document.getElementById('imgid').src+'&d'+new Date().getTime();}}function checkMandatery(){var name='';var email='';for(i=0;i<mndFileds.length;i++){ var fieldObj=document.forms['WebToLeads647174000000103239'][mndFileds[i]];if(fieldObj) {if(((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0){alert(fldLangVal[i] +' cannot be empty'); fieldObj.focus(); return false;}else if(fieldObj.nodeName=='SELECT'){if(fieldObj.options[fieldObj.selectedIndex].value=='-None-'){alert(fldLangVal[i] +' cannot be none'); fieldObj.focus(); return false;}} else if(fieldObj.type =='checkbox'){ if (fieldObj.checked == false){     alert('Please accept  '+fldLangVal[i]); fieldObj.focus();return false;}}try{if(fieldObj.name == 'Last Name'){name = fieldObj.value;}}catch(e){}}}try{if($zoho){var LDTuvidObj = document.forms['WebToLeads647174000000103239']['LDTuvid'];if(LDTuvidObj){LDTuvidObj.value = $zoho.salesiq.visitor.uniqueid();}var firstnameObj = document.forms['WebToLeads647174000000103239']['First Name'];if(firstnameObj){name = firstnameObj.value +' '+name;}$zoho.salesiq.visitor.name(name);var emailObj = document.forms['WebToLeads647174000000103239']['Email'];if(emailObj){email = emailObj.value;$zoho.salesiq.visitor.email(email);}}}catch(e){}}</script>
+</form>
+<div style="text-align:center;"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lazygranite-quote-header')->toHtml();?></div>
+<div class="gc-third">
+  <div class="main-frist">
+    <div class="main-second">
+      <div class="inqform">
+        <div class="forma-area">
+          <div class="lineing">
+            <h3>GET A FREE QUOTE</h3>
+          </div>
+          <div id="thankyou">
+            <div class="block-select-color"> <span class="buy-product step-one"><?php echo $this->__('Please Select a Color'); ?></span> <?php echo $this->getColorHtmlSelect();?>
+              <p><?php echo $this->__('See your options on the right');?></p>
+            </div>
+            <div id="wating-load" class="no-display"></div>
+            <input type="hidden" name="products-load" value="<?php echo $this->getUrl('quote/index/getproducts')?>" id="product:load"/>
+            <input type="hidden" name="product-load" value="<?php echo $this->getUrl('quote/index/getproduct')?>" id="_product:load"/>
+            <?php if(!$_productCollection->count()): ?>
+            <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+            <?php else: ?>
+            <div class="category-products" id="category-products">
+              <?php $_collectionSize = $_productCollection->count() ?>
+              <?php $_columnCount = 2; ?>
+              <div id="spnova-scroll" class="carousel"> <!--<a rel="prev" class="carousel-control prev" href="javascript:"></a>-->
+                <div class="middle">
+                  <div class="inner" style="width: 10000px;">
+                    <?php $i=0; foreach ($_productCollection as $_product): ?>
+                    <?php if ($i++%$_columnCount==0): ?>
+                    <ul class="products-grid">
+                      <?php endif ?>
+                      <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>" id="<?php echo $_product->getId() ; ?>" <?php if(!$_product->isSaleable()): ?>lang="1"<?php endif; ?>>
+                        <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></p>
+                        <img <?php if(!$_product->isSaleable()): ?>onmouseover="showImageHolder('<?php echo $_product->getId();?>')" <?php endif; ?> src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(106,69); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <?php if(!$_product->isSaleable()): ?>
+                        <img style="display: none;"  id="item-stock-<?php echo $_product->getId();?>" src="<?php echo $this->getSkinUrl('images/bkg-gray.png'); ?>"  width="106" height="69" class="imgage-outofstock" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <div style="display: none; z-index: 9999" class="mesages-outofstock" id="mesages-outofstock-<?php echo $_product->getId();?>" onmouseout="hideImageHolder('<?php echo $_product->getId();?>')"> <span><?php echo $this->__('The product is currently unavailable.'); ?></span></div>
+                        <?php endif; ?>
+                      </li>
+                      <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+                    </ul>
+                    <?php endif ?>
+                    <?php endforeach ?>
+                  </div>
+                </div>
+              <!--  <a rel="next" class="carousel-control next" href="javascript:"></a>--> </div>
+              <script type="text/javascript">
+			new Carousel($('spnova-scroll').down('.middle'), $('spnova-scroll').down('.inner').select('ul'), $('spnova-scroll').select('a'), {
+				duration: 0.5,
+				transition: 'sinoidal',
+				visibleSlides: 1,
+				circular:false,
+				auto : false,
+				wheel: false
+				});
+        </script> 
+              <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script> 
+            </div>
+            <div class="div-input-qty"> <?php /*?><span class="buy-product step-two"><?php echo $this->__('specify request'); ?></span><?php */?>
+              <div id="product-size-list"> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php /*?><div class="gc-slider">
+<div class="main-frist">
+<div class="main-second">
+<div class="slidersection">
+			 <ul>
+				<li><h2 class="product-name">Binaco Romano </h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/1.png">             </li>
+				
+                <li><h2 class="product-name">Kashmire White</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/2.png">             </li>
+              
+              <li><h2 class="product-name">Red Stream</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/3.png">             </li>
+              
+              <li><h2 class="product-name">Steel Black</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/4.png">             </li>
+              
+              <li><h2 class="product-name">Baltic Brown</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/5.png">             </li>
+              
+              <li><h2 class="product-name">Blue Pearl</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/6.png">             </li>
+              
+              <li><h2 class="product-name">Tan Brown</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/7.png">             </li>
+              
+              <li><h2 class="product-name">Absolute Black</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/8.png">             </li>
+              
+              <li><h2 class="product-name">Santa Cecilia</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/9.png">             </li>
+              
+              <li><h2 class="product-name">Imperial White</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/10.png">             </li>
+              
+              <li><h2 class="product-name">Deep Blue Pearl</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/11.png">             </li>
+              
+              <li><h2 class="product-name">African Red</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/12.png">             </li>
+              
+              <li><h2 class="product-name">Rusty Stand</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/13.png">             </li>
+              
+              <li><h2 class="product-name">Mint Brown</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/14.png">             </li>
+              
+              <li><h2 class="product-name">Antique Brown</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/15.png">             </li>
+              
+              <li><h2 class="product-name">Giallo Ornamental</h2>
+                         
+              <img alt="Black Galaxy Granite Slab " id="3682" class="color_img" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/color-tiles/1.png">             </li>
+              
+              
+              
+		    </ul>
+		</div>
+</div>
+
+</div>
+</div><?php */?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('granite-countertops-bottom-area')->toHtml();  ?>
+<script type="text/javascript">
+
+function toFixed(value, precision) {
+    var precision = precision || 0,
+    neg = value < 0,
+    power = Math.pow(10, precision),
+    value = Math.round(value * power),
+    integral = String((neg ? Math.ceil : Math.floor)(value / power)),
+    fraction = String((neg ? -value : value) % power),
+    padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+
+    return precision ? integral + '.' +  padding + fraction : integral;
+}
+
+
+function subMitCart(){
+	var baseurl='<?php echo Mage::getBaseUrl(); ?>';
+    var error = '';
+     if ($('email').getValue() == '')
+        error += "Please, provide Email\r\n";                    
+     if ($('fname').getValue() == '' || $('lname').getValue() == '')
+        error += "Please, provide First and Last Name\r\n";                          
+     if ($('SquareFeetQuantity').getValue() == '')
+        error += "Please, provide desired Quantity\r\n";
+     if (error == '') {
+        //$('form-product-size-list').submit();
+
+        var SinkKit = 0;
+        if ($('SinkKit').checked)
+          SinkKit = 1;
+
+        new Ajax.Request('<?php echo $this->getUrl('quote/index/quote')?>', {
+          method:'post',
+          parameters: {
+                productId: $('productId').getValue(),
+                productName: $('productName').getValue(),
+                email: $('email').getValue(),
+                FirstName: $('fname').getValue(),
+                LastName: $('lname').getValue(),
+                sqFeetPrice: $('sqFeetPrice').getValue(),
+                sinkKitPrice: $('sinkKitPrice').getValue(),
+                SquareFeetQuantity: $('SquareFeetQuantity').getValue(),
+                SinkKit: SinkKit
+         },          
+          onSuccess: function(transport, json) {
+            var message = "<?php //echo $tyHtml; //this was naked HTML, and the analytics code caused the page to mis-render (FLJ, 3/27/2013) ?>";
+            message = message.replace(/&quot;/g, '"');
+	/*
+            message = message.replace('[[granite_color]]', $('productName').getValue());
+            message = message.replace('[[sqft]]', $('SquareFeetQuantity').getValue());          */
+
+	$('granite_color').value=$('productName').getValue();
+	$('sqft').value=$('SquareFeetQuantity').getValue();
+            var quote =  parseFloat($('sqFeetPrice').getValue()) * parseFloat($('SquareFeetQuantity').getValue());       
+            if ($('SinkKit').checked)  {      
+                 quote = parseFloat(quote) + parseFloat($('sinkKitPrice').getValue());
+                 quote = toFixed(quote, 2);
+//                 message = message.replace('[[sinkit]]', 'includes');
+	$('sinkit').value='includes';
+            }  else {
+//                message = message.replace('[[sinkit]]', 'doesn\'t include');
+	$('sinkit').value='doesn\'t include';
+            }    
+           // message = message.replace('[[price]]', quote);            
+          	$('price_quote').value=(quote);            
+			      //  $('tyform').submit();
+			            //$('thankyou').update(message);
+			baseurl+='quote_thanks.html?granite_color='+$('productName').getValue()+'&sqft='+$('SquareFeetQuantity').getValue()+'&sinkit='+$('sinkit').value+'&price_quote='+$('price_quote').value.replace(/./g, function(c, i, a) {
+    return i && c !== "." && !((a.length - i) % 3) ? ',' + c : c;
+});;
+			<?php if(Mage::getStoreConfig('lightbox_options/zoho/module',Mage::app()->getStore()->getId())==1){ ?>
+			$('webtoleads_retunurl').value=baseurl;
+			$('firstname').value=$('fname').getValue();
+			$('lastname').value=$('lname').getValue();
+			$('lemail').value=$('email').getValue();
+			$('lcolor').value=$('productName').getValue();
+			$('lge').value=$('SquareFeetQuantity').getValue();
+			$('sinkquote').value=$('price_quote').value;
+			if($('sinkit').value=='includes')
+			{	$('sinkit').checked='checked';
+				$('sinkkit').value='on';
+			
+			}
+			window.location.href = 	baseurl+='quote_thanks.html?granite_color='+$('productName').getValue()+'&sqft='+$('SquareFeetQuantity').getValue()+'&sinkit='+$('sinkit').value+'&price_quote='+$('price_quote').value.replace(/./g, function(c, i, a) {
+    return i && c !== "." && !((a.length - i) % 3) ? ',' + c : c;
+});
+			$('form_webtoleads').submit();
+			 
+			<?php }else{ ?>
+			$('tyform').submit();
+			<?php } ?>
+		/* 	$('firstname').value=$('fname').getValue();
+			$('firstname').value=$('fname').getValue();
+			$('firstname').value=$('fname').getValue(); */
+			
+			
+			 
+          },
+		     
+          onFailure: function() { alert('Quote was not sent! Please repeat.'); }
+		 
+        });
+		
+
+
+     }
+     else
+        alert(error);
+}
+
+</script>
+<?php endif; ?>

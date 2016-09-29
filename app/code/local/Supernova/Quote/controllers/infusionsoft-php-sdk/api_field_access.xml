@@ -1,0 +1,1381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--todo: If you edit this file be sure to also update field_access.xml in the doc folder!-->
+
+<tables>
+
+    <table name="Contact" access="EDAR">
+        <description>Contact data</description>
+        <table-name>Contact</table-name>
+        <sql-join>LEFT JOIN LeadSource ON Contact.LeadSourceId=LeadSource.Id</sql-join>
+        <restriction>
+            <restriction-field>Contact.IsUser</restriction-field>
+            <restriction-type>equals</restriction-type>
+            <value>0</value>
+        </restriction>
+        <fields>
+            <field name="Address1Type" type="String"/>
+            <field name="Address2Street1" type="String"/>
+            <field name="Address2Street2" type="String"/>
+            <field name="Address2Type" type="String"/>
+            <field name="Address3Street1" type="String"/>
+            <field name="Address3Street2" type="String"/>
+            <field name="Address3Type" type="String"/>
+            <field name="Anniversary" type="Date"/>
+            <field name="AssistantName" type="String"/>
+            <field name="AssistantPhone" type="String"/>
+            <field name="BillingInformation" type="String"/>
+            <field name="Birthday" type="Date"/>
+            <field name="City" type="String"/>
+            <field name="City2" type="String"/>
+            <field name="City3" type="String"/>
+            <field name="Company" type="String"/>
+            <!--<field name="AccountId" sql-field="CompanyID" type="Integer" />-->
+            <field name="CompanyID" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="ContactNotes" type="String"/>
+            <field name="ContactType" type="String"/>
+            <field name="Country" type="String"/>
+            <field name="Country2" type="String"/>
+            <field name="Country3" type="String"/>
+            <field name="CreatedBy" access="R" type="Integer">
+                <relationship table="User" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="DateCreated" access="R" type="DateTime"/>
+            <field name="Email" type="String"/>
+            <field name="EmailAddress2" type="String"/>
+            <field name="EmailAddress3" type="String"/>
+            <field name="Fax1" type="String"/>
+            <field name="Fax1Type" type="String"/>
+            <field name="Fax2" type="String"/>
+            <field name="Fax2Type" type="String"/>
+            <field name="FirstName" type="String"/>
+            <field name="Groups" access="R" type="String"/>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="JobTitle" type="String"/>
+            <field name="LastName" type="String"/>
+            <field name="LastUpdated" access="R" type="DateTime" />
+            <field name="LastUpdatedBy" access="R" type="Integer"/>
+            <!--<field name="Leadsource" sql-field-join="LeadSource.Name" access="EAR" type="String"/>-->
+						<field name="LeadSourceId" access="EAR" type="Integer"/>
+            <field name="MiddleName" type="String"/>
+            <field name="Nickname" type="String"/>
+            <field name="OwnerID" type="Integer">
+                <relationship table="User" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Password" type="String"/>
+            <field name="Phone1" type="String"/>
+            <field name="Phone1Ext" type="String"/>
+            <field name="Phone1Type" type="String"/>
+            <field name="Phone2" type="String"/>
+            <field name="Phone2Ext" type="String"/>
+            <field name="Phone2Type" type="String"/>
+            <field name="Phone3" type="String"/>
+            <field name="Phone3Ext" type="String"/>
+            <field name="Phone3Type" type="String"/>
+            <field name="Phone4" type="String"/>
+            <field name="Phone4Ext" type="String"/>
+            <field name="Phone4Type" type="String"/>
+            <field name="Phone5" type="String"/>
+            <field name="Phone5Ext" type="String"/>
+            <field name="Phone5Type" type="String"/>
+            <field name="PostalCode" type="String"/>
+            <field name="PostalCode2" type="String"/>
+            <field name="PostalCode3" type="String"/>
+            <field name="ReferralCode" type="String"/>
+            <field name="SpouseName" type="String"/>
+            <field name="State" type="String"/>
+            <field name="State2" type="String"/>
+            <field name="State3" type="String"/>
+            <field name="StreetAddress1" type="String"/>
+            <field name="StreetAddress2" type="String"/>
+            <field name="Suffix" type="String"/>
+            <field name="Title" type="String"/>
+            <field name="Username" type="String"/>
+            <field name="Validated" access="R" type="String"/>
+            <field name="Website" type="String"/>
+            <field name="ZipFour1" type="String"/>
+            <field name="ZipFour2" type="String"/>
+            <field name="ZipFour3" type="String"/>
+            <!--Custom Fields:-->
+            <!--"_" + Name (as shown in step #2 of your CRM's Custom Field Wizard)-->
+            <!--EXAMPLE:-->
+            <!--<field name="_CustomField1"/>-->
+        </fields>
+    </table>
+
+    <table name="User" access="R">
+        <description>User data</description>
+        <table-name>Contact</table-name>
+        <sql-join>LEFT JOIN User ON Contact.Id=User.Id</sql-join>
+        <restriction>
+            <restriction-field>IsUser</restriction-field>
+            <restriction-type>equals</restriction-type>
+            <value>1</value>
+        </restriction>
+        <fields>
+            <field name="City" type="String"/>
+            <field name="Email" type="String"/>
+            <field name="EmailAddress2" type="String"/>
+            <field name="EmailAddress3" type="String"/>
+            <field name="FirstName" type="String"/>
+            <field name="HTMLSignature" sql-field-join="User.HTMLSignature" type="String"/>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="LastName" type="String"/>
+            <field name="MiddleName" type="String"/>
+            <field name="Nickname" type="String"/>
+            <field name="Phone1" type="String"/>
+            <field name="Phone1Ext" type="String"/>
+            <field name="Phone1Type" type="String"/>
+            <field name="Phone2" type="String"/>
+            <field name="Phone2Ext" type="String"/>
+            <field name="Phone2Type" type="String"/>
+            <field name="PostalCode" type="String"/>
+            <field name="Signature" sql-field-join="User.Signature" type="String"/>
+            <field name="SpouseName" type="String"/>
+            <field name="State" type="String"/>
+            <field name="StreetAddress1" type="String"/>
+            <field name="StreetAddress2" type="String"/>
+            <field name="Suffix" type="String"/>
+            <field name="Title" type="String"/>
+            <field name="ZipFour1" type="String"/>
+        </fields>
+    </table>
+
+    <table name="UserGroup" access="R">
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="Name" type="String"/>
+            <field name="OwnerId" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="GroupAssign" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="UserId" type="Integer"/>
+            <field name="GroupId" type="Integer"/>
+            <field name="Admin" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="Campaignee" access="R">
+        <description>Who is in what follow-up sequences</description>
+        <table-name>Campaignee</table-name>
+        <sql-join>INNER JOIN Campaign ON Campaign.Id=Campaignee.CampaignId</sql-join>
+        <fields>
+            <field name="CampaignId" type="Integer">
+                <relationship table="Campaign" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Status" type="Enum" sql-field="Campaignee.Status">
+                <options>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                </options>
+            </field>
+            <field name="Campaign" type="String" sql-field-join="Campaign.Name"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+        </fields>
+    </table>
+
+    <table name="Template" access="R">
+        <table-name>MarketingPiece</table-name>
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <!--
+                Email
+                Fax
+                Voice Broadcast
+                Letter
+                Fulfillment List
+                Queued Fulfillment List
+                Task
+                Activity History
+                Actions
+             -->
+            <field name="PieceType" type="String"/>
+            <field name="PieceTitle" type="String"/>
+            <field name="Categories" type="String"/>
+        </fields>
+    </table>
+
+    <table name="CampaignStep" access="R">
+        <sql-join>LEFT JOIN MarketingPiece ON MarketingPiece.Id=CampaignStep.CampaignPieceId</sql-join>
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="CampaignId" type="Integer"/>
+            <field name="TemplateId" sql-field="CampaignPieceId" type="Integer"/>
+            <field name="StepStatus" type="String"/>
+            <field name="StepTitle" type="String" sql-field-join="MarketingPiece.PieceTitle"/>
+        </fields>
+    </table>
+
+    <table name="MtgLead" access="R">
+        <table-name>Ln1003</table-name>
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="DateAppraisalOrdered" type="DateTime"/>
+            <field name="DateAppraisalDone" type="DateTime"/>
+            <field name="DateAppraisalReceived" type="DateTime"/>
+            <field name="DateTitleOrdered" type="DateTime"/>
+            <field name="DateTitleReceived" type="DateTime"/>
+            <field name="DateRateLocked" type="DateTime"/>
+            <field name="DateRateLockExpires" type="DateTime"/>
+            <field name="CreditReportDate" type="DateTime"/>
+            <field name="ApplicationDate" type="DateTime"/>
+            <field name="ActualCloseDate" type="DateTime"/>
+            <field name="FundingDate" type="DateTime"/>
+        </fields>
+    </table>
+
+    <table name="Lead" access="EDAR">
+        <description>Lead data</description>
+        <table-name>Opportunity</table-name>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="OpportunityTitle" type="String"/>
+            <field name="ContactID" type="Integer"/>
+            <field name="AffiliateId" type="Integer"/>
+            <field name="UserID" type="Integer"/>
+            <field name="StageID" type="Integer"/>
+            <field name="StatusID" type="Integer"/>
+            <field name="Leadsource" type="String" access="AR"/>
+            <field name="Objection" type="String" />
+            <field name="ProjectedRevenueLow" type="Double"/>
+            <field name="ProjectedRevenueHigh" type="Double"/>
+            <field name="OpportunityNotes" type="String"/>
+            <field name="DateCreated" access="EDR" type="DateTime"/>
+            <field name="LastUpdated" access="EDR" type="DateTime"/>
+            <field name="LastUpdatedBy" type="Integer"/>
+            <field name="CreatedBy" type="Integer"/>
+            <field name="EstimatedCloseDate" type="DateTime"/>
+        </fields>
+    </table>
+
+    <table name="Stage" access="R">
+        <description>Lead Stages</description>
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="StageName" type="String"/>
+            <field name="StageOrder" type="Integer"/>
+            <field name="TargetNumDays" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="StageMove" access="R">
+        <description>Stage Move</description>
+        <fields>
+            <field name="Id" type="Long"/>
+            <field name="OpportunityId" type="Long"/>
+            <field name="MoveDate" type="DateTime"/>
+            <field name="MoveToStage" type="Long"/>
+            <field name="MoveFromStage" type="Long"/>
+            <field name="PrevStageMoveDate" type="DateTime"/>
+            <field name="CreatedBy" type="Long"/>
+            <field name="DateCreated" type="DateTime"/>
+            <field name="UserId" type="Long"/>
+        </fields>
+    </table>
+
+    <table name="Status" access="R">
+        <description>Lead Statuses</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="StatusName" type="String"/>
+            <field name="StatusOrder" type="String"/>
+            <field name="TargetNumDays" type="String"/>
+        </fields>
+    </table>
+
+    <table name="ProductInterest" access="EDAR">
+        <description>Product/Subscription Interests</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <!--ObjectId is either a ProductInterestBundle Id, an Opportunity Id, or an ActionCreateOrder Id-->
+            <field name="ObjectId" type="Integer"/>
+            <!--
+                Bundle
+                Opportunity
+                Action
+             -->
+            <field name="ObjType" type="String"/>
+            <!--ProductId is either a Product Id or a CProgram Id-->
+            <field name="ProductId" type="Integer"/>
+            <!--
+                Product
+                Program
+             -->
+            <field name="ProductType" type="String"/>
+            <field name="Qty" type="Integer"/>
+            <field name="DiscountPercent" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="ProductInterestBundle" access="EAR">
+        <description>Product/Subscription Interest Bundles</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="BundleName" type="String"/>
+            <field name="Description" type="String"/>
+        </fields>
+    </table>
+
+    <table name="SubscriptionPlan" access="EAR">
+        <description>Subscription Plans</description>
+        <table-name>SubscriptionPlan</table-name>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ProductId" type="Integer"/>
+
+            <!--
+                Billing Cycle. This is used in conjunction with Default Frequency below. (ie Every one week where the
+                default cycle is the one and week is the default frequency). Appropriate values include:
+                Option  Value
+                Week    3
+                Month   2
+                Year    1
+                Day     6
+            -->
+            <field name="Cycle" type="String"/>
+
+            <!--
+                Period (Week/3, Month/2, Year/1, Day/6)
+            -->
+            <field name="Frequency" type="Integer"/>
+            <field name="PreAuthorizeAmount" type="Double"/>
+            <field name="Prorate" type="Boolean"/>
+        </fields>
+    </table>
+
+    <!-- Legacy call for backwards compatibility -->
+    <table name="CProgram" access="EAR">
+        <description>Continuity Programs</description>
+        <table-name>SubscriptionPlan</table-name>
+        <sql-join>INNER JOIN Product ON Product.Id=SubscriptionPlan.ProductId</sql-join>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ProductId" sql-field-join="Product.Id" type="Integer"/>
+            <field name="ProgramName" sql-field-join="Product.ProductName" type="String"/>
+            <field name="DefaultPrice" sql-field-join="Product.ProductPrice" type="Double"/>
+
+            <!--
+                Billing Cycle. This is used in conjunction with Default Frequency below. (ie Every one week where the
+                default cycle is the one and week is the default frequency). Appropriate values include:
+                Option  Value
+                Week    3
+                Month   2
+                Year    1
+                Day     6
+            -->
+            <field name="DefaultCycle" sql-field="Cycle" type="String"/>
+
+            <!--
+                Period (Week/3, Month/2, Year/1, Day/6)
+            -->
+            <field name="DefaultFrequency" sql-field="Frequency" type="Integer"/>
+            <field name="Sku" sql-field-join="Product.Sku" type="String"/>
+            <field name="ShortDescription" sql-field-join="Product.ProductShortDesc" type="String"/>
+
+            <!--
+                One of two values(Service,Product)
+            -->
+            <field name="BillingType" type="String" sql-expression="IF(Prorate = true, 'Service', 'Product')"/>
+            <!--
+						<field name="SubCategory" type="Integer" sql-field-join="Product.SubCategory"/>
+						-->
+            <field name="Description" sql-field-join="Product.ProductDesc" type="String"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="HideInStore" sql-field-join="Product.IsHidden" type="Integer"/>
+
+            <!--
+                Option      Value
+                Active        1
+                Inactive       0
+            -->
+            <field name="Status" sql-field-join="Product.Status" type="Integer"/>
+            <field name="Active" type="Boolean" />
+            <field name="LargeImage" sql-field-join="Product.ProductImageLarge" type="Blob"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="Taxable" sql-field-join="Product.Taxable" type="Integer"/>
+            <field name="Family" sql-field-join="Product.Family" type="String"/>
+        </fields>
+    </table>
+
+    <table name="Product" access="EAR">
+        <description>Products</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ProductName" type="String"/>
+
+            <!--
+                Listing price of the product.
+            -->
+            <field name="ProductPrice" type="Double"/>
+            <field name="Sku" type="String"/>
+            <field name="ShortDescription" sql-field="ProductShortDesc" type="String"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="Taxable" type="Integer"/>
+            <field name="Weight" type="Double"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="IsPackage" type="Integer"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="NeedsDigitalDelivery" sql-field="IsDigital" type="Integer"/>
+            <field name="Description" sql-field="ProductDesc" type="String"/>
+
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="HideInStore" sql-field="IsHidden" type="Integer"/>
+
+            <!--
+                Option      Value
+                Active        1
+                Inactive       0
+            -->
+            <field name="Status" type="Integer"/>
+            <field name="TopHTML" type="String"/>
+            <field name="BottomHTML" type="String"/>
+            <field name="ShippingTime" type="String"/>
+            <field name="LargeImage" sql-field="ProductImageLarge" type="Blob"/>
+            <field name="InventoryNotifiee" type="String"/>
+            <field name="InventoryLimit" type="Integer"/>
+            <!--
+                Option      Value
+                True        1
+                False       0
+            -->
+            <field name="Shippable" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="CreditCard" access="EAR">
+        <description>Credit Card</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer" access="AR">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="BillName" type="String"/>
+            <field name="FirstName" type="String"/>
+            <field name="LastName" type="String"/>
+            <field name="PhoneNumber" type="String"/>
+            <field name="Email" type="String"/>
+            <field name="BillAddress1" type="String"/>
+            <field name="BillAddress2" type="String"/>
+            <field name="BillCity" type="String"/>
+            <field name="BillState" type="String"/>
+            <field name="BillZip" type="String"/>
+            <field name="BillCountry" type="String"/>
+
+            <field name="ShipFirstName" type="String"/>
+            <field name="ShipMiddleName" type="String"/>
+            <field name="ShipLastName" type="String"/>
+            <field name="ShipCompanyName" type="String"/>
+            <field name="ShipPhoneNumber" type="String"/>
+            <field name="ShipAddress1" type="String"/>
+            <field name="ShipAddress2" type="String"/>
+            <field name="ShipCity" type="String"/>
+            <field name="ShipState" type="String"/>
+            <field name="ShipZip" type="String"/>
+            <field name="ShipCountry" type="String"/>
+            <field name="ShipName" type="String"/>
+
+            <field name="NameOnCard" type="String"/>
+            <field name="CardNumber" type="String" encrypted="true" access="A"/>
+            <field name="Last4" type="String" access="R"/>
+
+            <!--Expiration Month must be MM -->
+            <field name="ExpirationMonth" type="String"/>
+
+            <!--Expiration Year must be YYYY -->
+            <field name="ExpirationYear" type="String"/>
+
+            <!--CVV2 is not stored to the database, but is held in memory for a short time-->
+            <field name="CVV2" type="String" sql-field="VerificationCode" access="EA"/>
+
+            <!--0 = unknown-->
+            <!--1 = error -->
+            <!--2 = deleted -->
+            <!--3 = OK -->
+            <!--4 = inactive -->
+            <field name="Status" type="Integer" access="R"/>
+
+            <!--Example: 'American Express', 'Discover', 'MasterCard', 'Visa', etc. -->
+            <field name="CardType" type="String"/>
+
+            <!--  Fields for UK Cards -->
+            <field name="StartDateMonth" type="String"/>
+            <field name="StartDateYear" type="String"/>
+            <field name="MaestroIssueNumber" type="String"/>
+        </fields>
+    </table>
+
+    <!--
+       This stores a recurring order.  You can add or update these
+       records using the data service
+    -->
+    <table name="RecurringOrder" access="EAR">
+        <description>Recurring Order</description>
+        <table-name>JobRecurring</table-name>
+        <sql-join>INNER JOIN Product ON Product.Id=JobRecurring.ProductId</sql-join>
+        <fields>
+
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="ProgramId" type="Integer" sql-field="SubscriptionPlanId" />
+            <field name="SubscriptionPlanId" type="Integer" />
+
+            <field name="ProductId" type="Integer">
+                <relationship table="Product" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="StartDate" type="Date"/>
+            <field name="EndDate" type="Date"/>
+
+            <field name="LastBillDate" type="Date"/>
+            <field name="NextBillDate" type="Date" access="R"/>
+
+            <!--This field is really the last billed date -->
+            <field name="PaidThruDate" sql-field="LastBillDate" type="Date"/>
+
+            <!--
+               Monthly = 2
+               Yearly = 1
+               Weekly = 3
+               Daily = 6
+            -->
+            <field name="BillingCycle" type="String"/>
+
+            <!--
+               How many cycles between billing.
+               eg.  every X weeks
+            -->
+            <field name="Frequency" type="Integer"/>
+
+            <field name="BillingAmt" type="Double"/>
+
+            <!--
+            "Active" or "Inactive"
+            -->
+            <field name="Status" type="String"/>
+
+            <field name="ReasonStopped" type="String"/>
+
+            <!--
+               No = 0
+               Yes = 1
+            -->
+            <field name="AutoCharge" type="Integer"/>
+
+            <!--Credit Card id to use in autocharge -->
+            <field name="CC1" type="Integer"/>
+            <field name="CC2" type="Integer"/>
+
+            <field name="NumDaysBetweenRetry" type="Integer"/>
+            <field name="MaxRetry" type="Integer"/>
+            <field name="MerchantAccountId" type="Integer"/>
+            <field name="AffiliateId" type="Integer"/>
+            <field name="PromoCode" type="String"/>
+            <field name="LeadAffiliateId" type="Integer"/>
+            <field name="Qty" type="Integer"/>
+        </fields>
+    </table>
+
+    <!--
+       This stores a recurring order.  You can add or update these
+       records using the data service
+    -->
+    <table name="RecurringOrderWithContact" access="R">
+        <description>Recurring Order With Basic Contact Info (no custom fields)</description>
+        <table-name>JobRecurring</table-name>
+        <sql-join>INNER JOIN Contact ON Contact.Id=JobRecurring.ContactId</sql-join>
+        <fields>
+
+            <field name="RecurringOrderId" type="Integer" sql-field="JobRecurring.Id" />
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="ProgramId" type="Integer" sql-field="SubscriptionPlanId">
+                <relationship table="SubscriptionPlan" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="SubscriptionPlanId" type="Integer"/>
+
+            <field name="ProductId" type="Integer">
+                <relationship table="Product" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="StartDate" type="Date"/>
+            <field name="EndDate" type="Date"/>
+
+            <field name="LastBillDate" type="Date"/>
+            <field name="NextBillDate" type="Date" access="R"/>
+
+            <!--This field is really the last billed date -->
+            <field name="PaidThruDate" sql-field="LastBillDate" type="Date"/>
+
+            <!--
+               Monthly = 2
+               Yearly = 1
+               Weekly = 3
+               Daily = 6
+            -->
+            <field name="BillingCycle" type="String" />
+
+            <!--
+               How many cycles between billing.
+               eg.  every X weeks
+            -->
+            <field name="Frequency" type="Integer"/>
+
+            <field name="BillingAmt" type="Double"/>
+
+            <!--
+            "Active" or "Inactive"
+            -->
+            <field name="Status" type="String" />
+
+            <field name="ReasonStopped" type="String" />
+
+            <!--
+               No = 0
+               Yes = 1
+            -->
+            <field name="AutoCharge" type="Integer"/>
+
+            <!--Credit Card id to use in autocharge -->
+            <field name="CC1" type="Integer"/>
+            <field name="CC2" type="Integer"/>
+
+            <field name="NumDaysBetweenRetry" type="Integer" />
+            <field name="MaxRetry" type="Integer"/>
+            <field name="MerchantAccountId" type="Integer"/>
+            <field name="AffiliateId" type="Integer"/>
+            <field name="PromoCode" type="String" />
+            <field name="LeadAffiliateId" type="Integer"/>
+            <field name="Qty" type="Integer"/>
+
+            <!-- Contact Fields -->
+            <field name="City" type="String" sql-field-join="Contact.City"/>
+            <field name="Email" type="String" sql-field-join="Contact.Email"/>
+            <field name="EmailAddress2" type="String" sql-field-join="Contact.EmailAddress2"/>
+            <field name="EmailAddress3" type="String" sql-field-join="Contact.EmailAddress3"/>
+            <field name="FirstName" type="String" sql-field-join="Contact.FirstName"/>
+            <field name="HTMLSignature" type="String" sql-field-join="Contact.HTMLSignature"/>
+            <field name="ContactId" type="Integer" sql-field-join="Contact.Id" access="R"/>
+            <field name="LastName" type="String" sql-field-join="Contact.LastName"/>
+            <field name="MiddleName" type="String" sql-field-join="Contact.MiddleName"/>
+            <field name="Nickname" type="String" sql-field-join="Contact.Nickname"/>
+            <field name="Phone1" type="String" sql-field-join="Contact.Phone1"/>
+            <field name="Phone1Ext" type="String" sql-field-join="Contact.Phone1Ext"/>
+            <field name="Phone1Type" type="String" sql-field-join="Contact.Phone1Type"/>
+            <field name="Phone2" type="String" sql-field-join="Contact.Phone2"/>
+            <field name="Phone2Ext" type="String" sql-field-join="Contact.Phone2Ext"/>
+            <field name="Phone2Type" type="String" sql-field-join="Contact.Phone2Type"/>
+            <field name="PostalCode" type="String" sql-field-join="Contact.PostalCode"/>
+            <field name="Signature" type="String" sql-field-join="Contact.Signature"/>
+            <field name="SpouseName" type="String" sql-field-join="Contact.SpouseName"/>
+            <field name="State" type="String" sql-field-join="Contact.State"/>
+            <field name="Country" type="String" sql-field-join="Contact.Country"/>
+            <field name="StreetAddress1" type="String" sql-field-join="Contact.StreetAddress1"/>
+            <field name="StreetAddress2" type="String" sql-field-join="Contact.StreetAddress2"/>
+            <field name="Suffix" type="String" sql-field-join="Contact.Suffix"/>
+            <field name="Title" type="String" sql-field-join="Contact.Title"/>
+            <field name="ZipFour1" type="String" sql-field-join="Contact.ZipFour1"/>
+
+        </fields>
+    </table>
+
+    <table name="ContactGroupAssign" access="R">
+        <restriction>
+            <restriction-field>Contact.IsUser</restriction-field>
+            <restriction-type>equals</restriction-type>
+            <value>0</value>
+        </restriction>
+        <sql-join>
+            INNER JOIN ContactGroup ON ContactGroupAssign.GroupId=ContactGroup.Id
+            INNER JOIN Contact ON Contact.Id=ContactGroupAssign.ContactId
+            LEFT JOIN LeadSource ON Contact.LeadSourceId=LeadSource.Id
+        </sql-join>
+        <fields>
+            <field name="GroupId" type="Integer">
+                <relationship table="ContactGroup" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="ContactGroup" sql-field-join="ContactGroup.GroupName" type="String"/>
+            <field name="DateCreated" access="R" type="DateTime"/>
+
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="Contact.Address1Type" type="String"/>
+            <field name="Contact.Address2Street1" type="String"/>
+            <field name="Contact.Address2Street2" type="String"/>
+            <field name="Contact.Address2Type" type="String"/>
+            <field name="Contact.Address3Street1" type="String"/>
+            <field name="Contact.Address3Street2" type="String"/>
+            <field name="Contact.Address3Type" type="String"/>
+            <field name="Contact.Anniversary" type="Date"/>
+            <field name="Contact.AssistantName" type="String"/>
+            <field name="Contact.AssistantPhone" type="String"/>
+            <field name="Contact.BillingInformation" type="String"/>
+            <field name="Contact.Birthday" type="String"/>
+            <field name="Contact.City" type="String"/>
+            <field name="Contact.City2" type="String"/>
+            <field name="Contact.City3" type="String"/>
+            <field name="Contact.Company" type="String"/>
+            <field name="Contact.CompanyID" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Contact.ContactNotes" type="String"/>
+            <field name="Contact.ContactType" type="String"/>
+            <field name="Contact.Country" type="String"/>
+            <field name="Contact.Country2" type="String"/>
+            <field name="Contact.Country3" type="String"/>
+            <field name="Contact.CreatedBy" access="R" type="Integer">
+                <relationship table="User" field="Id" type="MANY_ONE"/>
+            </field>
+			<!--
+            <field name="Contact.CustomDate1" type="DateTime"/>
+            <field name="Contact.CustomDate2" type="DateTime"/>
+            <field name="Contact.CustomDate3" type="DateTime"/>
+            <field name="Contact.CustomDate4" type="DateTime"/>
+            <field name="Contact.CustomDate5" type="DateTime"/>
+            <field name="Contact.CustomDbl1" type="Double"/>
+            <field name="Contact.CustomDbl2" type="Double"/>
+            <field name="Contact.CustomDbl3" type="Double"/>
+            <field name="Contact.CustomDbl4" type="Double"/>
+            <field name="Contact.CustomDbl5" type="Double"/>
+            <field name="Contact.CustomField1" type="String"/>
+            <field name="Contact.CustomField10" type="String"/>
+            <field name="Contact.CustomField2" type="String"/>
+            <field name="Contact.CustomField3" type="String"/>
+            <field name="Contact.CustomField4" type="String"/>
+            <field name="Contact.CustomField5" type="String"/>
+            <field name="Contact.CustomField6" type="String"/>
+            <field name="Contact.CustomField7" type="String"/>
+            <field name="Contact.CustomField8" type="String"/>
+            <field name="Contact.CustomField9" type="String"/>
+			-->
+            <field name="Contact.DateCreated" type="DateTime" access="R"/>
+            <field name="Contact.Email" type="String"/>
+            <field name="Contact.EmailAddress2" type="String"/>
+            <field name="Contact.EmailAddress3" type="String"/>
+            <field name="Contact.Fax1" type="String"/>
+            <field name="Contact.Fax1Type" type="String"/>
+            <field name="Contact.Fax2" type="String"/>
+            <field name="Contact.Fax2Type" type="String"/>
+            <field name="Contact.FirstName" type="String"/>
+            <field name="Contact.Groups" access="R" type="String"/>
+            <!--
+			<field name="Contact.HTMLSignature" type="String"/>
+			-->
+            <field name="Contact.Id" type="Integer" access="R"/>
+            <field name="Contact.JobTitle" type="String"/>
+            <field name="Contact.LastName" type="String"/>
+            <field name="Contact.LastUpdated" access="R" type="String"/>
+            <field name="Contact.LastUpdatedBy" access="R" type="String"/>
+            <field name="Contact.Leadsource" sql-field-join="LeadSource.Name" access="R" type="String"/>
+            <field name="Contact.MiddleName" type="String"/>
+            <field name="Contact.Nickname" type="String"/>
+            <field name="Contact.OwnerID" type="Integer">
+                <relationship table="User" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Contact.Phone1" type="String"/>
+            <field name="Contact.Phone1Ext" type="String"/>
+            <field name="Contact.Phone1Type" type="String"/>
+            <field name="Contact.Phone2" type="String"/>
+            <field name="Contact.Phone2Ext" type="String"/>
+            <field name="Contact.Phone2Type" type="String"/>
+            <field name="Contact.Phone3" type="String"/>
+            <field name="Contact.Phone3Ext" type="String"/>
+            <field name="Contact.Phone3Type" type="String"/>
+            <field name="Contact.Phone4" type="String"/>
+            <field name="Contact.Phone4Ext" type="String"/>
+            <field name="Contact.Phone4Type" type="String"/>
+            <field name="Contact.Phone5" type="String"/>
+            <field name="Contact.Phone5Ext" type="String"/>
+            <field name="Contact.Phone5Type" type="String"/>
+            <field name="Contact.PostalCode" type="String"/>
+            <field name="Contact.PostalCode2" type="String"/>
+            <field name="Contact.PostalCode3" type="String"/>
+            <field name="Contact.ReferralCode" type="String"/>
+			<!--            
+			<field name="Contact.Signature" type="String"/>
+			-->
+            <field name="Contact.SpouseName" type="String"/>
+            <field name="Contact.State" type="String"/>
+            <field name="Contact.State2" type="String"/>
+            <field name="Contact.State3" type="String"/>
+            <field name="Contact.StreetAddress1" type="String"/>
+            <field name="Contact.StreetAddress2" type="String"/>
+            <field name="Contact.Suffix" type="String"/>
+            <field name="Contact.Title" type="String"/>
+            <field name="Contact.Website" type="String"/>
+            <field name="Contact.ZipFour1" type="String"/>
+            <field name="Contact.ZipFour2" type="String"/>
+            <field name="Contact.ZipFour3" type="String"/>
+        </fields>
+    </table>
+
+    <table name="ContactGroup" access="EAR">
+        <description>Contact Groups</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="GroupName" type="String"/>
+            <field name="GroupCategoryId" type="Integer"/>
+            <field name="GroupDescription" type="String"/>
+        </fields>
+    </table>
+
+    <table name="ContactGroupCategory" access="EAR">
+        <description>Contact Group Categories</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="CategoryName" type="String"/>
+            <field name="CategoryDescription" type="String"/>
+        </fields>
+    </table>
+
+    <table name="LeadSource" access="EAR">
+        <description>Lead Sources in the system</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="Name" type="String"/>
+            <field name="Description" type="String"/>
+            <field name="StartDate" type="Date"/>
+            <field name="EndDate" type="Date"/>
+            <field name="CostPerLead" type="String"/>
+            <field name="Vendor" access="R" type="String"/>
+            <field name="Medium" access="R" type="String"/>
+            <field name="Message" access="R" type="String"/>
+
+            <!--
+            "Active" or "Inactive"
+            -->
+            <field name="Status" type="String"/>
+        </fields>
+    </table>
+
+    <table name="Campaign" access="R">
+        <description>Follow-up sequence names, ids, and statuses</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="Name" type="String"/>
+
+            <!--
+            "Active" or "Inactive"
+            -->
+            <field name="Status" type="String"/>
+        </fields>
+    </table>
+
+    <table name="Invoice" access="R">
+        <description>An invoice for a client</description>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="JobId" type="Integer">
+                <relationship table="Job" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="DateCreated" access="R" type="DateTime"/>
+            <field name="InvoiceTotal" type="Double"/>
+            <field name="TotalPaid" type="Double"/>
+            <field name="TotalDue" type="Double"/>
+            <field name="PayStatus" type="Integer"/>
+            <field name="CreditStatus" type="Integer"/>
+            <field name="RefundStatus" type="Integer"/>
+            <field name="PayPlanStatus" type="Integer"/>
+            <field name="AffiliateId" type="Integer">
+                <relationship table="Affiliate" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="LeadAffiliateId" type="Integer">
+                <relationship table="Affiliate" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="PromoCode" type="String"/>
+            <field name="InvoiceType" type="String"/>
+            <field name="Description" type="String"/>
+            <field name="ProductSold" type="String"/>
+            <field name="Synced" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="Affiliate" access="EDAR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+
+            <field name="ParentId" type="Integer">
+                <relationship table="Affiliate" field="Id" type="MANY_ONE"/>
+            </field>
+            <!--Eg. 23.33 ($23.33)-->
+            <field name="LeadAmt" type="Double"/>
+
+            <!--Eg. 30.5 (30.5%)-->
+            <field name="LeadPercent" type="Double"/>
+            <field name="SaleAmt" type="Double"/>
+            <field name="SalePercent" type="Double"/>
+
+            <!--
+            On Receipt of Payment = 5
+            Up front = 4
+            -->
+            <field name="PayoutType" type="Integer"/>
+
+            <!--
+            Use Affiliate's Commissions = 2
+            Use Product Commissions = 3
+            -->
+            <field name="DefCommissionType" type="Integer"/>
+
+            <!--
+            0 = Inactive
+            1 = Active
+            -->
+            <field name="Status" type="Integer"/>
+
+            <!--
+            Name of Affiliate eg. "John Doe"
+            -->
+            <field name="AffName" type="String"/>
+            <field name="Password" type="String"/>
+
+            <!--
+            Must be unique
+            -->
+            <field name="AffCode" type="String"/>
+
+            <!--
+            0 = No
+            1 = Yes
+            -->
+            <field name="NotifyLead" type="Integer"/>
+
+            <!--
+            0 = No
+            1 = Yes
+            -->
+            <field name="NotifySale" type="Integer"/>
+
+            <!--
+            Number of days to keep lead cookie
+            -->
+            <field name="LeadCookieFor" type="Integer"/>
+
+
+        </fields>
+    </table>
+
+    <table name="Referral" access="AR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer"/>
+            <field name="AffiliateId" type="Integer"/>
+            <field name="DateSet" type="Date"/>
+            <field name="DateExpires" type="Date"/>
+            <field name="IPAddress" type="String"/>
+            <field name="Source" type="String"/>
+            <field name="Info" type="String"/>
+            <field name="Type" type="Integer"/>
+            <!--types:-->
+            <!--0 = cookie-->
+            <!--1 = permanent-->
+            <!--2 = manual-->
+        </fields>
+    </table>
+
+    <table name="InvoiceItem" access="EAR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="InvoiceId" type="Integer">
+                <relationship table="Invoice" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="InvoiceAmt" type="Double"/>
+            <field name="Discount" type="Double"/>
+            <field name="DateCreated" access="R" type="DateTime"/>
+            <field name="Description" type="String"/>
+            <field name="CommissionStatus" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="InvoicePayment" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="InvoiceId" type="Integer">
+                <relationship table="Invoice" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Amt" type="Double"/>
+            <field name="PayDate" type="Date"/>
+            <field name="PayStatus" type="String"/>
+            <field name="PaymentId" type="Integer" access="R">
+                <relationship table="Payment" field="id" type="MANY_ONE"/>
+            </field>
+            <field name="SkipCommission" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="PayPlan" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="InvoiceId" type="Integer">
+                <relationship table="Invoice" field="id" type="MANY_ONE"/>
+            </field>
+            <field name="DateDue" type="Date"/>
+            <field name="AmtDue" type="Double"/>
+            <field name="Type" type="Integer"/>
+            <field name="InitDate" type="Date"/>
+            <field name="StartDate" type="Date"/>
+            <field name="FirstPayAmt" type="Double"/>
+        </fields>
+    </table>
+
+    <table name="PayPlanItem" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="PayPlanId" type="Integer">
+                <relationship table="PayPlan" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="DateDue" type="Date"/>
+            <field name="AmtDue" type="Double"/>
+            <field name="Status" type="Integer"/>
+            <field name="AmtPaid" type="Double"/>
+        </fields>
+    </table>
+
+    <table name="Payment" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="PayDate" type="Date"/>
+            <field name="UserId" type="Integer"/>
+            <field name="PayAmt" type="Double"/>
+            <field name="PayType" type="String"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="PayNote" type="String"/>
+            <field name="InvoiceId" type="Integer">
+                <relationship table="Invoice" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="RefundId" type="Integer"/>
+            <field name="ChargeId" type="Integer" access="R">
+                <relationship table="CCharge" field="Id" type="ONE_ONE"/>                
+            </field>
+            <field name="Commission" type="Integer"/>
+            <field name="Synced" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="CCharge" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="RefNum" type="String" access="R"/>
+            <field name="ApprCode" type="String" access="R"/>
+            <field name="Amt" type="Double" access="R"/>
+        </fields>
+    </table>
+
+    <table name="Job" access="EAR">
+        <sql-join>LEFT JOIN Address ON Job.ShippingAddressId=Address.Id</sql-join>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="JobTitle" type="String"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="StartDate" type="Date"/>
+            <field name="DueDate" type="Date"/>
+            <field name="JobNotes" type="String"/>
+            <field name="ProductId" type="Integer">
+                <relationship table="Product" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="JobStatus" type="String"/>
+            <field name="DateCreated" access="R" type="DateTime"/>
+            <field name="JobRecurringId" access="R" type="Integer">
+                <relationship table="JobRecurring" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="OrderType" type="String"/>
+            <field name="OrderStatus" type="Integer"/>
+            <field name="ShipFirstName" type="String" sql-field-join="Address.FirstName"/>
+            <field name="ShipMiddleName" type="String" sql-field-join="Address.MiddleName"/>
+            <field name="ShipLastName" type="String" sql-field-join="Address.LastName"/>
+            <field name="ShipCompany" type="String" sql-field-join="Address.Company"/>
+            <field name="ShipPhone" type="String" sql-field-join="Address.Phone"/>
+            <field name="ShipStreet1" type="String" sql-field-join="Address.Street1"/>
+            <field name="ShipStreet2" type="String" sql-field-join="Address.Street2"/>
+            <field name="ShipCity" type="String" sql-field-join="Address.City"/>
+            <field name="ShipState" type="String" sql-field-join="Address.State"/>
+            <field name="ShipZip" type="String" sql-field-join="Address.Zip"/>
+            <field name="ShipCountry" type="String" sql-field-join="Address.Country"/>
+        </fields>
+    </table>
+
+    <table name="JobRecurringInstance" access="EAR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="RecurringId" type="Integer">
+                <relationship table="RecurringOrder" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="InvoiceItemId" type="Integer">
+                <relationship table="InvoiceItem" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="Status" type="Integer"/>
+            <field name="AutoCharge" type="Integer"/>
+            <field name="StartDate" type="Date"/>
+            <field name="EndDate" type="Date"/>
+            <field name="DateCreated" access="R" type="DateTime"/>
+            <field name="Description" type="String"/>
+        </fields>
+    </table>
+
+    <table name="OrderItem" access="EAR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="OrderId" type="Integer">
+                <relationship table="Order" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="ProductId" type="Integer">
+                <relationship table="Product" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="ItemName" type="String"/>
+            <field name="Qty" type="Integer"/>
+            <field name="CPU" type="Double"/>
+            <field name="PPU" type="Double"/>
+            <field name="ItemDescription" type="String"/>
+            <field name="ItemType" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="ActionSequence" access="R">
+        <table-name>ContactTemplate</table-name>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="TemplateName" type="String"/>
+        </fields>
+    </table>
+
+    <table name="ContactAction" access="EDAR">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer">
+                <relationship table="Contact" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="OpportunityId" type="Integer">
+                <relationship table="Opportunity" field="Id" type="MANY_ONE"/>
+            </field>
+            <field name="ActionType" type="String"/>
+            <field name="ActionDescription" type="String"/>
+            <field name="CreationDate" type="DateTime"/>
+            <field name="CreationNotes" type="String"/>
+            <field name="CompletionDate" type="DateTime"/>
+            <field name="ActionDate" type="DateTime"/>
+            <field name="EndDate" type="DateTime"/>
+            <field name="PopupDate" type="DateTime"/>
+            <field name="UserID" type="Integer">
+                <relationship field="Id" table="User" type="MANY_ONE"/>
+            </field>
+            <field name="Accepted" type="Integer"/>
+            <field name="CreatedBy" type="Integer">
+                <relationship field="Id" table="User" type="MANY_ONE"/>
+            </field>
+            <field name="LastUpdated" access="R" type="DateTime"/>
+            <field name="LastUpdatedBy" access="R" type="Integer">
+                <relationship field="Id" table="User" type="MANY_ONE"/>
+            </field>
+            <field name="Priority" type="Integer"/>
+            <field name="IsAppointment" type="Integer"/>
+
+        </fields>
+    </table>
+
+    <table name="Ticket" access="EDAR">
+        <table-name>ServiceCall</table-name>
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="IssueId" type="Integer"/>
+            <field name="ContactId" type="Integer" sql-field="AccountId"/>
+            <field name="UserId" type="Integer"/>
+            <field name="DevId" type="Integer"/>
+
+            <field name="TicketTitle" type="String"/>
+            <field name="TicketApplication" type="String"/>
+            <field name="TicketCategory" type="Integer"/>
+            <field name="TicketTypeId" type="Integer"/>
+            <field name="Summary" type="String"/>
+
+            <field name="Stage" type="Integer"/>
+            <field name="Priority" type="Integer"/>
+            <field name="Ordering" type="Integer"/>
+
+            <field name="DateCreated" type="DateTime" access="R"/>
+            <field name="CreatedBy" type="Integer"/>
+            <field name="LastUpdated" type="DateTime" access="R"/>
+            <field name="LastUpdatedBy" type="Integer"/>
+
+            <field name="CloseDate" type="Date"/>
+            <field name="FolowUpDate" type="Date"/>
+            <field name="TargetCompletionDate" type="Date"/>
+            <field name="DateInStage" type="Date"/>
+
+            <field name="TimeSpent" type="Double"/>
+            <field name="HasCustomerCalled" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="TicketStage" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="StageName" type="String"/>
+        </fields>
+    </table>
+
+    <table name="TicketType" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="CategoryId" type="Integer"/>
+            <field name="Label" type="String"/>
+        </fields>
+    </table>
+
+    <table name="DataFormTab" access="R">
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="FormId" type="Integer"/>
+            <field name="TabName" type="String"/>
+        </fields>
+    </table>
+
+    <table name="DataFormGroup" access="R">
+        <fields>
+            <field name="Id" access="R" type="Integer"/>
+            <field name="TabId" type="Integer"/>
+            <field name="Name" sql-field="GroupName" type="String"/>
+        </fields>
+    </table>
+
+    <table name="DataFormField" access="ER">
+        <restriction>
+            <restriction-field>FormId</restriction-field>
+            <restriction-type>notequals</restriction-type>
+            <value>0</value>
+        </restriction>
+
+        <fields>
+            <!--
+                Name                (Enum string/integer identifier/has options)
+                Currency -                  (Currency/3/no)
+                Date -                      (Date/13/no)
+                Date/Time -                 (DateTime/14/no)
+                Day of Week -               (DayOfWeek/9/no)
+                Drilldown -                 (Drilldown/23/yes)
+                Email -                     (Email/19/no)
+                Month -                     (Month/8/no)
+                List Box -                  (MultiSelect/17/yes)
+                Name -                      (Name/10/no)
+                Whole Number -              (Number/12/no)
+                Decimal Number -            (NumberDecimal/11/no)
+                Percent -                   (Percent/4/no)
+                Phone Number -              (Phone/1/no)
+                Radio -                     (Radio/20/yes)
+                Dropdown -                  (Select/21/yes)
+                Social Security Number -    (SSN/2/no)
+                State -                     (State/5/no)
+                Text -                      (Text/15/no)
+                Text Area -                 (TextArea/16/no)
+                User -                      (User/22/yes)
+                Website -                   (Website/18/no)
+                Year -                      (Year/7/no)
+                Yes/No -                    (YesNo/6/no)
+            -->
+            <field name="DataType" type="Integer" access="R"/>
+            <field name="Id" type="Integer" access="R"/>
+
+            <!--
+                This depends on the context of the form. These options include:
+                (Enum string/id)
+                ContactAction/-5
+                Opportunity/-4
+                Affiliate/-3
+                ServiceCall/-2
+                Contact/-1
+            -->
+            <field name="FormId" type="Integer" access="R"/>
+            <field name="GroupId" type="Integer">
+                <relationship field="Id" table="DataFormGroup" type="MANY_ONE"/>
+            </field>
+            <field name="Name" sql-field="FieldName" type="String"/>
+            <field name="Label" sql-field="DisplayName" type="String"/>
+            <field name="DefaultValue" type="String"/>
+            <field name="Values" type="String"/>
+            <field name="ListRows" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="Expense" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="ContactId" type="Integer"/>
+            <field name="ExpenseType" type="Enum"/>
+            <field name="TypeId" type="Integer"/>
+            <field name="ExpenseAmt" type="Double"/>
+            <field name="DateIncurred" type="DateTime"/>
+        </fields>
+    </table>
+
+    <table name="FileBox" access="R">
+        <fields>
+            <field name="Id" type="Integer" access="R"/>
+            <field name="FileName" type="String"/>
+            <field name="Extension" type="String"/>
+            <field name="FileSize" type="Long"/>
+            <field name="ContactId" sql-field="UserId" type="Integer"/>
+            <field name="Public" sql-field="CanDownload" type="Integer"/>
+        </fields>
+    </table>
+
+    <table name="SavedFilter" access="R">
+        <fields>
+            <field name="Id" access="R" type="Integer" />
+            <field name="FilterName" access="R" type="String" />
+            <field name="ReportStoredName" access="R" type="String" />
+            <field name="UserId" access="R" type="Integer" />
+        </fields>
+    </table>
+
+</tables>

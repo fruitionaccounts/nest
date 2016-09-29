@@ -1,0 +1,148 @@
+<script>
+    function getUrl() {
+        return '<?php echo Mage::getUrl('',array('_secure'=>true)) ?>';
+    }
+</script>
+<section ng-controller="diagramController" ng-init="loadDiagramData(<?php echo $this->getRequest()->getParam('id') ?>)" class="custom-counter-panel">
+    <div class="design-summary">
+        <div class="loading" ng-show="loading">
+            <img src="<?php echo $this->getSkinUrl('images/loading.gif'); ?>"/>
+            <span><?php echo $this->__('Loading'); ?></span>
+        </div>
+        <div class="summary" ng-if="thicknessLabel">
+            <h3><?php echo $this->__('Summary'); ?></h3>
+            <div class="specs">
+                <span class="spec">
+                    <strong><?php echo $this->__('Thickness:'); ?></strong>
+                    <thickness />
+                </span>
+                <span class="spec" ng-if="slabName">
+                    <strong><?php echo $this->__('Stone:'); ?></strong>
+                    <slab-name />
+                </span>
+                <span class="spec" ng-if="sinkName">
+                    <strong><?php echo $this->__('Sinks:'); ?></strong>
+                    <sink-name />
+                </span>
+            </div>
+            <div class="specs" ng-show="sinkPos1">
+                <span class="spec" ng-show="faucetPos1">
+                    <strong><?php echo $this->__('faucet 1:'); ?></strong>
+                    <faucet/>
+                </span>
+                <span class="spec">
+                    <strong><?php echo $this->__('sink hole x:'); ?></strong>
+                    {{sinkPos1}}<?php echo $this->__('in from left edge'); ?>
+                </span>
+                <span class="spec">
+                    <strong><?php echo $this->__('sink hole y:'); ?></strong>
+                    {{sinkVertPos1}}<?php echo $this->__('in from back edge'); ?>
+                </span>
+                <span class="spec" ng-show="faucetPos1">
+                    <strong><?php echo $this->__('faucet hole:'); ?></strong>
+                    <sink1faucet/><?php echo $this->__('in from sink hole'); ?>
+                </span>
+                <span class="spec" ng-show="faucetPos2">
+                    <strong><?php echo $this->__('faucet 2:'); ?></strong>
+                    <faucet/>
+                </span>
+                <span class="spec" ng-show="sinkPos2">
+                    <strong><?php echo $this->__('sink hole x:'); ?></strong>
+                    {{sinkPos2}}<?php echo $this->__('in from left edge'); ?>
+                </span>
+                <span class="spec" ng-show="sinkPos2">
+                    <strong><?php echo $this->__('sink hole y:'); ?></strong>
+                    {{sinkVertPos2}}<?php echo $this->__('in from back edge'); ?>
+                </span>
+                <span class="spec" ng-show="faucetPos2">
+                    <strong><?php echo $this->__('faucet hole:'); ?></strong>
+                    <sink2faucet/><?php echo $this->__('in from sink hole'); ?>
+                </span>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="countertop-slab">
+            <div class="cp-counter-left" ng-class="{polished: polish.left, backsplash: backsplash.left}"  ng-style="{height: stoneDepth*8}">
+                <span ng-show="polish.left" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('Polished'); ?> <edge /></span>
+                <span ng-show="backsplash.left" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('4" Backsplash'); ?></span>
+            </div>
+            <div class="protect-width">
+                <div class="shrink-main-width" ng-show="stoneWidth" ng-style="{width: stoneWidth*8}">
+                    <span class="shrink-width-span"><slab-width width="stoneWidth"/>'</span>
+                    <div class="horz-line"></div>
+                    <div class="cp-counter-back" ng-class="{polished: polish.back, backsplash: backsplash.back}">
+                        <span ng-show="backsplash.back"><?php echo $this->__('4" Backsplash'); ?></span>
+                        <span ng-show="polish.back"><?php echo $this->__('Polished'); ?> <edge /></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cp-counter" ng-style="{width: stoneWidth*8, height: stoneDepth*8}" ng-show="stoneWidth">
+                <div class="sink1-display" ng-show="sinkCount > 0">
+                    <faucet1.1></faucet1.1>
+                    <faucet1.2></faucet1.2>
+                    <faucet1.3></faucet1.3>
+                    <sink1left></sink1left>
+                </div>
+                <div class="sink2-display" ng-show="sinkCount == 2">
+                    <faucet2.1></faucet2.1>
+                    <faucet2.2></faucet2.2>
+                    <faucet2.3></faucet2.3>
+                    <sink2left></sink2left>
+                </div>
+            </div>
+            <div class="cp-counter-right" ng-class="{polished: polish.right, backsplash: backsplash.right}" ng-style="{height: stoneDepth*8}">
+                <span ng-show="backsplash.right" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('4" Backsplash'); ?></span>
+                <span ng-show="polish.right" ng-style="{width: stoneDepth*8, top: (stoneDepth*8)*.45, left: 0-(stoneDepth*8)*.45}"><?php echo $this->__('Polished'); ?> <edge /></span>
+            </div>
+            <div class="shrink-main-height" ng-show="stoneDepth" ng-style="{height: stoneDepth*8}">
+                <div class="vert-line"></div>
+                <span class="shrink-height-span">
+                    <slab-depth depth="stoneDepth"/>
+                </span>
+            </div>
+            <br clear="left"/>
+            <div class="cp-counter-front" ng-show="edge.short_description" ng-style="{width: stoneWidth*8}">
+                <span><?php echo $this->__('Polished'); ?> <edge /></span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="footer">
+    <div class="office-use">
+        <h3><?php echo $this->__('FOR OFFICE USE ONLY:'); ?></h3>
+        <div class="specs">
+            <ul>
+                <li><?php echo $this->__('Name'); ?></li>
+                <li><?php echo $this->__('Phone'); ?></li>
+                <li><?php echo $this->__('Email'); ?></li>
+            </ul>
+        </div>
+        <div class="specs right">
+            <ul>
+                <li><?php echo $this->__('Date of Pickup'); ?></li>
+                <li><?php echo $this->__('Glue Sink:&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;/&nbsp;&nbsp;No'); ?></li>
+                <li><?php echo $this->__('Sales Rep'); ?></li>
+            </ul>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <strong><?php echo $this->__('All Sales Are Final!'); ?></strong>
+    <ul>
+        <li><?php echo $this->__('We custom cut stone to your specifications - we cannot accept returns. For that reason you must be certain that everything you have selected is correct and final. Once a slab is ordered it cannot be changed.'); ?></li>
+        <li><?php echo $this->__('All of our products are natural stone. Colors between each slab can vary. Some granite and marble have a shiner polish than other granites or marbles. All Travertine slabs have cracks, pores, and fissures, sometimes filled with colored epoxy. That is part of the natural beauty of Travertine.'); ?></li>
+        <li><?php echo $this->__('We write this warning not to scare but to make sure you have real expectations. If you need to change specifications before your slab is cut you will be charged $20 change fee. Changes impede our work flow and require extra time.'); ?></li>
+    </ul>
+    <div class="specs">
+        <ul>
+            <li><?php echo $this->__('SIGNATURE'); ?></li>
+        </ul>
+    </div>
+    <div class="specs right">
+        <ul>
+            <li><?php echo $this->__('DATE'); ?></li>
+        </ul>
+    </div>
+</div>

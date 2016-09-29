@@ -1,0 +1,9 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight <=,Price >,Price <=,Qty >,Qty <=,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,SMALL,*,*,*,*,0,10,*,5,,UPS Ground,*
+USA,*,*,*,*,SMALL,*,*,*,*,0,10,*,10,,Overnight,*
+USA,*,*,*,*,SMALL,*,*,*,*,10,*,*,3,,UPS Ground,*
+USA,*,*,*,*,SMALL,*,*,*,*,10,*,*,8,,Overnight,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,0,10,*,6,,UPS Ground,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,0,10,*,12,,Overnight,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,10,*,*,4,,UPS Ground,*
+USA,*,*,*,*,MEDIUM,*,*,*,*,10,*,*,10,,Overnight,*

@@ -1,0 +1,3 @@
+USA,Region/State,City,Zip From,Zip To,Shipping Group,Weight >,Weight to,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,*,*,*,*,A,*,*,*,*,*,*,*,11,I=50,UPS Freight,*
+USA,*,*,*,*,HINGE,*,*,*,*,*,*,*,15,i=ignore,UPS Freight,*

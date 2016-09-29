@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+      <countertops_order_index>
+         <reference name="root">
+              <action method="setTemplate"><template>page/countertops.phtml</template></action>
+          </reference>        
+           <reference name="content">
+                <block type="countertops/product" name="countertops.product" template="countertops/order/product.phtml" >
+                    <block type="countertops/product" name="countertops.dimensions" as="cp-dimensions" template="countertops/order/dimensions.phtml" />
+                    <block type="countertops/product" name="countertops.stone" as="cp-stone" template="countertops/order/stone.phtml" />
+                    <block type="countertops/product" name="countertops.edging" as="cp-edging" template="countertops/order/edging.phtml" />
+                    <block type="countertops/product" name="countertops.sinks" as="cp-sinks" template="countertops/order/sinks.phtml" />
+                    <block type="countertops/product" name="countertops.faucets" as="cp-faucets" template="countertops/order/faucets.phtml" />
+                </block>
+                <block type="countertops/product" name="countertops.pdfs" as="cp-pdfs" template="countertops/order/pdfs.phtml" />
+           </reference>
+      </countertops_order_index>
+</layout>

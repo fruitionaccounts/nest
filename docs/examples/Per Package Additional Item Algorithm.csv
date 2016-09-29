@@ -1,0 +1,9 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+USA,"CA,AZ",*,*,*,RTF,*,*,*,*,0,2,*,1.5,,Ground,*
+USA,"NY,NJ",*,*,*,RTF,*,*,*,*,0,2,*,2.1,,Ground,*
+USA,"CA,AZ",*,*,*,ACM,*,*,*,*,0,2,*,9.95,,Ground,*
+USA,"NY,NJ",*,*,*,ACM,*,*,*,*,0,2,*,13.93,,Ground,*
+USA,"CA,AZ",*,*,*,RTF,*,*,*,*,2,6,*,1.5,I=0.42,Ground,*
+USA,"NY,NJ",*,*,*,RTF,*,*,*,*,2,6,*,2.1,I=0.42,Ground,*
+USA,"CA,AZ",*,*,*,ACM,*,*,*,*,2,6,*,9.95,I=0.70,Ground,*
+USA,"NY,NJ",*,*,*,ACM,*,*,*,*,2,6,*,13.93,I=0.70,Ground,*

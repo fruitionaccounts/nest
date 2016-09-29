@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Fooman_Common</name>
+    <version>1.2.8</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Provides common functionality across Fooman extensions.</summary>
+    <description>add Fooman section to back-end, provide base selftest</description>
+    <notes>1.1.15 release</notes>
+    <authors><author><name>Kristof Ringleff</name><user>auto-converted</user><email>kristof@fooman.co.nz</email></author><author><name>Kristof Ringleff</name><user>auto-converted</user><email>kristof@fooman.co.nz</email></author></authors>
+    <date>2015-04-07</date>
+    <time>11:28:08</time>
+    <contents><target name="magecommunity"><dir name="Fooman"><dir name="Common"><dir name="Block"><dir name="Adminhtml"><file name="Extensioninfo.php" hash="48a6de0af77c57b5c1a4f62a7b8c717c"/></dir></dir><dir name="Helper"><file name="Data.php" hash="e6d3700e8926d50abdc0d590b66d3aea"/></dir><dir name="Model"><dir name="Selftester"><file name="Abstract.php" hash="9c733a5af8f6f7068761beb5ae4a2955"/><file name="Db.php" hash="65802bce3904b8f67f8ba0f1b44ed606"/></dir><file name="Selftester.php" hash="ea4aa6c4edc9a416e930498e59b28c5d"/></dir><dir name="controllers"><dir name="Adminhtml"><file name="SelftesterController.php" hash="10ab323884db2d9215eae703c3d1ca50"/></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="e7da2572f0441d4f830fa3469fd3a067"/><file name="config.xml" hash="8c3fa3081815cd780b585064b49f31c2"/><file name="system.xml" hash="062afadb28b77803a0cf5fbdb472f23b"/></dir><file name="LICENSE.txt" hash="34410d4f566fdc33f094525a2d9865fa"/><file name="modman" hash="d0df72f800327ae8436bbb6bf76bde5a"/></dir></dir></target><target name="mage"><dir name="app"><dir name="etc"><dir name="modules"><file name="Fooman_Common.xml" hash="2555b2dd668865790df287b5cca61e35"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="fooman_common.xml" hash="a7e4ac18fcfcac0080b1aef960fe9c94"/></dir><dir name="template"><dir name="fooman"><dir name="common"><file name="selftester.phtml" hash="12c4225cfb71490f2b297f50650d1185"/></dir></dir></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><file name="Fooman_Common.csv" hash="d15584a4da95d0a802e048a99a844723"/></dir></target></contents>
+    <compatible/>
+    <dependencies/>
+</package>

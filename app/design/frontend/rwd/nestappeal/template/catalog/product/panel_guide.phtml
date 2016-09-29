@@ -1,0 +1,598 @@
+  <link media="all" href="<?php echo $this->getSkinUrl('css/showers-styles.css') ?>" type="text/css" rel="stylesheet" />
+<?php
+preg_match("/((\d|\.)+)/",$this->getLayout()->createBlock('cms/block')->setBlockId('glass_to_glass_hinge')->toHtml(),$matches); 
+$glass_to_glass_hinge=$matches[1];
+
+preg_match("/((\d|\.)+)/",$this->getLayout()->createBlock('cms/block')->setBlockId('glass_to_wall_hinge')->toHtml(),$matches); 
+$glass_to_wall_hinge=$matches[1];	
+
+preg_match("/((\d|\.)+)/",$this->getLayout()->createBlock('cms/block')->setBlockId('u_channel_width')->toHtml(),$matches); 
+$u_channel_width=$matches[1];	
+
+preg_match("/((\d|\.)+)/",$this->getLayout()->createBlock('cms/block')->setBlockId('magnet_width')->toHtml(),$matches); 
+$magnet_width=$matches[1];	
+
+?>  
+  
+  <script src="<?php echo $this->getSkinUrl('js/stupidtable.js') ?>"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+        var stickyHeaderTop = '656';
+		
+        jQuery(window).scroll(function(){
+                if( jQuery(window).scrollTop() > stickyHeaderTop ) {
+                        jQuery('#corner-shower thead').addClass('fixed-head');
+                        jQuery('#corner-shower-c-panel thead').addClass('fixed-head');
+                        jQuery('#enclave-shower thead').addClass('fixed-head');
+                        //jQuery('.header-top-container').css('padding-bottom','64px');
+						
+                } else {
+                        jQuery('#corner-shower thead').removeClass('fixed-head');
+                        jQuery('#corner-shower-c-panel thead').removeClass('fixed-head');
+                        jQuery('#enclave-shower thead').removeClass('fixed-head');
+                        //jQuery('.header-top-container').css('padding-bottom','0px');
+                }
+        });
+
+
+jQuery("table#corner-shower").stupidtable();
+jQuery("table#enclave-shower").stupidtable();
+
+jQuery('.enclave_width_container .row').each(function(){
+var a_panel = jQuery(this).children('.a_panel').children('span').html();
+var b_panel = jQuery(this).children('.b_panel').children('span').html();
+var c_panel = jQuery(this).children('.c_panel').children('span').html();
+
+var right_u_channel = jQuery(this).children('.right_u_channel').children('span').html();
+var hinge = jQuery(this).children('.hinge').children('span').html();
+var gm = jQuery(this).children('.gm').children('span').html();
+var wm = jQuery(this).children('.wm').children('span').html();
+var left_u_channel = jQuery(this).children('.left_u_channel').children('span').html();
+
+
+
+if(a_panel == ''){ a_panel = 0; }
+if(b_panel == ''){ b_panel = 0; }
+if(c_panel == ''){ c_panel = 0; }
+
+if(right_u_channel == ''){ right_u_channel = 0; }
+if(hinge == ''){ hinge = 0; }
+if(gm == ''){ gm = 0; }
+if(wm == ''){ wm = 0; }
+if(left_u_channel == ''){ left_u_channel = 0; }
+
+
+var total_width = parseFloat(a_panel) + parseFloat(b_panel) + parseFloat(c_panel) + parseFloat(right_u_channel) + parseFloat(hinge) + parseFloat(gm) + parseFloat(wm) + parseFloat(left_u_channel);
+
+total_width = total_width.toFixed(3);
+
+//alert(a_panel+' - '+b_panel+' - '+c_panel+' - '+right_u_channel+' - '+hinge+' - '+gm+' - '+left_u_channel+' = '+total_width);
+
+jQuery(this).children('.total_width').html(total_width+'"');
+
+});
+
+jQuery('#corner-shower .row').each(function(){
+var a_panel = jQuery(this).children('.a_panel').children('span').html();
+var b_panel = jQuery(this).children('.b_panel').children('span').html();
+
+var u_channel = jQuery(this).children('.u_channel').children('span').html();
+var hinge = jQuery(this).children('.hinge').children('span').html();
+var gm = jQuery(this).children('.gm').children('span').html();
+
+if(a_panel == ''){ a_panel = 0; }
+if(b_panel == ''){ b_panel = 0; }
+
+if(u_channel == ''){ u_channel = 0; }
+if(hinge == ''){ hinge = 0; }
+if(gm == ''){ gm = 0; }
+
+var total_width = parseFloat(a_panel) + parseFloat(b_panel) + parseFloat(u_channel) + parseFloat(hinge) + parseFloat(gm);
+
+total_width = total_width.toFixed(3);
+
+jQuery(this).children('.total_width').html(total_width+'"');
+
+});
+
+
+
+jQuery('#corner-shower-c-panel .row').each(function(){
+var c_gm = jQuery(this).children('.c_gm').children('span').html();
+var c_panel = jQuery(this).children('.c_panel').children('span').html();
+var u_channel = jQuery(this).children('.u_channel').children('span').html();
+
+if(c_gm == ''){ c_gm = 0; }
+if(c_panel == ''){ c_panel = 0; }
+if(u_channel == ''){ u_channel = 0; }
+
+var total_depth = parseFloat(c_gm) + parseFloat(c_panel) + parseFloat(u_channel) ;
+
+total_depth = total_depth.toFixed(3);
+
+jQuery(this).children('.total_depth').html(total_depth+'"');
+
+});
+
+
+
+/*jQuery('.sort-table').click(function (e) {
+    var $sort = this;
+    var $table = jQuery('#sort-table');
+
+    var $rows = $table.find('tbody > tr:even').map(function () {
+        return jQuery(this).next().andSelf().clone().wrapAll('<table />')
+    });
+    $rows.sort(function (a, b) {
+        var keyA = jQuery('th', a).text();
+        var keyB = jQuery('th', b).text();
+        if (jQuery($sort).hasClass('asc')) {
+            return (keyA > keyB) ? 0 : 1;
+        } else {
+            return (keyA > keyB) ? 1 : 0;
+        }
+    });
+
+    var tbody = jQuery('tbody', $table).empty();
+    jQuery.each($rows, function (index, row) {
+        jQuery(tbody).append(jQuery(row).unwrap());
+    });
+    e.preventDefault();
+    jQuery($sort).toggleClass('asc');
+});*/
+
+});
+
+jQuery(window).load(function(){
+
+	jQuery("table#corner-shower th.total_width_head").click();
+	jQuery("table#enclave-shower th.total_width_head").click();
+
+});
+
+
+</script>
+
+<?php
+	/*
+	Known options as of 7/23/15: IDs and their getDefaultTitle()s
+8461|A Panel
+8462|B Panel
+8463|C Panel
+8464|Deep U
+8465|Brace
+8466|Sealing Strip-Floor
+8467|Sealing Strip
+8468|Magnet
+8469|Hinges
+	*/
+	
+
+
+	
+	$product_id = "PRO-C-A35-B15-C35-ORB"; //3717;
+    //$bundled_product = new Mage_Catalog_Model_Product();
+
+	$bundled_product=(Mage::getModel('catalog/product')->loadByAttribute('sku', $product_id));
+    //$bundled_product->load(3717);
+	
+	//echo "HA:".$bundled_product->getSku()."\r\n<br/>";
+    $id_used=array();
+	
+    $bundled_items = array();
+	
+	$a_panel_temp_arr = array();
+	$b_panel_temp_arr = array();
+	$c_panel_temp_arr = array();
+
+	$a_panel_price_arr = array();
+	$b_panel_price_arr = array();
+	$c_panel_price_arr = array();
+	
+	$relevant_attrs=array('a_panel','b_panel','c_panel');
+	foreach($relevant_attrs as $name)
+	{
+		$attributeInfo = Mage::getResourceModel('eav/entity_attribute_collection')->setCodeFilter($name)->getFirstItem();
+		    $attributeId = $attributeInfo->getAttributeId();
+		    $attribute = Mage::getModel('catalog/resource_eav_attribute')->load($attributeId);
+		    $attributeOptions = $attribute ->getSource()->getAllOptions(false); 
+		
+			foreach($attributeOptions as $tuple)
+			{
+				//$tuple['label'] has the inches
+				if($name=='a_panel')
+				{
+
+					$a_panel_temp_arr[] = floatval($tuple['label']);
+					//$a_panel_price_arr[] = $option->getPrice();
+				}
+				if($name=='b_panel')
+				{
+
+					$b_panel_temp_arr[] = floatval($tuple['label']);
+					//$a_panel_price_arr[] = $option->getPrice();
+				}
+				if($name=='c_panel')
+				{
+
+					$c_panel_temp_arr[] = floatval($tuple['label']);
+					//$a_panel_price_arr[] = $option->getPrice();
+				}
+			}
+	
+	}
+	/*
+	foreach(array() as $bundled_product)
+	{
+		
+	    $selectionCollection = $bundled_product->getTypeInstance(true)->getSelectionsCollection(
+	            $bundled_product->getTypeInstance(true)->getOptionsIds($bundled_product), $bundled_product
+	    );
+		
+		$opts=$bundled_product->getTypeInstance(true)->getOptions($bundled_product);
+		foreach($opts as $line)
+		{
+			if(array_key_exists($line->getDefaultTitle(),$relevant_option_ids))
+			{
+				$relevant_option_ids[$line->getDefaultTitle()]=$line->getId();
+			}
+		}
+		echo $bundled_product->getAttributeValue('a_panel')."|";
+		echo $bundled_product->getAttributeValue('b_panel')."|";
+		echo $bundled_product->getAttributeValue('c_panel')."|<br/>";
+		
+		foreach($selectionCollection as $option) { 
+			//echo "HA".$option->getOptionId()."<br/>";
+			//the big cookie here is to grab the inches
+			//also, avoid processing the same $option->getProductId() twice
+			$key="P".$option->getProductId();
+			if(!in_array($option->option_id,$relevant_option_ids))
+			{
+				continue;
+			}
+			if(array_key_exists($key,$id_used))
+			{
+				continue;
+			}
+			$id_used[$key]=true;
+			if($option->option_id == $relevant_option_ids["A Panel"]){ // A panel options
+				$option_id = $option->option_id;
+				$qty = $option->stock_item->qty;
+				$in_stock = $option->stock_item->is_in_stock;
+				if($qty > 0 && $in_stock != 0){
+					$product_name = $option->name;
+					$product_name_arr = explode(' ',$product_name);
+					$a_panel_temp_arr[] = $product_name_arr[0];
+					$a_panel_price_arr[] = $option->getPrice();
+				}
+			}
+		
+			if($option->option_id == $relevant_option_ids["B Panel"]){ // B panel options
+				$option_id = $option->option_id;
+				$qty = $option->stock_item->qty;
+				$in_stock = $option->stock_item->is_in_stock;
+				if($qty > 0 && $in_stock != 0){
+					$product_name = $option->name;
+					$product_name_arr = explode(' ',$product_name);
+					$b_panel_temp_arr[] = $product_name_arr[0];
+					$b_panel_price_arr[] = $option->getPrice();
+				}
+			}
+
+			if($option->option_id == $relevant_option_ids["C Panel"]){ // C panel options
+				//die("urk3");
+				$option_id = $option->option_id;
+				$qty = $option->stock_item->qty;
+				$in_stock = $option->stock_item->is_in_stock;
+				if($qty > 0 && $in_stock != 0){
+					$product_name = $option->name;
+					$product_name_arr = explode(' ',$product_name);
+	                if(count($product_name_arr)>1) {
+	                    if($product_name_arr[1] != '' && !preg_match('/"/',$product_name)){
+	                    $c_panel_temp_arr[] = $product_name_arr[0];
+	                    $c_panel_price_arr[] = $option->getPrice();
+	                    }
+	                }
+				}
+			}
+		
+
+		}
+		
+	}
+	*/
+?>
+<?php /*?><div class="head-logo">
+<a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getSkinUrl('images/logo.png') ?>"></a>
+</div><?php */?>
+<div class="page-title">
+    <h1>Panel Guide</h1>
+</div>
+    
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('panel-guide-main-description')->toHtml() ?>  
+
+
+<script type="text/javascript">
+function activeShower(type){
+	jQuery('.corner-enclave-container-box .overlay').show();
+	jQuery('.'+type+'-shower-box .overlay').hide();
+
+	jQuery('.shower-box-description').hide();
+	jQuery('.'+type+'-shower-box-description').show();
+	
+	jQuery('.main_width_container').hide();
+	jQuery('.'+type+'_width_container').show();
+	
+}
+</script>
+
+<div class="corner-enclave-container-box">
+	
+    <div class="choose-shower-type"><h2>Click here to Choose shower type:</h2></div>
+    
+	<div class="corner-shower-box">
+    	<div class="overlay" onclick="activeShower('corner')"><p>CLICK FOR<br>Corner</p></div>
+    	<div class="title">Corner shower</div>
+        <div class="image"><img style="width:100%;" src="<?php echo $this->getSkinUrl('images/corner-shower-right-panel.png') ?>" /></div>
+    </div>
+    
+    <div class="enclave-shower-box">
+    	<div class="overlay" onclick="activeShower('enclave')"><p>CLICK FOR<br>ENCLAVE</p></div>
+    	<div class="title">Enclave shower</div>
+        <div class="image"><img style="width:100%;" src="<?php echo $this->getSkinUrl('images/enclave-shower-right-panel.png') ?>" /></div>    
+    </div>
+    <div class="corner-shower-box-description shower-box-description">
+    
+    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('panel-guide-corner-description')->toHtml() ?>  
+    
+    
+
+    </div>
+    <div class="enclave-shower-box-description shower-box-description">
+
+    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('panel-guide-enclave-description')->toHtml() ?>  
+
+    
+
+    </div>
+</div>
+<div class="clear"></div>
+<div class="corner_enclave_width_container ">
+
+<div class="corner_width_container main_width_container">
+
+
+<div class="f-right">
+<div class="head">
+	<h2 class="available_widths column_2">Available Depths</h2>
+</div>
+<table class="clear" id="corner-shower-c-panel">
+<thead>
+    <tr>
+    <td class="c_gm_head column_110 table_head">Glass Magnet</td>
+    <td class="c_panel_head column_80 table_head">C Panel</td>
+    <td class="u_channel_head column_80 table_head">U Channel</td>
+    <th class="total_depth_head column_95  table_head">Total Depth</th>
+    </tr>
+</thead>
+<tbody>
+<?php $row_count = 0;?>
+<?php for($i=0;$i<count($c_panel_temp_arr);$i++){ // A Panel 
+$row_count++;?>  
+    <tr class="row clear <?php if($row_count%2==0){ echo 'even'; } ?>">
+    <td class="c_gm column_110"><span><?php echo $magnet_width ?></span>"</td>
+     <td class="c_panel column_80"><span><?php if($c_panel_temp_arr[$i] != ''){ ?><?php echo $c_panel_temp_arr[$i]; ?></span>" <?php }else{ ?>&nbsp;<?php } ?></td>
+    <td class="u_channel column_80"><span><?php echo $u_channel_width ?></span>"</td>
+    <td class="total_depth column_95">&nbsp;</td>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+</div>
+
+
+
+<div class="f-left">
+<div class="head">
+	<h2 class="available_widths column_6 full-width">Available Widths</h2>
+</div>
+<table id="corner-shower">
+<thead>
+<tr class="head clear">
+	<th class="u_channel_head column_95 table_head">U Channel</th>
+	<th class="b_panel_head column_80 table_head">B Panel</th>
+	<th class="hinge_head column_80 table_head">Hinge</th>
+    <th class="a_panel_head column_80 table_head">A Panel</th>
+	<th class="gm_head column_110 table_head">Glass Magnet</th>
+    <th class="total_width_head column_95  table_head"  data-sort="float">Total Width</th>
+
+</tr>
+</thead>
+
+
+<tbody>
+<?php $row_count = 0;	 ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // A Panel
+$row_count++; ?>  
+<tr class="row clear <?php if($row_count%2==0){ echo 'even'; } ?>">
+	<?php /*?><div class="b_panel column_110"><span></span>x</div>
+    <div class="a_panel column_110"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+    <div class="total_width column_110">&nbsp;</div><?php */?>
+
+	<td class="u_channel column_95"><span></span>x</td>
+	<td class="b_panel column_80"><span></span>x</td>
+	<td class="hinge column_80"><span><?php echo $glass_to_glass_hinge ?></span>"</td>
+    <td class="a_panel column_80"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+	<td class="gm column_110"><span><?php echo $magnet_width ?></span>"</td>
+    <td class="total_width column_95">&nbsp;</td>
+
+
+    <?php /*?><div class="total_depth_head column_110"><span><?php if($c_panel_temp_arr[$i] != ''){ ?><?php echo $c_panel_temp_arr[$i]; ?></span>" <?php }else{ ?>&nbsp;<?php } ?></div><?php */?>
+</tr>    
+<?php } ?>
+
+<?php $row_count = 0; ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // BA Panel ?>  
+	<?php for($j=0;$j<count($b_panel_temp_arr);$j++){ // BA Panel
+	$row_count++; ?>  
+    <tr class="row clear <?php if($row_count%2==0){ echo 'even'; } ?>">
+        <?php /*?><div class="b_panel column_110"><span><?php echo $b_panel_temp_arr[$j]; ?></span>"</div>
+        <div class="a_panel column_110"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+        <div class="total_width column_110">&nbsp;</div><?php */?>
+        
+    <td class="u_channel column_95"><span><?php echo $u_channel_width ?></span>"</td>
+	<td class="b_panel column_80"><span><?php echo $b_panel_temp_arr[$j]; ?></span>"</td>
+	<td class="hinge column_80"><span><?php echo $glass_to_glass_hinge ?></span>"</td>
+    <td class="a_panel column_80"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+	<td class="gm column_110"><span><?php echo $magnet_width ?></span>"</td>
+    <td class="total_width column_95">&nbsp;</td>        
+        
+    </tr>    
+	<?php } ?>
+<?php } ?>
+
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="enclave_width_container main_width_container">
+
+<div class="head">
+	<h2 class="available_widths column_10">Available Widths</h2>
+</div>    
+	<div class="clear"></div>
+	
+    <table id="enclave-shower">
+    <thead>
+    <tr>
+	<th class="u_channel_head right_channel_head column_105 table_head">U Channel</th>
+	<th class="b_panel_head column_105 table_head">B Panel</th>
+	<th class="hinge_head column_100 table_head">Hinge</th>
+    <th class="a_panel_head column_105 table_head">A Panel</th>
+    <th class="gm_head column_110 table_head">Glass Magnet</th>
+    <th class="wm_head column_110 table_head">Wall Magnet</th>
+    <th class="c_panel_head column_105 table_head">C Panel</th>
+	<th class="u_channel_head left_channel_head column_105 table_head">U Channel</th>
+    <th class="total_width_head column_110 table_head" data-sort="float">Total Width</th>
+    </tr>
+    </thead>
+	<?php /*?><div class="total_price_head column_2 table_head">Price</div><?php */?>
+
+<tbody>
+<?php $row_count = 0; ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // A Panel
+$row_count++; ?>  
+
+	<tr class="row <?php if($row_count%2==0){ echo 'even'; } ?>">
+	<?php /*?><div class="b_panel column_105"><span></span>x</div>
+    <div class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+    <div class="c_panel column_105"><span></span>x</div>
+    <div class="total_width column_105">&nbsp;</div><?php */?>
+
+
+	<td class="u_channel right_u_channel column_105"><span></span>x</td>
+	<td class="b_panel column_105"><span></span>x</td>
+	<td class="hinge column_100"><span><?php echo $glass_to_wall_hinge ?></span>"</td>
+    <td class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+    <td class="gm column_110"><span></span>x</td>
+    <td class="wm column_110"><span><?php echo $magnet_width ?></span>"</td>
+    <td class="c_panel column_105"><span></span>x</td>
+	<td class="u_channel left_u_channel column_105"><span></span>x</td>
+    <td class="total_width column_110">&nbsp;</td>
+
+
+    <?php /*?><div class="total_price column_2"><?php echo '$'.number_format($a_panel_price_arr[$i],2) ?></div><?php */?>
+</tr>    
+<?php } ?>
+
+<?php $row_count = 0; ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // BA Panel ?>  
+	<?php for($j=0;$j<count($b_panel_temp_arr);$j++){ // BA Panel
+	$row_count++; ?>  
+    <tr class="row <?php if($row_count%2==0){ echo 'even'; } ?>">
+        <?php /*?><div class="b_panel column_105"><span><?php echo $b_panel_temp_arr[$j]; ?></span>"</div>
+        <div class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+        <div class="c_panel column_105"><span></span>x</div>
+        <div class="total_width column_105">&nbsp;</div><?php */?>
+        
+		
+		<td class="u_channel right_u_channel column_105"><span><?php echo $u_channel_width ?></span>"</td>
+        <td class="b_panel column_105"><span><?php echo $b_panel_temp_arr[$j]; ?></span>"</td>
+        <td class="hinge column_100"><span><?php echo $glass_to_wall_hinge ?></span>"</td>
+        <td class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+        <td class="gm column_110"><span></span>x</td>
+        <td class="wm column_110"><span><?php echo $magnet_width ?></span>"</td>
+        <td class="c_panel column_105"><span></span>x</td>
+        <td class="u_channel left_u_channel column_105"><span></span>x</td>
+        <td class="total_width column_110">&nbsp;</td>
+		
+		<?php //$price =  $a_panel_price_arr[$i]+$b_panel_price_arr[$i]; ?>
+        <?php /*?><div class="total_price column_2"><?php echo '$'.number_format($price,2) ?></div><?php */?>
+    </tr>    
+	<?php } ?>
+<?php } ?>
+
+<?php $row_count = 0; ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // AC Panel ?>  
+	<?php for($j=0;$j<count($c_panel_temp_arr);$j++){
+		$row_count++; // AC Panel ?>  
+    <tr class="row  <?php if($row_count%2==0){ echo 'even'; } ?>">
+    
+       <?php /*?> <div class="b_panel column_105"><span></span>x</div>
+        <div class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+        <div class="c_panel column_105"><span><?php echo $c_panel_temp_arr[$j]; ?></span>"</div>
+        <div class="total_width column_105">&nbsp;</div><?php */?>
+        
+        
+        <td class="u_channel right_u_channel column_105"><span></span>x</td>
+        <td class="b_panel column_105"><span></span>x</td>
+        <td class="hinge column_100"><span><?php echo $glass_to_wall_hinge ?></span>"</td>
+        <td class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+        <td class="gm column_110"><span><?php echo $magnet_width ?></span>"</td>
+        <td class="wm column_110"><span></span>x</td>
+        <td class="c_panel column_105"><span><?php echo $c_panel_temp_arr[$j]; ?></span>"</td>
+        <td class="u_channel left_u_channel column_105"><span><?php echo $u_channel_width ?></span>"</td>
+        <td class="total_width column_110">&nbsp;</td>
+        
+       <?php /*?> <?php $price =  $a_panel_price_arr[$i]+$c_panel_price_arr[$i]; ?>
+        <div class="total_price column_2"><?php echo '$'.number_format($price,2) ?></div><?php */?>
+    </tr>    
+	<?php } ?>
+<?php } ?>
+
+<?php $row_count = 0; ?>
+<?php for($i=0;$i<count($a_panel_temp_arr);$i++){ // BAC Panel ?>  
+	<?php for($j=0;$j<count($c_panel_temp_arr);$j++){ // BAC Panel ?>  
+		<?php for($k=0;$k<count($b_panel_temp_arr);$k++){
+			$row_count++; // BAC Panel ?>  
+        <tr class="row   <?php if($row_count%2==0){ echo 'even'; } ?>">
+            <?php /*?><div class="b_panel column_105"><span><?php echo $b_panel_temp_arr[$k]; ?></span>"</div>
+            <div class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</div>
+            <div class="c_panel column_105"><span><?php echo $c_panel_temp_arr[$j]; ?></span>"</div>
+            <div class="total_width column_105">&nbsp;</div><?php */?>
+            
+            <td class="u_channel right_u_channel column_105"><span><?php echo $u_channel_width ?></span>"</td>
+            <td class="b_panel column_105"><span><?php echo $b_panel_temp_arr[$k]; ?></span>"</td>
+            <td class="hinge column_100"><span><?php echo $glass_to_wall_hinge ?></span>"</td>
+            <td class="a_panel column_105"><span><?php echo $a_panel_temp_arr[$i]; ?></span>"</td>
+            <td class="gm column_110"><span><?php echo $magnet_width ?></span>"</td>
+            <td class="wm column_110"><span></span>x</td>
+            <td class="c_panel column_105"><span><?php echo $c_panel_temp_arr[$j]; ?></span>"</td>
+            <td class="u_channel left_u_channel column_105"><span><?php echo $u_channel_width ?></span>"</td>
+            <td class="total_width column_110">&nbsp;</td>
+            
+            
+        <?php /*?><?php $price =  $a_panel_price_arr[$i]+$b_panel_price_arr[$i]+$c_panel_price_arr[$i]; ?>
+  		    <div class="total_price column_2"><?php echo '$'.number_format($price,2) ?></div><?php */?>
+        </tr>    
+		<?php } ?>
+	<?php } ?>
+<?php } ?>
+</tbody>
+</table>
+
+</div>
+</div>

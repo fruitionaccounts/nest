@@ -1,0 +1,149 @@
+<?php $ids = Mage::getSingleton('adminhtml/session')->getData('ids');
+Mage::register('ml-ids', $ids);
+?>
+<div id="ml-all-wrap" class="<?php if($ids){ echo $this->getSlug(); }; ?>">
+
+<div id="ml_overlap"></div>
+<?php 
+    if($ids):
+    Mage::getSingleton('adminhtml/session')->setData('ids', null);    
+?>
+    <div id="ml-ajax-wrapper">
+        <div id="ml_timer"> 
+        </div>
+        <div id="ml_tracker"> 
+        </div>
+
+        <div id="ml_dialog">
+        </div>
+        <div id="ml_controls">
+        </div>
+        <div id="ml_current">
+        </div>
+        <div id="ml_log">
+        </div>
+    </div>
+
+    <div style="display:none">
+        <div id="ml-on-stop-controls">
+            <div class="ml-2buttons">
+
+                <div class="ml-start-but ml-button" onclick="ml_trigger(this, $(this).next('div'), function(){ML_AjaxDialog.start()} )">
+                    <?php echo $this->__('Start again'); ?>
+                </div>
+                <div class="ml-button disabled" onclick="ml_trigger(this, $(this).previous('div'), function(){ML_AjaxDialog.stop()})">
+                    <?php echo $this->__('Stop'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div id="ml-init-controls">
+            <div class="ml-2buttons">
+                <div class="ml-start-but ml-button" onclick="ml_trigger(this, $(this).next('div'), function(){ML_AjaxDialog.start()} )">
+                    <?php echo $this->__('Start'); ?>
+                </div>
+                <div class="ml-button disabled" onclick="ml_trigger(this, $(this).previous('div'), function(){ML_AjaxDialog.stop()})">
+                    <?php echo $this->__('Stop'); ?>            
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+    /////////////////////////////////////////
+
+        function ml_trigger(element1, element2, function_){
+            if(!$(element1).hasClassName('disabled')){
+                $(element1).addClassName('disabled');
+                $(element2).removeClassName('disabled');
+                function_();
+            }
+
+        }
+
+        ML_AjaxDialog.processCallback = function(){
+            $('ml_tracker').update("<?php echo $this->__('Progress:') ?>"+ this.current_position + '/' + this.ids.length);
+        };
+
+         
+
+        ML_AjaxDialog.stopCallback = function(){
+            $(this.controls_id).update($('ml-on-stop-controls').innerHTML);
+            $('ml_tracker').update("<?php echo $this->__('Processed:') ?>"+ this.current_position + '/' + this.ids.length);
+            if(typeof ml_common_end !='undefined'){
+                ml_common_end();
+            }
+        };
+        ML_AjaxDialog.finishCallback = function(){
+            $(this.controls_id).update($('ml-on-stop-controls').innerHTML);
+            $('ml_tracker').update("<?php echo $this->__('Processed:') ?>"+ this.current_position + '/' + this.ids.length);
+                ml_common_end();
+        };
+        ML_AjaxDialog.startCallback = function(){
+            $('ml_tracker').update("<?php echo $this->__('Progress:') ?>"+ this.current_position + '/' + this.ids.length);
+        <?php if(count($ids) == 1 && $ids[0] == 'detect'): ?>
+            $('ml_tracker').update("<span style='font-size:10px;'><?php echo $this->__('Validating...');?></span>");
+
+        <?php endif;?>
+
+        };
+
+        ML_AjaxDialog.ids = <?php echo Zend_Json::encode($ids); ?>;    
+
+        ML_AjaxDialog.url = '<?php echo $this->getUrl($this->getUrlSlug()); ?>';
+        if(ML_AjaxDialog.url.indexOf('/export') != -1){
+            ML_AjaxDialog.per_portion = <?php echo intval(Mage::getStoreConfig('importexportplugin/performance/export_per_portion')); ?>;
+        }else{
+			ML_AjaxDialog.per_portion = <?php echo intval(Mage::getStoreConfig('importexportplugin/performance/import_per_portion')); ?>;
+            
+        }
+
+        $(ML_AjaxDialog.controls_id).update($('ml-init-controls').innerHTML);
+
+        function mlAssignWs(){
+            var ws = [];
+            $$('input[name=worksheets][type=checkbox]:checked').each(function(cb){
+                ws.push(cb.value);
+            });
+            ML_AjaxDialog.worksheets = ws;
+            ML_AjaxDialog.resume();
+        }
+
+        
+        ML_AjaxDialog._timer(true, true);   
+        $('ml_tracker').update("<?php echo $this->__($this->getPrefix()) ?>: "+ ML_AjaxDialog.current_position + '/' + ML_AjaxDialog.ids.length);
+        <?php if(count($ids) == 1 && $ids[0] == 'detect'): ?>
+            var __fl = false;
+            $$('.ml-start-but').each(function(but){
+                if(but.visible() && !__fl){
+                    __fl = true;
+                    ml_trigger(but, $(but).next('div'), function(){ML_AjaxDialog.start()} )
+                }
+            })
+            //ML_AjaxDialog.start();
+        <?php endif;?>
+
+var ajax_blockers = [];
+Ajax.Responders.register({
+  onCreate: function(){
+    ajax_blockers.push(1);
+    $('loading-mask').show();
+  },
+  onComplete: function() {
+    ajax_blockers.pop(1);
+    if(ajax_blockers.length <= 0){
+        ajax_blockers = [];
+        $('loading-mask').hide();
+    }else{
+        $('loading-mask').show();
+    }
+
+//    Ajax.activeRequestCount--;
+  }
+});
+       
+    </script>
+    <?php endif; ?>
+</div>
+

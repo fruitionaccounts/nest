@@ -1,0 +1,20 @@
+<?php
+
+$cookie=Mage::getModel('core/session')->getQuoteInfo();
+$objet=json_decode($cookie);
+
+?>
+<div class="quote-summary">
+Color:<?php echo $objet->productName; ?><br>
+Sq. Ft.: <?php echo $objet->SquareFeetQuantity; ?><br>
+<?php 
+
+if($objet->SinkKit) :
+	
+	 ?>
+includes a Sink Kit for $<?php echo $objet->sinkKitPrice;?><br>
+<?php
+endif;
+?>
+Quote: $<?php echo $objet->quote; ?><br>
+</div> <!--end of .quote-summary -->

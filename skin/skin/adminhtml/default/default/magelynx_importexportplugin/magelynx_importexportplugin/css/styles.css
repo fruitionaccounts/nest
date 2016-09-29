@@ -1,0 +1,353 @@
+.ml-2buttons {width:230px; overflow:hidden; margin:0 auto;}
+.ml-button {background:#ea7601; color:#fff; font-size:12px; font-weight:bold; height:22px; line-height:22px; text-align:center;}
+#ml_controls{padding: 3px 0;}
+.ml-button.disabled {background:#ddd; cursor:default!important;}
+.ml-button:hover {background:#ea5001; cursor:hand; cursor:pointer;} 
+
+.ml-dialog.ml-button {width: 280px; line-height:35px; height:35px; margin:5px auto 15px;}
+
+.ml-2buttons .ml-button {width:105px; margin: 0 5px; float:left;}
+.ml_massacton_right {float:none; text-align:right;}
+#importexportplugin_product_grid_massaction-form .field-row  {float:right!important;}
+#importexportplugin_product_grid_massaction-form {float:right!important;}
+#importexportplugin_product_grid .link-store-scope {display:none;}
+
+.importexportplugin-adminhtml-index-index  #anchor-content {padding-top:10px;;}
+/*.importexportplugin-adminhtml-index-index  .content-header {margin-left:-27px; margin-right:0px;}*/
+
+
+
+.importexportplugin-adminhtml-index-index .pager{width:55%; padding-left:8px;}
+.importexportplugin-adminhtml-index-index .separated0 {text-align:right; float:right;}
+
+.importexportplugin-adminhtml-index-index .separated1,
+.importexportplugin-adminhtml-index-index .separated2 {float:left;}
+
+.importexportplugin-adminhtml-index-index .separated1 { width:160px; }
+.importexportplugin-adminhtml-index-index .separated2  {}
+.importexportplugin-adminhtml-index-index .product-grid-wrapper {padding: 0 0px}
+
+.importexportplugin-adminhtml-index-index /* .ml-gs-active */ .footer{display:none;}
+
+.importexportplugin-adminhtml-index-index #anchor-content {padding:0; min-height:0; background:#fff;}
+
+.importexportplugin-adminhtml-index-index  .head-products {margin-left:27px;} 
+.importexportplugin-adminhtml-index-index .header {display:none;}
+.importexportplugin-adminhtml-index-index  .content-header{ border-bottom:1px solid #ccc; margin: 0; border-top:none; padding:0 0 0 0px;background:#f8f8f8;}
+.ml-settings-content .content-header {display:none;}
+
+.importexportplugin-adminhtml-index-index  .content-header h3 {margin:0; padding:0 12px 0 25px; height:28px; line-height:28px; background-position:5px 40%;
+    overflow:hidden;
+    font-size:12px;
+    cursor: hand;
+    cursor: pointer;
+    color:#aaa;
+    border-right:1px solid #ddd;
+}
+.importexportplugin-adminhtml-index-index  .content-header h3 a{
+    text-decoration:none;
+    font-size:11px;
+    display:block; 
+    height:100%;
+    line-height:28px;
+    color:#999;
+    padding: 0 18px;
+}
+.importexportplugin-adminhtml-index-index  .content-header h3:hover {
+    background-color:#f0f0f0;
+}
+.importexportplugin-adminhtml-index-index  .content-header h3.active{
+    color:#eb5e00;
+    background-color:#fff;
+}
+
+.importexportplugin-adminhtml-index-index .content-header-floating {display:none!important;}
+ .importexportplugin-adminhtml-index-index  h3.back-to-magento { /*text-align:right; float:right;*/   padding: 0 0px; font-weight:normal; background:#dedede;}
+ .importexportplugin-adminhtml-index-index  h3.back-to-magento:hover {background:#aaa; color:#fff;}
+ .importexportplugin-adminhtml-index-index  h3.back-to-magento:hover  a {color:#fff;}
+  .importexportplugin-adminhtml-index-index  h3.ml-settings{ background:url(../../images/rule_chooser_trigger.gif) 5px 50% no-repeat; }
+
+#google_spreadsheet,
+.importexportplugin-adminhtml-index-index .product-grid-wrapper  {position:fixed; bottom:0; top:29px; left:0; right:0;  background:#fff; padding:0 1px; }
+
+ .importexportplugin-adminhtml-index-index .product-grid-wrapper  {overflow-y:scroll;}
+ .importexportplugin-adminhtml-index-index  .filter-actions {padding-right:14px;}
+
+
+.ml-grid-active #google_spreadsheet {z-index:-999;}
+
+
+
+#gs_toolbar {
+display:none;
+    position:fixed;
+    top:30px;
+    
+    left:680px;
+    right:62px;  
+    height:27px;
+    line-height:27px;
+
+}
+#gs_toolbar  label {position: absolute; text-align:right; left: -35px; top:0; display:block; height:27px; line-height:27px;}
+#gs_toolbar .input-text {width:100%; padding:4px 4px 3px 4px;margin-top:-1px;} 
+
+
+
+#ml-all-wrap {position: fixed; left: 450px; top:0px; width:550px;  z-index:10;}
+body.ml-grid-active #ml-all-wrap  {display:block;}
+
+
+#ml_timer, #ml_tracker,#ml_controls {float:left; height:28px; line-height:28px; padding-right:20px;}
+#ml_tracker {width:100px; text-align:center;}
+#ml_timer {width:100px;}
+
+#ml_dialog{display:none;}
+
+
+body.dialog-active  #ml_dialog{
+    display:block;
+    position:fixed;
+    left:50%;
+    top:50%;
+    margin-left:-200px;
+    margin-top:-150px;
+    width:400px;
+    height:300px;
+    background:#fff;
+    z-index:9999!important;
+    padding:10px;
+}
+body.dialog-active  #ml_dialog .ml-dialog-heading div {
+    font-size:16px; 
+    padding: 3px;
+    border-bottom: 1px solid #ea5001;
+    margin-bottom:15px;
+}
+
+#ml-worksheets-list{
+    display:block;
+    margin: 5px auto 5px;
+    width:300px;   
+    height:180px; 
+    overflow:auto;
+}
+#ml-worksheets-list input {
+margin-right:5px;
+}
+#ml-worksheets-list li{
+margin:5px 0;
+padding:3px;
+background:#D1EBD8;
+}
+#ml-worksheets-list li.disabled{
+    background:#ddd;
+}
+#ml_overlap {display:none;}
+
+.dialog-active.ml-gs-active .import #ml_overlap,
+.dialog-active.ml-grid-active .export #ml_overlap{
+displaY:block;
+}
+
+body.dialog-active #ml_overlap{
+z-index:999!important;
+}
+
+body.dialog-active #ml_overlap,
+ body.view-log-active  #ml_overlap  {
+    position:fixed;
+    top:29px; left:0;
+    right:0; bottom:0;
+    z-index:50;
+    background: url(../images/overlay.png);     
+}
+
+#ml_log_trigger{position:absolute; line-height:27px; height:27px; top: 0px; right: 10px; width:50px; font-weight:bold; cursor: hand; cursor: pointer;}
+#ml_log_trigger:hover {text-decoration:underline}
+#ml_log {display:none;}
+#ml_log_closer {display:none;}
+#ml_log_closer:hover {text-decoration: underline}
+.ml-gs-active #ml_log_closer{}
+
+body.view-log-active.ml-gs-active #ml-all-wrap.import #ml_log_closer,
+body.view-log-active.ml-grid-active #ml-all-wrap.export #ml_log_closer   {display:block; position:fixed; top: 50px; right: 120px; line-height:40px; text-align:center; z-index:100;background:#fff; width:40px; height:40px; font-size:18px; cursor:hand; cursor:pointer;}
+
+body.view-log-active  #ml_log {display:block; left:100px; right:100px; position:fixed; top:50px; bottom:20px; padding:5px; background:#fff; z-index:99; overflow:auto; padding: 20px; overflow-y:scroll}
+.ml_log_entry {font-family: Courier; background: #fafafa; padding: 2px 5px; }
+
+#ml_current {display:none;}
+
+
+
+
+
+
+/* .ml-gs-active #loading-mask {display:none!important}*/
+#loading-mask { overflow:hidden; text-indent:9999px; position:fixed; border:none!important; width:126px!important; height:22px!important; padding:0!important; background:url(../images/ajax-loader.gif)!important; top: 3px!important; left:1010px!important; right:auto!important; }
+#loading_mask_loader {display:none;}
+#loading_mask_loader img {display:none;}
+
+
+
+
+
+
+.ml_log_entry > div {overflow:hidden;}
+.ml_log_entry > div > .old {float:left; width:47%;} 
+.ml_log_entry > div > .new {float:right; width:47%;} 
+
+#ml-all-wrap > div {display:none;}
+body.ml-grid-active #ml-all-wrap.export > div {display:block;}
+body.ml-gs-active #ml-all-wrap.import > div {display:block;}
+
+
+#ml-all-wrap #ml_blocker {display:block;}
+#ml-all-wrap #ml_log_closer {display:none;}
+body.ml-grid-active #ml-all-wrap.export > #ml_blocker {display:none;}
+body.ml-gs-active #ml-all-wrap.import > #ml_blocker {display:none;}
+
+
+
+
+#ml_blocker {height:29px; line-height:29px; text-align:center; color:#aaa; text-shadow:1px 1px 0 #fff;display:none;}
+
+#ml_log_trigger {display:none};
+#ml-all-wrap.import #ml_log_trigger,
+#ml-all-wrap.export #ml_log_trigger{
+display:block;
+}
+/*
+#iframe-gs {position:fixed; bottom:0; top:150px;}
+*/
+/*
+.ml_hidden {position:absolute; width:0; height:0; overflow:hidden;}
+
+#ajax-launcher {background:#ddefdd; padding: 10px; text-align:center;}
+#pu-controls {width:300px; margin: 10px auto 0; padding-top:10px; border-top:1px solid #787; overflow:hidden; padding-bottom:10px;}
+.pu-button { width:130px; margin:0 10px; float:left; background:#ea7601; color:#fff; font-size:18px; height:30px; line-height:30px;}
+.pu-button.disabled {background:#ddd;}
+.pu-button:hover {background:#ea5001; cursor:hand; cursor:pointer;} 
+.pu-button.f-right {float:right; margin-right:10px; margin-left:10px;}
+#pu_timer{text-align:center;font-size: 18px; font-weight:bold; margin-top:5px;}
+#pu_log {text-align:left; overflow-y:scroll; max-height:800px;}
+#ajax-launcher.active {overflow-y:scroll;}
+#ajax-launcher.active #pu_log{overflow:visible; max-height:none; }
+#ajax-launcher.active{position:fixed; top:0; left:0; right:0; bottom:0; z-index:9999;}
+#ajax-launcher .time {font-weight:bold;}
+#pu_progressbar {background:url("../images/ajax-loader.gif"); width:126px; height:22px; margin:0 auto; }
+body.pu-active #productGrid {display:none;}
+body.pu-active #loading-mask {display:none;}
+body.pu-active .middle {min-height:0;}
+.pu-bulk{border-top:1px solid #777; border-bottom:1px solid #777; padding: 5px 0; margin: 5px 0;}
+
+*/
+
+
+
+
+
+#ml-settings-wrapper {display:none;}
+
+.ml-settings-active #ml-settings-wrapper {display:block;}
+
+.ml-settings-overlay{
+    background: url(../images/overlay.png);     
+    z-index:500;
+    position:fixed; left:0; top:29px; bottom:0; right:0;
+}
+.ml-settings-content{
+    z-index:501;
+    left:10px;
+    right:10px;
+    top:40px;
+    bottom:10px;
+
+    overflow:auto;
+    padding:10px 20px 20px 20px;
+   padding:10px 0;
+    position:fixed; 
+    background:#fff;
+}
+.ml-settings-content  h2 {margin-bottom:20px;}
+.ml-settings-content  h2, .ml-settings-content  h3 {font-weight:normal; text-align:center;}
+.ml-settings-content  h3  {background:#fff; margin:-10px 0 0 30px; float:left; padding:0 10px; line-height:20px; height:20px; border:1px solid #ccc; clear:both; text-transform:uppercase; font-size:12px;}
+.ml-settings-content .wrap-1{clear:both; float:left; width:100%; margin-bottom:20px;} 
+.ml-settings-content .grid-area{
+    border:1px solid #ccc;
+    float:left; width:45%;
+    height:220px;
+}
+.ml-settings-content .gs-area{
+    border:1px solid #ccc;
+    height:220px;
+
+    float:right; width:45%;
+}
+.ml-settings-content .options-area{
+    clear:both;
+    border:1px solid #ccc;
+
+    height:90px;
+}
+
+
+
+
+
+
+
+
+
+
+.product-grid-wrapper {display:none;}
+body.ml-grid-active .product-grid-wrapper {display:block;}
+
+.ml-settings-active #ml_blocker{display:none!important;}
+
+#import-button {
+float: left;
+text-shadow: none;
+padding: 0 9px;
+margin-top: 3px;
+}
+
+.ml-grid-active #ml_blocker {display:none!important;}
+.ml-grid-active .important #ml_blocker {display:block!important;}
+
+fieldset.config {display:block!important;background:none; border:none; padding:0 10px;}
+.section-config .entry-edit-head {padding:0 5px; margin: 0 5px;}
+fieldset.config  table {width:100%;}
+fieldset.config  .form-list td.label{width:30%; padding:5px 0!important;} 
+fieldset.config  .form-list td.label label {width:95%;}
+fieldset.config  .form-list td.value input.input-text,
+ fieldset.config .form-list td.value select,
+  fieldset.config .form-list td.value p.note   {width:95%;}
+ fieldset.config  .scope-label {display:none;}
+
+.section-config div.collapseable a {background:none;}
+
+
+/*
+.importexportplugin_images-section{
+    float:left; width:50%;
+}
+.importexportplugin_settings-section{
+    float:left; width:50%;
+}
+
+
+.importexportplugin_products-section{
+    float:right; width:50%;
+
+}
+*/
+#importexportplugin_products_grid_columns {height:100px;}
+.ml-grid-active .import #ml_blocker {display:block!important;}
+
+/*.importexportplugin_import-section {float:left; width:50%;}
+.importexportplugin_export-section {float:right; width:50%;}*/
+#messages {display:none;}
+#configform-submit {position:fixed; right: 10px; top:4px;}
+p.switcher {display:none!important;}
+

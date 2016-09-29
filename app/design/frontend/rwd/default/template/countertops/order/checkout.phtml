@@ -1,0 +1,45 @@
+<?php 
+
+// Add to Cart Code
+
+// Custom Option Ids
+//1 - Select your Stone and Width:<br>
+//2 - Front End Polish<br>
+//3 - Select faucet holes if you like:<br>
+//4 - Select Sink Holes if you have any sinks:<br>
+//5 - Would you like sinks?<br>
+//6 - Would you like backsplash?<br>
+//7 - Right Side Polish<br>
+//8 - Left Side Polish<br>
+
+
+$product = $this->getProduct();
+$product_id = $product->getId();
+
+$product = Mage::getModel('catalog/product')->load($product_id);
+$cart = Mage::getModel('checkout/cart');
+$cart->init();
+$params = array(
+    'product' => $product_id,
+    'qty'     => 1,
+    'options' => array(         
+        '1' => 1,
+     )
+);
+
+    try {   
+        $cart->addProduct($product, $params);
+        Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+        $cart->save();
+    }
+    catch (Exception $ex) {
+        echo $ex->getMessage();
+    }
+
+
+// we may need this to block out the product.
+?>
+
+<reference name="product.info">
+    <action method="setTemplate"><template>catalog/product/countertops.phtml</template></action>
+</reference>

@@ -1,0 +1,10 @@
+Country,Region/State,City,Zip From,Zip To,Shipping Group,Weight From,Weight To,Price From,Price To,Item From,Item To,Customer Group,Shipping Price,Algorithm,Delivery Type,Notes
+"GBR,FRA,ITA",*,*,*,*,A,*,*,*,*,*,*,*,3,I=1.5,Standard,Use with highest package totalling
+"GBR,FRA,ITA",*,*,*,*,B,*,*,*,*,*,*,*,6,I=3,Standard,Will find highest shipping group price
+"GBR,FRA,ITA",*,*,*,*,C,*,*,*,*,*,*,*,9,I=4.5,Standard,and add 50% of others
+"GBR,FRA,ITA",*,*,*,*,A,*,*,*,*,*,*,*,20,,Express,Use with highest package totalling
+"GBR,FRA,ITA",*,*,*,*,B,*,*,*,*,*,*,*,30,,Express,*
+"GBR,FRA,ITA",*,*,*,*,C,*,*,*,*,*,*,*,40,,Express,*
+"USA,CAN",*,*,*,*,A,*,*,*,*,*,*,*,10,I=5,Standard,Use with highest package totalling
+"USA,CAN",*,*,*,*,B,*,*,*,*,*,*,*,12,I=6,Standard,Will find highest shipping group price
+"USA,CAN",*,*,*,*,C,*,*,*,*,*,*,*,14,I=7,Standard,and add 50% of others

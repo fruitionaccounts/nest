@@ -1,0 +1,123 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ * @see Mage_Catalog_Block_Product_View_Type_Grouped
+ */
+?>
+
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?php $_helper = $this->helper('catalog/output');
+      $productId = $_helper->productAttribute($_product, $_product->getId(), 'id');
+      $productName =  $_helper->productAttribute($_product, $_product->getName(), 'name'); 
+
+      $_associatedProducts = $this->getAssociatedProducts();
+      $_hasAssociatedProducts = count($_associatedProducts) > 0;
+      if ($_hasAssociatedProducts) {
+		
+		$sqFeetPrice=$_product->getGranite_estimate();
+		$sinkKitPrice=$_product->getGranite_estimatesinkkit();
+	  /*  foreach ($_associatedProducts as $_item) {
+            if ($_item->getName() == '12" x 12"') {
+                $sqFeetPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true);
+            }
+            if ($_item->getName() == 'Sink Kit') {
+                $sinkKitPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true);
+            }
+        } */
+      }
+
+?>
+<style>
+
+ .inqform .forma-area{height:640px;}
+</style>
+<!--<div class="header-cont-middle">--><div><h3 style="margin:0; text-align: center; font-family: bebasneue ! important; font-size: 24px;">You picked color: <?php echo $productName ?></h3>
+<form name="form-product-size-list" action="<?php echo $this->getUrl('quote/index/quote')?>" method="post" id="form-product-size-list">
+    <input type="hidden" name="productId" id="productId" value="<?php echo $productId ?>">
+    <input type="hidden" name="productName" id="productName" value="<?php echo $productName ?>">
+<input type="hidden" id="zc_gad" name="zc_gad" value=""/>
+    <input type="hidden" name="sqFeetPrice" id="sqFeetPrice" value="<?php echo $sqFeetPrice ?>">
+    <input type="hidden" name="sinkKitPrice" id="sinkKitPrice" value="<?php echo $sinkKitPrice ?>">
+    <div class="gc-third-left">
+       
+       <div class="fileds">
+                  <label>First Name <em>(required)</em></label>
+                   <input type="text"  name="fname" value="" title="First Name" class="input-text email required-entry gc-th-input" id="fname" />  
+                
+                
+                </div>
+                <div class="fileds">
+                  <label>Last Name <em>(required)</em></label>
+                    <input type="text"  name="lname" value="" title="Last Name" class="input-text email required-entry gc-th-input" id="lname" />    
+            
+                </div>
+                <div class="fileds">
+                  <label>Email <em>(required)</em></label>
+                 <input type="text"  name="email" value="" title="Email" class="input-text email required-entry gc-th-input" id="email" /> 
+
+                </div>
+       </div>
+      <div class="gc-third-right">
+      <div class="fileds">
+       <label>How Many Square Feet Do You Need? <em>(required)</em></label>
+         <input type="text"  name="SquareFeetQuantity" maxlength="12" value="" title="Qty" class="input-text email required-entry gc-th-input"  id="SquareFeetQuantity" />
+      </div>
+      <div class="fileds">
+                  <label>Do You Want a Sink Kit&#x3f; <img class="vector-ques" src="http://www.lazygranite.com/skin/frontend/default/lazygranite/images/custom/vection-ques.jpg" /></label>
+                 <input type="checkbox"  name="SinkKit" value="1" title="SinkKit" class="input-text qty gc-th-radio" id="SinkKit" />
+					</div>
+      </div>
+      
+       	
+    
+        
+        
+        
+<script type="text/javascript">decorateTable('super-product-table')</script>
+</form>
+<style>
+    .btn-send {
+        color: #242424;
+        background-color: #edb964;
+        display: block;
+        font-size: 24px;        
+        height: 56px;
+        padding: 5px;
+    }
+</style>
+<div class="action-gotocart" style="text-align: center; margin-left: 302px; width:auto; padding:0;">
+    <button onclick="subMitCart(); " class="btn-send gc-th-submit" title="Submit Quote" type="button">
+        <span><?php echo $this->__('Email me an estimate!');?></span>
+    </button>  
+</div>
+<div style="height: 2px; position: absolute; bottom: 7%; width: 100%;" class="lineing"> </div>  
+</div>
